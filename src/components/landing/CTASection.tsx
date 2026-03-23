@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 
 const CTASection = () => {
@@ -11,18 +12,27 @@ const CTASection = () => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      toast({
+        title: "Consentimento necessário",
+        description: "Por favor, aceite a política de privacidade para enviar a mensagem.",
+        variant: "destructive",
+      });
+      return;
+    }
     setLoading(true);
-    // Placeholder — will be connected to Cloud later
     setTimeout(() => {
       setLoading(false);
       toast({
-        title: "Mensagem enviada!",
-        description: "Entraremos em contacto brevemente.",
+        title: "Obrigado pelo seu contacto.",
+        description: "Entraremos em resposta assim que possível.",
       });
       (e.target as HTMLFormElement).reset();
+      setConsent(false);
     }, 800);
   };
 
@@ -44,7 +54,8 @@ const CTASection = () => {
               <span className="text-gradient">abordagem integrada</span>?
             </h2>
             <p className="text-muted-foreground">
-              Deixe os seus dados e entraremos em contacto para esclarecer todas as suas dúvidas.
+              Preencha os seus dados e descreva brevemente a situação. 
+              Entraremos em contacto assim que possível.
             </p>
           </motion.div>
 
@@ -65,9 +76,15 @@ const CTASection = () => {
                 <Input type="email" placeholder="email@exemplo.com" required className="rounded-xl" />
               </div>
             </div>
-            <div>
-              <label className="text-sm font-medium mb-1.5 block">Telefone (opcional)</label>
-              <Input placeholder="+351 ..." className="rounded-xl" />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Telefone (opcional)</label>
+                <Input placeholder="+351 ..." className="rounded-xl" />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Idade da criança (opcional)</label>
+                <Input placeholder="Ex: 3 anos" className="rounded-xl" />
+              </div>
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Mensagem</label>
@@ -77,9 +94,23 @@ const CTASection = () => {
                 className="rounded-xl"
               />
             </div>
+
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="cta-consent"
+                checked={consent}
+                onCheckedChange={(checked) => setConsent(checked === true)}
+                className="mt-0.5"
+              />
+              <label htmlFor="cta-consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
+                Autorizo o tratamento dos meus dados pessoais para efeitos de resposta ao contacto, 
+                de acordo com a política de privacidade.
+              </label>
+            </div>
+
             <Button type="submit" disabled={loading} className="w-full rounded-xl" size="lg">
               <Send className="w-4 h-4 mr-2" />
-              {loading ? "A enviar..." : "Enviar Mensagem"}
+              {loading ? "A enviar..." : "Enviar Pedido"}
             </Button>
           </motion.form>
         </div>
