@@ -21,7 +21,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary mb-6">
-              Odontopediatria Integrativa
+              Método Respira e Cresce 360
             </span>
           </motion.div>
 
@@ -52,7 +52,7 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button asChild size="lg" className="rounded-full px-8 text-base">
-              <Link to="/familias">Descubra a Abordagem</Link>
+              <Link to="/metodologia">Conhecer a Metodologia</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full px-8 text-base">
               <Link to="/contacto">Fale Connosco</Link>

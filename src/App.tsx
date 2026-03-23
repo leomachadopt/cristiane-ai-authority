@@ -2,11 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Sobre from "./pages/Sobre";
-import Abordagem from "./pages/Abordagem";
+import Metodologia from "./pages/Metodologia";
 import Familias from "./pages/Familias";
+import Podcast from "./pages/Podcast";
 import Contacto from "./pages/Contacto";
 import NotFound from "./pages/NotFound";
 
@@ -21,8 +22,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/sobre" element={<Sobre />} />
-          <Route path="/abordagem" element={<Abordagem />} />
+          <Route path="/metodologia" element={<Metodologia />} />
+          <Route path="/abordagem" element={<Navigate to="/metodologia" replace />} />
           <Route path="/familias" element={<Familias />} />
+          <Route path="/podcast" element={<Podcast />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

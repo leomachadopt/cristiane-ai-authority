@@ -6,21 +6,40 @@ import { Button } from "@/components/ui/button";
 import { Send, MapPin, Mail, Phone } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const motivoOptions = [
+  "Avaliação de desenvolvimento",
+  "Dúvida sobre respiração ou sono",
+  "Informações sobre a abordagem",
+  "Marcação de consulta",
+  "Outro",
+];
 
 const Contacto = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) {
+      toast({
+        title: "Consentimento necessário",
+        description: "Por favor, aceite a política de privacidade para enviar a mensagem.",
+        variant: "destructive",
+      });
+      return;
+    }
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       toast({
-        title: "Mensagem enviada!",
-        description: "Entraremos em contacto brevemente.",
+        title: "Obrigado pelo seu contacto.",
+        description: "Entraremos em resposta assim que possível.",
       });
       (e.target as HTMLFormElement).reset();
+      setConsent(false);
     }, 800);
   };
 
@@ -54,7 +73,11 @@ const Contacto = () => {
               className="md:col-span-2 space-y-8"
             >
               <div>
-                <h2 className="font-display font-bold text-2xl mb-6">Informações de contacto</h2>
+                <h2 className="font-display font-bold text-2xl mb-4">Informações de contacto</h2>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Preencha os seus dados e descreva brevemente a situação. 
+                  Isso ajuda-nos a orientar melhor a resposta.
+                </p>
                 <div className="space-y-5">
                   <div className="flex items-start gap-3">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -85,6 +108,12 @@ const Contacto = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="bg-muted/50 rounded-xl p-4">
+                <p className="text-xs text-muted-foreground italic">
+                  Este contacto não substitui avaliação clínica. Entraremos em contacto assim que possível.
+                </p>
+              </div>
             </motion.div>
 
             {/* Form */}
@@ -108,13 +137,27 @@ const Contacto = () => {
                     <Input type="email" placeholder="email@exemplo.com" required className="rounded-xl" />
                   </div>
                 </div>
-                <div>
-                  <label className="text-sm font-medium mb-1.5 block">Telefone (opcional)</label>
-                  <Input placeholder="+351 ..." className="rounded-xl" />
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium mb-1.5 block">Telefone (opcional)</label>
+                    <Input placeholder="+351 ..." className="rounded-xl" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-1.5 block">Idade da criança (opcional)</label>
+                    <Input placeholder="Ex: 3 anos" className="rounded-xl" />
+                  </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium mb-1.5 block">Assunto</label>
-                  <Input placeholder="Sobre o que gostaria de falar?" className="rounded-xl" />
+                  <label className="text-sm font-medium mb-1.5 block">Motivo do contacto</label>
+                  <select
+                    className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    required
+                  >
+                    <option value="">Seleccione um motivo</option>
+                    {motivoOptions.map((m) => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1.5 block">Mensagem</label>
@@ -125,9 +168,23 @@ const Contacto = () => {
                     className="rounded-xl"
                   />
                 </div>
+
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="consent"
+                    checked={consent}
+                    onCheckedChange={(checked) => setConsent(checked === true)}
+                    className="mt-0.5"
+                  />
+                  <label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
+                    Autorizo o tratamento dos meus dados pessoais para efeitos de resposta ao contacto, 
+                    de acordo com a política de privacidade. Os dados não serão partilhados com terceiros.
+                  </label>
+                </div>
+
                 <Button type="submit" disabled={loading} className="w-full rounded-xl" size="lg">
                   <Send className="w-4 h-4 mr-2" />
-                  {loading ? "A enviar..." : "Enviar Mensagem"}
+                  {loading ? "A enviar..." : "Enviar Pedido"}
                 </Button>
               </form>
             </motion.div>
