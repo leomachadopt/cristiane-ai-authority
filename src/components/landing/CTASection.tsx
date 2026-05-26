@@ -19,7 +19,7 @@ const CTASection = () => {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
         className="container max-w-2xl relative z-10"
       >
         <span className="inline-block bg-ouro/12 border border-ouro/20 text-ouro-light text-[11px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-6">
@@ -38,13 +38,13 @@ const CTASection = () => {
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-8 py-4 rounded-[10px] text-base font-semibold transition-all hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-8 py-4 rounded-[10px] text-base font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
           >
             <MessageCircle className="w-5 h-5" /> Escrever RESPIRA por WhatsApp
           </a>
           <a
             href={PHONE_LINK}
-            className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 px-8 py-4 rounded-[10px] text-base font-semibold transition-all"
+            className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-8 py-4 rounded-[10px] text-base font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
           >
             <Phone className="w-5 h-5" /> Ligar para a Clínica
           </a>

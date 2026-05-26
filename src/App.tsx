@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MotionConfig } from "framer-motion";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Sobre from "./pages/Sobre";
@@ -18,6 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <MotionConfig reducedMotion="user" transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -30,6 +32,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      </MotionConfig>
     </TooltipProvider>
   </QueryClientProvider>
 );

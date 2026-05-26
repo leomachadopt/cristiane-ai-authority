@@ -36,8 +36,8 @@ const SinaisSection = ({ ctaHref = "#consulta" }: { ctaHref?: string }) => {
               key={s.title}
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: 0.07 * i }}
-              className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-6 hover:bg-white/[0.08] hover:border-ouro/30 hover:-translate-y-1 transition-all"
+              transition={{ duration: 0.45, delay: 0.07 * i, ease: [0.23, 1, 0.32, 1] }}
+              className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-6 hover:bg-white/[0.08] hover:border-ouro/30 hover:-translate-y-1 transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
             >
               <div className="text-[26px] mb-3.5">{s.ico}</div>
               <h3 className="text-[15px] font-bold text-white mb-1.5">{s.title}</h3>
@@ -62,7 +62,7 @@ const SinaisSection = ({ ctaHref = "#consulta" }: { ctaHref?: string }) => {
           </p>
           <a
             href={ctaHref}
-            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
           >
             <Wind className="w-4 h-4" /> Marcar Consulta RC360
           </a>

@@ -47,7 +47,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <header
-        className={`sticky top-0 left-0 right-0 z-50 glass transition-shadow ${
+        className={`sticky top-0 left-0 right-0 z-50 glass transition-[box-shadow] duration-200 ease-out-expo ${
           scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.08)]" : ""
         }`}
       >
@@ -78,7 +78,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             ))}
             <Link
               to="/contacto"
-              className="bg-ouro hover:bg-ouro-light text-ouro-foreground px-5 py-2.5 rounded-lg text-[13px] font-semibold transition-all hover:-translate-y-0.5"
+              className="bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-5 py-2.5 rounded-lg text-[13px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
             >
               Marcar Consulta
             </Link>
@@ -121,7 +121,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 <Link
                   to="/contacto"
                   onClick={() => setMobileOpen(false)}
-                  className="mt-2 bg-ouro text-ouro-foreground px-4 py-3 rounded-lg text-sm font-semibold text-center"
+                  className="mt-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-4 py-3 rounded-lg text-sm font-semibold text-center transition-[transform,background-color] duration-200 ease-out-expo active:scale-[0.97]"
                 >
                   Marcar Consulta
                 </Link>
@@ -208,7 +208,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         href={WHATSAPP_LINK}
         target="_blank"
         rel="noopener noreferrer"
-        className={`fixed bottom-6 right-6 z-[60] bg-ouro text-ouro-foreground pl-4 pr-5 py-3.5 rounded-full text-sm font-semibold shadow-[0_8px_32px_rgba(191,164,104,0.45)] flex items-center gap-2 transition-all duration-300 hover:-translate-y-0.5 ${
+        className={`fixed bottom-6 right-6 z-[60] bg-ouro hover:bg-ouro-light text-ouro-foreground pl-4 pr-5 py-3.5 rounded-full text-sm font-semibold shadow-[0_8px_32px_rgba(191,164,104,0.45)] flex items-center gap-2 transition-[transform,background-color,box-shadow,opacity] ease-out-expo duration-300 hover:-translate-y-0.5 active:scale-[0.97] ${
           scrolled ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0 pointer-events-none"
         }`}
       >

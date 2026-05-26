@@ -19,7 +19,7 @@ const Metodologia = () => {
       {/* Abertura emocional — as conexões */}
       <section className="py-20 md:py-24">
         <div className="container max-w-3xl text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}>
             <span className="eyebrow mb-3.5 block">As conexões são a chave</span>
             <h2 className="font-display text-3xl md:text-[40px] font-bold text-azul leading-[1.15] mb-6">
               Quando olhamos para cada pilar isolado, <span className="italic text-ouro">perdemos o sistema.</span>

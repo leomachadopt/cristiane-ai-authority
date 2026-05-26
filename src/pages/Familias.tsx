@@ -53,8 +53,8 @@ const Familias = () => {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.1 }}
-                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-shadow"
+                transition={{ duration: 0.45, delay: i * 0.1, ease: [0.23, 1, 0.32, 1] }}
+                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-[box-shadow] duration-200 ease-out-expo"
               >
                 <div className="w-10 h-10 rounded-lg bg-teal/12 flex items-center justify-center mb-4">
                   <BookOpen className="w-5 h-5 text-teal" />
@@ -87,7 +87,7 @@ const Familias = () => {
               </p>
               <Link
                 to="/podcast"
-                className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 px-5 py-2.5 rounded-[10px] text-sm font-semibold transition-all w-fit"
+                className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-5 py-2.5 rounded-[10px] text-sm font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo w-fit"
               >
                 Conhecer o Podcast <ArrowRight className="w-4 h-4" />
               </Link>

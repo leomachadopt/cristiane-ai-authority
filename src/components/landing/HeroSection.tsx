@@ -28,7 +28,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
           >
             <div className="inline-flex items-center gap-2 bg-ouro/10 border border-ouro/20 text-ouro-light text-[11px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-7">
               <span className="w-1.5 h-1.5 rounded-full bg-ouro breathing" />
@@ -49,13 +49,13 @@ const HeroSection = () => {
             <div className="flex flex-wrap gap-3.5 mb-11">
               <a
                 href="#consulta"
-                className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
               >
                 <Wind className="w-4 h-4" /> Marcar Consulta RC360
               </a>
               <a
                 href="#sinais"
-                className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all"
+                className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
               >
                 Ver os sinais a observar
               </a>
@@ -74,7 +74,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.55, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
             className="relative hidden lg:block"
           >
             <div className="rounded-3xl overflow-hidden bg-white/[0.04] border border-white/[0.08] aspect-[4/5] flex items-center justify-center">

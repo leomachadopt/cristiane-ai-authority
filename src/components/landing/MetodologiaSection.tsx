@@ -64,7 +64,7 @@ const MetodologiaSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           >
             <span className="eyebrow mb-3.5 block">Metodologia Respira e Cresce 360</span>
             <h2 className="font-display text-3xl md:text-[40px] font-bold text-azul leading-[1.15] mb-4">
@@ -83,8 +83,8 @@ const MetodologiaSection = () => {
                   key={p.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.45, delay: 0.08 * i }}
-                  className={`rounded-2xl p-6 border ${p.cls} transition-transform hover:-translate-y-1`}
+                  transition={{ duration: 0.45, delay: 0.08 * i, ease: [0.23, 1, 0.32, 1] }}
+                  className={`rounded-2xl p-6 border ${p.cls} transition-transform duration-200 ease-out-expo hover:-translate-y-1`}
                 >
                   <div className="text-[26px] mb-2.5">{p.icon}</div>
                   <div className={`text-[10px] font-bold tracking-wider uppercase mb-1.5 ${p.numCls}`}>{p.num}</div>
@@ -104,7 +104,7 @@ const MetodologiaSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
             className="bg-azul-dark rounded-3xl p-8 md:p-10"
           >
             <h3 className="font-display text-2xl text-ouro-light mb-8">O que acontece na Consulta RC360</h3>

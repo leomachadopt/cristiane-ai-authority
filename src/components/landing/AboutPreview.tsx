@@ -26,7 +26,7 @@ const AboutPreview = () => {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
             className="hidden lg:flex rounded-3xl bg-azul/[0.06] aspect-[3/4] items-center justify-center text-6xl opacity-30"
           >
             {/* SUBSTITUIR pela foto profissional da Dra. Cristiane */}
@@ -37,7 +37,7 @@ const AboutPreview = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
           >
             <span className="eyebrow mb-4 block">Quem sou</span>
             <blockquote className="font-display text-[22px] italic text-azul leading-[1.5] pl-7 border-l-4 border-ouro mb-6">
@@ -59,7 +59,7 @@ const AboutPreview = () => {
                   key={c.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
+                  transition={{ duration: 0.4, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
                   className="bg-white rounded-xl p-4 border border-border/70"
                 >
                   <div className="text-lg mb-1.5">{c.icon}</div>

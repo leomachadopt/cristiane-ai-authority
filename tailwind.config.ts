@@ -4,6 +4,11 @@ export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
+  // Filosofia Emil Kowalski: hover só em dispositivos com ponteiro fino (evita
+  // estados "presos" no toque). Gera todos os hover: atrás de @media (hover:hover).
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     container: {
       center: true,
@@ -96,6 +101,12 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      transitionTimingFunction: {
+        // Curvas fortes — as built-in do CSS são fracas demais (Emil Kowalski)
+        "out-expo": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "in-out-expo": "cubic-bezier(0.77, 0, 0.175, 1)",
+        drawer: "cubic-bezier(0.32, 0.72, 0, 1)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -106,15 +117,15 @@ export default {
           to: { height: "0" },
         },
         "fade-in": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "fade-in-left": {
-          "0%": { opacity: "0", transform: "translateX(-30px)" },
+          "0%": { opacity: "0", transform: "translateX(-24px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
         "fade-in-right": {
-          "0%": { opacity: "0", transform: "translateX(30px)" },
+          "0%": { opacity: "0", transform: "translateX(24px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
         float: {
@@ -123,11 +134,11 @@ export default {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.6s ease-out forwards",
-        "fade-in-left": "fade-in-left 0.6s ease-out forwards",
-        "fade-in-right": "fade-in-right 0.6s ease-out forwards",
+        "accordion-down": "accordion-down 0.22s cubic-bezier(0.32, 0.72, 0, 1)",
+        "accordion-up": "accordion-up 0.22s cubic-bezier(0.32, 0.72, 0, 1)",
+        "fade-in": "fade-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards",
+        "fade-in-left": "fade-in-left 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards",
+        "fade-in-right": "fade-in-right 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards",
         float: "float 3s ease-in-out infinite",
       },
     },

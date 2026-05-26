@@ -39,7 +39,7 @@ const LeadMagnetSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
             className="bg-white rounded-3xl p-8 shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
           >
             <p className="eyebrow mb-4">Checklist gratuito</p>
@@ -55,7 +55,7 @@ const LeadMagnetSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
           >
             <span className="eyebrow mb-3 block">Para ti, de graça</span>
             <h3 className="font-display text-2xl md:text-[28px] font-bold text-azul leading-snug mb-3">
@@ -80,7 +80,7 @@ const LeadMagnetSection = () => {
               />
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-6 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-6 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
               >
                 Quero receber o guia gratuito <ArrowRight className="w-4 h-4" />
               </button>

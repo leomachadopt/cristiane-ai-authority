@@ -40,7 +40,7 @@ const Podcast = () => {
       <section className="py-20 md:py-24">
         <div className="container max-w-5xl">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}>
               <span className="eyebrow mb-3.5 block">Porque nasceu</span>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-azul leading-tight mb-5">
                 Conhecimento clínico para além das paredes do consultório.
@@ -56,13 +56,13 @@ const Podcast = () => {
               </p>
               <a
                 href={PODCAST_LINK}
-                className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
               >
                 <Headphones className="w-4 h-4" /> Ouvir o Podcast
               </a>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="flex flex-col gap-3">
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }} className="flex flex-col gap-3">
               {hosts.map((h) => (
                 <div key={h.name} className="flex items-center gap-3.5 bg-white rounded-2xl p-4 border border-border/70">
                   <span className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0" style={{ background: h.bg, color: h.color }}>
@@ -95,7 +95,7 @@ const Podcast = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
+                transition={{ duration: 0.4, delay: i * 0.07, ease: [0.23, 1, 0.32, 1] }}
                 className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 flex items-start gap-4 hover:bg-white/[0.07] transition-colors"
               >
                 <div className="w-11 h-11 rounded-xl bg-teal/12 text-teal flex items-center justify-center text-lg shrink-0">{ep.ico}</div>
@@ -125,7 +125,7 @@ const Podcast = () => {
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
           >
             <Wind className="w-4 h-4" /> Marcar Consulta RC360
           </a>

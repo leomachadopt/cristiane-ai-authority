@@ -52,6 +52,11 @@
     --rosa-bg: 345 71% 97%;          /* #FDF0F3 */
     --ouro-bg: 41 50% 94%;           /* #F8F3E8 */
 
+    /* ── Curvas de easing (Emil Kowalski) ── */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
     /* tons legados remapeados para a paleta de marca */
     --coral: 347 69% 80%;
     --coral-foreground: 209 58% 14%;
@@ -109,6 +114,17 @@
   /* Compensa o header sticky ao saltar para âncoras */
   section[id], div[id] {
     scroll-margin-top: 110px;
+  }
+
+  /* Movimento reduzido: mantém opacidade/cor, remove deslocações (Emil Kowalski) */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .breathing { animation: none !important; }
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;

@@ -50,7 +50,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           className="mb-9"
         >
           <span className="eyebrow mb-3.5 block">A consulta</span>
@@ -62,7 +62,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
           className="bg-azul-dark rounded-3xl p-8 md:p-12 mb-9 relative overflow-hidden"
         >
           <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-teal/[0.06]" />
@@ -85,7 +85,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
               key={c.title}
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: 0.1 * i }}
+              transition={{ duration: 0.45, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
               className="bg-white rounded-2xl p-6"
             >
               <h4 className="text-xs font-bold tracking-wider uppercase text-ouro pb-2.5 mb-3.5 border-b border-border">
@@ -106,7 +106,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
         <div className="text-center mt-9">
           <a
             href={ctaHref}
-            className="inline-flex items-center gap-2 bg-azul-dark hover:bg-azul text-white px-9 py-4 rounded-[10px] text-[17px] font-semibold transition-all hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 bg-azul-dark hover:bg-azul text-white active:scale-[0.97] px-9 py-4 rounded-[10px] text-[17px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
           >
             <CalendarDays className="w-5 h-5" /> Marcar Consulta Respira e Cresce 360
           </a>

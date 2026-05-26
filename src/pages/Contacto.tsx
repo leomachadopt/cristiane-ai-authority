@@ -67,7 +67,7 @@ const Contacto = () => {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-azul-dark text-white rounded-2xl p-6 flex flex-col gap-2 hover:-translate-y-1 transition-transform"
+              className="bg-azul-dark text-white rounded-2xl p-6 flex flex-col gap-2 hover:-translate-y-1 active:scale-[0.98] active:translate-y-0 transition-transform duration-200 ease-out-expo"
             >
               <MessageCircle className="w-6 h-6 text-ouro-light" />
               <span className="font-semibold mt-1">WhatsApp</span>
@@ -75,7 +75,7 @@ const Contacto = () => {
             </a>
             <a
               href={PHONE_LINK}
-              className="bg-white border border-border/70 rounded-2xl p-6 flex flex-col gap-2 hover:shadow-lg hover:-translate-y-1 transition-all"
+              className="bg-white border border-border/70 rounded-2xl p-6 flex flex-col gap-2 hover:shadow-lg hover:-translate-y-1 active:scale-[0.98] active:translate-y-0 transition-[transform,background-color,border-color,box-shadow] ease-out-expo"
             >
               <Phone className="w-6 h-6 text-ouro" />
               <span className="font-semibold text-azul mt-1">Telefone</span>

@@ -39,7 +39,7 @@ const PainSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           >
             <span className="eyebrow mb-3.5">Reconheces isto?</span>
             <h2 className="font-display text-3xl md:text-[40px] font-bold text-azul leading-[1.15] mb-5">
@@ -55,8 +55,8 @@ const PainSection = () => {
                   key={d.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
-                  className="bg-white rounded-2xl p-5 border border-border/70 flex gap-3.5 items-start hover:border-ouro hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all"
+                  transition={{ duration: 0.5, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
+                  className="bg-white rounded-2xl p-5 border border-border/70 flex gap-3.5 items-start hover:border-ouro hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
                 >
                   <span className="text-[22px] shrink-0 leading-none mt-0.5">{d.icon}</span>
                   <div>
@@ -72,7 +72,7 @@ const PainSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
             className="bg-azul-dark rounded-3xl p-8 md:p-9 text-white"
           >
             <span className="eyebrow mb-3 text-ouro">A minha resposta</span>

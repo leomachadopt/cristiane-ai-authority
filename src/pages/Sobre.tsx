@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Shield, Eye, Layers, HeartHandshake, Star, Wind } from "lucide-react";
 import { WHATSAPP_LINK } from "@/lib/site";
 
@@ -25,9 +25,9 @@ const values = [
   { icon: Star, title: "Confiança", text: "Construída através de resultados consistentes e transparência total." },
 ];
 
-const fadeIn = {
+const fadeIn: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: [0.23, 1, 0.32, 1] } }),
 };
 
 const Sobre = () => {
@@ -47,13 +47,13 @@ const Sobre = () => {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
               className="hidden lg:flex rounded-3xl bg-azul/[0.06] aspect-[3/4] items-center justify-center text-6xl opacity-30"
             >
               {/* SUBSTITUIR pela foto profissional da Dra. Cristiane */}
               👩‍⚕️
             </motion.div>
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}>
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}>
               <blockquote className="font-display text-[22px] italic text-azul leading-[1.5] pl-7 border-l-4 border-ouro mb-6">
                 “Ao longo de 25 anos a trabalhar com crianças, fui percebendo que muitos sinais que
                 aparecem na boca e na face estavam ligados à forma como a criança respira, dorme,
@@ -100,7 +100,7 @@ const Sobre = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeIn}
-                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-shadow"
+                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-[box-shadow] duration-200 ease-out-expo"
               >
                 <div className="text-2xl mb-3">{c.icon}</div>
                 <h3 className="text-sm font-bold text-azul mb-1.5">{c.title}</h3>
@@ -129,7 +129,7 @@ const Sobre = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeIn}
-                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-shadow"
+                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-[box-shadow] duration-200 ease-out-expo"
               >
                 <div className="w-10 h-10 rounded-lg bg-ouro/12 flex items-center justify-center mb-3">
                   <v.icon className="w-5 h-5 text-ouro" />
@@ -145,7 +145,7 @@ const Sobre = () => {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
             >
               <Wind className="w-4 h-4" /> Marcar Consulta RC360
             </a>

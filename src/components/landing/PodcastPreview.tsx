@@ -29,7 +29,7 @@ const PodcastPreview = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           >
             <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-teal mb-3.5">🎙️ Podcast</p>
             <h2 className="font-display text-3xl md:text-4xl text-white leading-tight mb-4">
@@ -55,7 +55,7 @@ const PodcastPreview = () => {
             </div>
             <a
               href={PODCAST_LINK}
-              className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 px-6 py-3 rounded-[10px] text-[15px] font-semibold transition-all"
+              className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-6 py-3 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
             >
               <Headphones className="w-4 h-4" /> Ouvir o Podcast
             </a>
@@ -65,7 +65,7 @@ const PodcastPreview = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
             className="bg-white/[0.04] border border-white/[0.08] rounded-3xl p-7"
           >
             <p className="text-[11px] font-semibold tracking-[0.15em] uppercase text-ouro-light mb-4">

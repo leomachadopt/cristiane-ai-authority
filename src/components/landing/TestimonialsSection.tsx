@@ -42,7 +42,7 @@ const TestimonialsSection = () => {
               key={d.nome}
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: 0.1 * i }}
+              transition={{ duration: 0.45, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
               className="relative bg-background rounded-2xl p-7 border border-border/70"
             >
               <span className="absolute top-3 left-5 font-display text-6xl text-ouro/40 leading-none select-none">&ldquo;</span>
