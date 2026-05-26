@@ -1,28 +1,13 @@
 import Layout from "@/components/Layout";
+import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
-import { Mic, Play, Users, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Headphones, Wind } from "lucide-react";
+import { PODCAST_LINK, WHATSAPP_LINK } from "@/lib/site";
 
 const hosts = [
-  {
-    name: "Dra. Cristiane Martins",
-    role: "Odontopediatria Integrativa",
-    initials: "CM",
-    color: "primary",
-  },
-  {
-    name: "Leonardo",
-    role: "Co-apresentador",
-    initials: "LM",
-    color: "accent",
-  },
-  {
-    name: "Dra. Vânia",
-    role: "Co-apresentadora",
-    initials: "VS",
-    color: "lavender",
-  },
+  { name: "Dra. Cristiane Martins", role: "Odontopediatria Integrativa", initials: "CM", bg: "hsl(var(--azul))", color: "hsl(var(--ouro-light))" },
+  { name: "Leonardo", role: "Co-apresentador", initials: "Le", bg: "#185FA5", color: "#fff" },
+  { name: "Dra. Vânia", role: "Saúde Integrativa Pediátrica", initials: "V", bg: "#1A7A50", color: "#fff" },
 ];
 
 const topics = [
@@ -35,210 +20,119 @@ const topics = [
 ];
 
 const episodes = [
-  {
-    title: "Episódio 1 — O que é a abordagem integrada?",
-    description: "Introdução ao conceito de observação integrada do desenvolvimento infantil.",
-    duration: "Em breve",
-  },
-  {
-    title: "Episódio 2 — Respiração oral: mitos e realidades",
-    description: "O que sabemos sobre respiração oral e como afecta o desenvolvimento da criança.",
-    duration: "Em breve",
-  },
-  {
-    title: "Episódio 3 — Quando procurar ajuda?",
-    description: "Sinais que os pais devem observar e quando faz sentido procurar avaliação.",
-    duration: "Em breve",
-  },
+  { ico: "🌬️", title: "Respiração oral — o que nenhum pai te explicou", desc: "Por que a boca aberta não é um hábito — é um sinal clínico." },
+  { ico: "😴", title: "Quando o sono do teu filho não descansa", desc: "Ronco, sono agitado e comportamento — como a via aérea influencia o dia." },
+  { ico: "📈", title: "A face em crescimento — e agora?", desc: "O timing da intervenção e por que avaliar cedo faz a diferença." },
+  { ico: "🦷", title: "Mastigação, língua e deglutição — o trio esquecido", desc: "Como a função oral influencia tudo o resto." },
+  { ico: "🌿", title: "Saúde integrativa pediátrica", desc: "Com a Dra. Vânia — observar a criança como sistema, não por sintomas." },
 ];
 
-const colorBg: Record<string, string> = {
-  primary: "bg-primary/10 text-primary",
-  accent: "bg-accent/10 text-accent",
-  lavender: "bg-lavender/10 text-lavender",
-};
-
-const PodcastPage = () => {
+const Podcast = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-hero">
-        <div className="container max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary mb-4">
-              Podcast
-            </span>
-            <h1 className="font-display text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Família 360{" "}
-              <span className="text-gradient">Saúde Integrada</span>
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Conversas claras sobre respiração, sono, função e crescimento.
-              Um podcast que transforma conhecimento clínico em orientação acessível para famílias.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="🎙️ Podcast"
+        title={<>Família 360 — <span className="italic text-ouro-light">Saúde Integrada.</span></>}
+        subtitle="Um podcast criado para pais que querem perceber melhor o que acontece com os seus filhos — respiração, sono, crescimento, função oral e desenvolvimento."
+      />
 
-      {/* About the podcast */}
-      <section className="py-20 md:py-28">
-        <div className="container max-w-4xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display text-3xl font-bold mb-4">
-                Porque <span className="text-gradient">nasceu</span> este podcast
+      {/* Sobre + hosts */}
+      <section className="py-20 md:py-24">
+        <div className="container max-w-5xl">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+              <span className="eyebrow mb-3.5 block">Porque nasceu</span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-azul leading-tight mb-5">
+                Conhecimento clínico para além das paredes do consultório.
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
+              <p className="text-base text-muted-foreground leading-relaxed mb-4">
                 Muitas famílias chegam à consulta com dúvidas que podiam ter sido respondidas antes.
-                Este podcast nasce da vontade de levar o conhecimento clínico para além das paredes do consultório.
+                Este podcast nasce da vontade de levar clareza a mais pais — sobre respiração, sono,
+                crescimento e função oral.
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Cada episódio é uma conversa entre profissionais que acreditam na prevenção, 
-                na clareza e na importância de olhar para a criança como um todo.
+              <p className="text-base text-muted-foreground leading-relaxed mb-7">
+                Cada episódio é uma conversa entre profissionais que acreditam na prevenção e em olhar
+                para a criança como um todo. Porque compreender melhor é cuidar melhor.
               </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-primary/10 via-lavender/10 to-accent/10 rounded-2xl p-8 flex flex-col items-center text-center"
-            >
-              <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                <Mic className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="font-display font-bold text-xl mb-1">Família 360</h3>
-              <p className="text-sm text-muted-foreground">Saúde Integrada</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Hosts */}
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-14"
-          >
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Quem <span className="text-gradient">participa</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {hosts.map((h, i) => (
-              <motion.div
-                key={h.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl p-6 border border-border/50 text-center"
+              <a
+                href={PODCAST_LINK}
+                className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
               >
-                <div className={`w-16 h-16 rounded-full ${colorBg[h.color]} flex items-center justify-center mx-auto mb-4`}>
-                  <span className="font-display font-bold text-lg">{h.initials}</span>
+                <Headphones className="w-4 h-4" /> Ouvir o Podcast
+              </a>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="flex flex-col gap-3">
+              {hosts.map((h) => (
+                <div key={h.name} className="flex items-center gap-3.5 bg-white rounded-2xl p-4 border border-border/70">
+                  <span className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0" style={{ background: h.bg, color: h.color }}>
+                    {h.initials}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-azul leading-tight">{h.name}</p>
+                    <p className="text-xs text-muted-foreground">{h.role}</p>
+                  </div>
                 </div>
-                <h3 className="font-display font-bold">{h.name}</h3>
-                <p className="text-xs text-muted-foreground mt-1">{h.role}</p>
-              </motion.div>
-            ))}
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Topics */}
-      <section className="py-20 md:py-28">
+      {/* Episódios */}
+      <section className="py-20 md:py-24 bg-azul-dark">
         <div className="container max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <h2 className="font-display text-3xl font-bold mb-4">
-              Temas <span className="text-gradient">abordados</span>
+          <div className="text-center mb-12">
+            <span className="eyebrow mb-3.5 block text-teal">Episódios em destaque</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+              Conversas que dão <span className="italic text-ouro-light">clareza.</span>
             </h2>
-          </motion.div>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {topics.map((t, i) => (
-              <motion.span
-                key={t}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="px-4 py-2 rounded-full text-sm font-medium bg-card border border-border/50"
-              >
-                {t}
-              </motion.span>
-            ))}
           </div>
-        </div>
-      </section>
-
-      {/* Episodes */}
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-14"
-          >
-            <h2 className="font-display text-3xl font-bold mb-4">
-              Episódios em <span className="text-gradient">destaque</span>
-            </h2>
-          </motion.div>
-
-          <div className="space-y-4">
+          <div className="flex flex-col gap-3">
             {episodes.map((ep, i) => (
               <motion.div
-                key={i}
+                key={ep.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-xl p-6 border border-border/50 flex items-start gap-4"
+                transition={{ duration: 0.4, delay: i * 0.07 }}
+                className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 flex items-start gap-4 hover:bg-white/[0.07] transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Play className="w-5 h-5 text-primary" />
+                <div className="w-11 h-11 rounded-xl bg-teal/12 text-teal flex items-center justify-center text-lg shrink-0">{ep.ico}</div>
+                <div>
+                  <h3 className="font-semibold text-white leading-snug mb-0.5">{ep.title}</h3>
+                  <p className="text-sm text-white/40 leading-relaxed">{ep.desc}</p>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-display font-bold text-sm mb-1">{ep.title}</h3>
-                  <p className="text-xs text-muted-foreground">{ep.description}</p>
-                </div>
-                <span className="text-xs text-muted-foreground shrink-0">{ep.duration}</span>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-28 text-center">
-        <div className="container max-w-2xl">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-display text-3xl font-bold mb-4">
-              Este conteúdo ajuda famílias a entenderem melhor o desenvolvimento dos seus filhos
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              Se tem dúvidas ou quer saber mais, estamos aqui para ajudar.
-            </p>
-            <Button asChild size="lg" className="rounded-full px-8">
-              <Link to="/contacto">Fale Connosco</Link>
-            </Button>
-          </motion.div>
+      {/* Temas + CTA */}
+      <section className="py-20 md:py-24">
+        <div className="container max-w-3xl text-center">
+          <span className="eyebrow mb-3.5 block">Temas abordados</span>
+          <div className="flex flex-wrap gap-2.5 justify-center mb-12">
+            {topics.map((t) => (
+              <span key={t} className="px-4 py-2 rounded-full text-sm font-medium bg-white border border-border/70 text-azul">{t}</span>
+            ))}
+          </div>
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-azul mb-6 leading-snug">
+            Tens dúvidas sobre o desenvolvimento do teu filho?
+          </h2>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+          >
+            <Wind className="w-4 h-4" /> Marcar Consulta RC360
+          </a>
         </div>
       </section>
     </Layout>
   );
 };
 
-export default PodcastPage;
+export default Podcast;

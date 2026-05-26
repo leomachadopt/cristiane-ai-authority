@@ -1,54 +1,90 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mic, Play, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Headphones } from "lucide-react";
+import { PODCAST_LINK } from "@/lib/site";
+
+const hosts = [
+  { initials: "CM", name: "Dra. Cristiane", bg: "hsl(var(--azul))", color: "hsl(var(--ouro-light))" },
+  { initials: "Le", name: "Leonardo", bg: "#185FA5", color: "#fff" },
+  { initials: "V", name: "Dra. Vânia", bg: "#1A7A50", color: "#fff" },
+];
+
+const episodes = [
+  { ico: "🌬️", title: "Respiração oral — o que nenhum pai te explicou", desc: "Por que a boca aberta não é um hábito — é um sinal clínico." },
+  { ico: "😴", title: "Quando o sono do teu filho não descansa", desc: "Ronco, sono agitado e comportamento — como a via aérea influencia o dia." },
+  { ico: "📈", title: "A face em crescimento — e agora?", desc: "O timing da intervenção e por que avaliar cedo faz a diferença." },
+  { ico: "🦷", title: "Mastigação, língua e deglutição — o trio esquecido", desc: "Como a função oral influencia tudo o resto." },
+  { ico: "🌿", title: "Saúde integrativa pediátrica", desc: "Com a Dra. Vânia — observar a criança como sistema, não por sintomas." },
+];
 
 const PodcastPreview = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28">
+    <section ref={ref} id="podcast" className="py-20 md:py-24 bg-azul-dark">
       <div className="container">
-        <div className="max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-14 items-center">
+          {/* Texto */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="bg-card rounded-2xl border border-border/50 overflow-hidden"
           >
-            <div className="grid md:grid-cols-2">
-              {/* Visual */}
-              <div className="bg-gradient-to-br from-primary/10 via-lavender/10 to-accent/10 p-8 md:p-12 flex flex-col justify-center items-center text-center">
-                <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                  <Mic className="w-10 h-10 text-primary" />
+            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-teal mb-3.5">🎙️ Podcast</p>
+            <h2 className="font-display text-3xl md:text-4xl text-white leading-tight mb-4">
+              Família 360<br />Saúde Integrada
+            </h2>
+            <p className="text-base text-white/60 leading-relaxed mb-7 max-w-md">
+              Um podcast criado para pais que querem perceber melhor o que acontece com os seus
+              filhos — respiração, sono, crescimento, função oral e desenvolvimento. Porque
+              compreender melhor é cuidar melhor.
+            </p>
+            <div className="flex flex-wrap gap-2.5 mb-7">
+              {hosts.map((h) => (
+                <div key={h.name} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full pl-1.5 pr-4 py-1.5">
+                  <span
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold"
+                    style={{ background: h.bg, color: h.color }}
+                  >
+                    {h.initials}
+                  </span>
+                  <span className="text-xs text-white font-medium">{h.name}</span>
                 </div>
-                <h3 className="font-display font-bold text-2xl mb-2">Família 360</h3>
-                <p className="text-sm text-muted-foreground">Saúde Integrada</p>
-              </div>
-
-              {/* Content */}
-              <div className="p-8 md:p-12 flex flex-col justify-center">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary mb-4 w-fit">
-                  Podcast
-                </span>
-                <h3 className="font-display font-bold text-xl md:text-2xl mb-3">
-                  Conversas claras sobre respiração, sono, função e crescimento
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  A Dra. Cristiane Martins, em conversa com o Leonardo e a Dra. Vânia, 
-                  explora os temas que mais importam para o desenvolvimento infantil.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Button asChild className="rounded-full">
-                    <Link to="/podcast">
-                      Ouvir Episódios <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
+              ))}
             </div>
+            <a
+              href={PODCAST_LINK}
+              className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 px-6 py-3 rounded-[10px] text-[15px] font-semibold transition-all"
+            >
+              <Headphones className="w-4 h-4" /> Ouvir o Podcast
+            </a>
+          </motion.div>
+
+          {/* Episódios */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="bg-white/[0.04] border border-white/[0.08] rounded-3xl p-7"
+          >
+            <p className="text-[11px] font-semibold tracking-[0.15em] uppercase text-ouro-light mb-4">
+              Episódios em destaque
+            </p>
+            {episodes.map((ep, i) => (
+              <div
+                key={ep.title}
+                className={`flex gap-3.5 py-3.5 ${i < episodes.length - 1 ? "border-b border-white/[0.06]" : ""}`}
+              >
+                <div className="w-9 h-9 rounded-[9px] bg-teal/15 text-teal flex items-center justify-center text-sm shrink-0">
+                  {ep.ico}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white mb-0.5 leading-snug">{ep.title}</p>
+                  <p className="text-xs text-white/35 leading-relaxed">{ep.desc}</p>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>

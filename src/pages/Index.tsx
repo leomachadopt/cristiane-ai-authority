@@ -1,25 +1,31 @@
 import Layout from "@/components/Layout";
 import HeroSection from "@/components/landing/HeroSection";
+import SocialProofBar from "@/components/landing/SocialProofBar";
+import PainSection from "@/components/landing/PainSection";
 import AboutPreview from "@/components/landing/AboutPreview";
-import PillarsSection from "@/components/landing/PillarsSection";
-import MethodSection from "@/components/landing/MethodSection";
-import DifferentialSection from "@/components/landing/DifferentialSection";
-import PhilosophySection from "@/components/landing/PhilosophySection";
-import PodcastPreview from "@/components/landing/PodcastPreview";
+import MetodologiaSection from "@/components/landing/MetodologiaSection";
+import SinaisSection from "@/components/landing/SinaisSection";
+import ConsultaSection from "@/components/landing/ConsultaSection";
+import TestimonialsSection from "@/components/landing/TestimonialsSection";
+import LeadMagnetSection from "@/components/landing/LeadMagnetSection";
 import FAQSection from "@/components/landing/FAQSection";
+import PodcastPreview from "@/components/landing/PodcastPreview";
 import CTASection from "@/components/landing/CTASection";
 
 const Index = () => {
   return (
     <Layout>
       <HeroSection />
+      <SocialProofBar />
+      <PainSection />
       <AboutPreview />
-      <PillarsSection />
-      <MethodSection />
-      <DifferentialSection />
-      <PhilosophySection />
-      <PodcastPreview />
+      <MetodologiaSection />
+      <SinaisSection />
+      <ConsultaSection />
+      <TestimonialsSection />
+      <LeadMagnetSection />
       <FAQSection />
+      <PodcastPreview />
       <CTASection />
     </Layout>
   );

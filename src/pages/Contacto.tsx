@@ -1,18 +1,26 @@
 import Layout from "@/components/Layout";
+import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Send, MapPin, Mail, Phone } from "lucide-react";
+import { Send, MapPin, Clock, MessageCircle, Phone } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  WHATSAPP_LINK,
+  PHONE_LINK,
+  PHONE_DISPLAY,
+  LOCATION,
+  SCHEDULE,
+} from "@/lib/site";
 
 const motivoOptions = [
-  "Avaliação de desenvolvimento",
-  "Dúvida sobre respiração ou sono",
-  "Informações sobre a abordagem",
-  "Marcação de consulta",
+  "Marcar Consulta Respira e Cresce 360",
+  "Dúvida sobre respiração, sono ou crescimento",
+  "Informações sobre a metodologia RC360",
+  "Seguros e convenções",
   "Outro",
 ];
 
@@ -26,7 +34,7 @@ const Contacto = () => {
     if (!consent) {
       toast({
         title: "Consentimento necessário",
-        description: "Por favor, aceite a política de privacidade para enviar a mensagem.",
+        description: "Por favor, aceita a política de privacidade para enviar a mensagem.",
         variant: "destructive",
       });
       return;
@@ -35,8 +43,8 @@ const Contacto = () => {
     setTimeout(() => {
       setLoading(false);
       toast({
-        title: "Obrigado pelo seu contacto.",
-        description: "Entraremos em resposta assim que possível.",
+        title: "Obrigada pelo teu contacto.",
+        description: "Vou responder assim que possível.",
       });
       (e.target as HTMLFormElement).reset();
       setConsent(false);
@@ -45,92 +53,80 @@ const Contacto = () => {
 
   return (
     <Layout>
-      <section className="py-20 md:py-28 bg-gradient-hero">
-        <div className="container max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary mb-4">
-              Contacto
-            </span>
-            <h1 className="font-display text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Vamos <span className="text-gradient">conversar</span>
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Tem dúvidas sobre o desenvolvimento do seu filho? Quer saber mais sobre a abordagem integrada?
-              Envie-nos uma mensagem.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Marcar consulta"
+        title={<>O teu filho merece uma <span className="italic text-ouro-light">leitura integrada.</span></>}
+        subtitle="A forma mais rápida de marcar é por WhatsApp — escreve RESPIRA e a nossa equipa trata do resto. Também podes ligar ou enviar mensagem pelo formulário."
+      />
 
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <div className="grid md:grid-cols-5 gap-12 max-w-5xl mx-auto">
-            {/* Contact info */}
+      {/* Vias rápidas de contacto */}
+      <section className="py-16 md:py-20">
+        <div className="container max-w-5xl">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-azul-dark text-white rounded-2xl p-6 flex flex-col gap-2 hover:-translate-y-1 transition-transform"
+            >
+              <MessageCircle className="w-6 h-6 text-ouro-light" />
+              <span className="font-semibold mt-1">WhatsApp</span>
+              <span className="text-sm text-white/55">Escreve RESPIRA — resposta rápida</span>
+            </a>
+            <a
+              href={PHONE_LINK}
+              className="bg-white border border-border/70 rounded-2xl p-6 flex flex-col gap-2 hover:shadow-lg hover:-translate-y-1 transition-all"
+            >
+              <Phone className="w-6 h-6 text-ouro" />
+              <span className="font-semibold text-azul mt-1">Telefone</span>
+              <span className="text-sm text-muted-foreground">{PHONE_DISPLAY}</span>
+            </a>
+            <div className="bg-white border border-border/70 rounded-2xl p-6 flex flex-col gap-2">
+              <MapPin className="w-6 h-6 text-teal" />
+              <span className="font-semibold text-azul mt-1">Localização</span>
+              <span className="text-sm text-muted-foreground">{LOCATION}</span>
+            </div>
+            <div className="bg-white border border-border/70 rounded-2xl p-6 flex flex-col gap-2">
+              <Clock className="w-6 h-6 text-teal" />
+              <span className="font-semibold text-azul mt-1">Horário</span>
+              <span className="text-sm text-muted-foreground">{SCHEDULE}</span>
+            </div>
+          </div>
+
+          {/* Formulário */}
+          <div className="grid lg:grid-cols-5 gap-10">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="md:col-span-2 space-y-8"
+              className="lg:col-span-2"
             >
-              <div>
-                <h2 className="font-display font-bold text-2xl mb-4">Informações de contacto</h2>
-                <p className="text-sm text-muted-foreground mb-6">
-                  Preencha os seus dados e descreva brevemente a situação. 
-                  Isso ajuda-nos a orientar melhor a resposta.
-                </p>
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <Mail className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">Email</p>
-                      <p className="text-sm text-muted-foreground">contacto@dracristianemartins.com</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                      <Phone className="w-5 h-5 text-accent" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">Telefone</p>
-                      <p className="text-sm text-muted-foreground">+351 XXX XXX XXX</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-lavender/10 flex items-center justify-center shrink-0">
-                      <MapPin className="w-5 h-5 text-lavender" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">Localização</p>
-                      <p className="text-sm text-muted-foreground">Lisboa, Portugal</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-muted/50 rounded-xl p-4">
-                <p className="text-xs text-muted-foreground italic">
-                  Este contacto não substitui avaliação clínica. Entraremos em contacto assim que possível.
+              <span className="eyebrow mb-3.5 block">Prefere escrever?</span>
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-azul mb-4 leading-snug">
+                Conta-me o que te preocupa.
+              </h2>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                Preenche os teus dados e descreve brevemente a situação. Isso ajuda-me a orientar
+                melhor a resposta e a preparar a consulta.
+              </p>
+              <div className="bg-ouro-bg rounded-xl p-4 border-l-4 border-ouro">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Este contacto não substitui avaliação clínica. Vou responder assim que possível.
                 </p>
               </div>
             </motion.div>
 
-            {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="md:col-span-3"
+              className="lg:col-span-3"
             >
-              <form
-                onSubmit={handleSubmit}
-                className="bg-card rounded-2xl p-6 md:p-8 border border-border/50 shadow-sm space-y-4"
-              >
+              <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 md:p-8 border border-border/70 shadow-sm space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">Nome</label>
-                    <Input placeholder="O seu nome" required className="rounded-xl" />
+                    <Input placeholder="O teu nome" required className="rounded-xl" />
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">Email</label>
@@ -144,7 +140,7 @@ const Contacto = () => {
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">Idade da criança (opcional)</label>
-                    <Input placeholder="Ex: 3 anos" className="rounded-xl" />
+                    <Input placeholder="Ex: 5 anos" className="rounded-xl" />
                   </div>
                 </div>
                 <div>
@@ -153,7 +149,7 @@ const Contacto = () => {
                     className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     required
                   >
-                    <option value="">Seleccione um motivo</option>
+                    <option value="">Seleciona um motivo</option>
                     {motivoOptions.map((m) => (
                       <option key={m} value={m}>{m}</option>
                     ))}
@@ -162,7 +158,7 @@ const Contacto = () => {
                 <div>
                   <label className="text-sm font-medium mb-1.5 block">Mensagem</label>
                   <Textarea
-                    placeholder="Conte-nos um pouco sobre a sua situação ou dúvida..."
+                    placeholder="Conta-me um pouco sobre a situação ou a tua dúvida..."
                     rows={5}
                     required
                     className="rounded-xl"
@@ -177,14 +173,14 @@ const Contacto = () => {
                     className="mt-0.5"
                   />
                   <label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                    Autorizo o tratamento dos meus dados pessoais para efeitos de resposta ao contacto, 
+                    Autorizo o tratamento dos meus dados pessoais para efeitos de resposta ao contacto,
                     de acordo com a política de privacidade. Os dados não serão partilhados com terceiros.
                   </label>
                 </div>
 
-                <Button type="submit" disabled={loading} className="w-full rounded-xl" size="lg">
+                <Button type="submit" disabled={loading} className="w-full rounded-xl bg-azul-dark hover:bg-azul" size="lg">
                   <Send className="w-4 h-4 mr-2" />
-                  {loading ? "A enviar..." : "Enviar Pedido"}
+                  {loading ? "A enviar..." : "Enviar mensagem"}
                 </Button>
               </form>
             </motion.div>

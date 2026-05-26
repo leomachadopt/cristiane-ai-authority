@@ -1,73 +1,102 @@
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Wind, Check } from "lucide-react";
+
+const leitura = [
+  "Cavidade oral e função",
+  "Padrão respiratório",
+  "Crescimento craniofacial",
+  "Função oral integrada",
+];
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-hero">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 right-10 w-72 h-72 rounded-full bg-primary/5 breathing" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-accent/5 breathing" style={{ animationDelay: "2s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-lavender/3 breathing" style={{ animationDelay: "1s" }} />
+    <section
+      id="inicio"
+      className="relative bg-azul-dark overflow-hidden min-h-[90vh] flex items-center"
+    >
+      {/* anéis decorativos */}
+      <div className="pointer-events-none absolute right-[-120px] top-1/2 -translate-y-1/2 w-[600px] h-[600px] hidden md:block">
+        <div className="absolute inset-0 rounded-full border border-ouro/[0.06]" />
+        <div className="absolute inset-[60px] rounded-full border border-teal/[0.07]" />
+        <div className="absolute inset-[120px] rounded-full border border-ouro/[0.08]" />
       </div>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_85%_50%,hsl(var(--teal)/0.07),transparent_70%)]" />
 
-      <div className="container relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container relative z-10 py-20 md:py-24">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
+          {/* Texto */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary mb-6">
-              Método Respira e Cresce 360
-            </span>
+            <div className="inline-flex items-center gap-2 bg-ouro/10 border border-ouro/20 text-ouro-light text-[11px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-7">
+              <span className="w-1.5 h-1.5 rounded-full bg-ouro breathing" />
+              Odontopediatria Integrativa · Oliveira de Azeméis
+            </div>
+
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-[52px] font-bold text-white leading-[1.1] mb-6">
+              Eu não olho<br />só para dentes.<br />Eu observo{" "}
+              <span className="italic text-ouro-light">desenvolvimento.</span>
+            </h1>
+
+            <p className="text-lg text-white/60 leading-relaxed max-w-xl mb-9">
+              Se o teu filho respira pela boca, ronca, tem sono agitado ou a mordida não parece
+              certa — <strong className="text-white/85 font-medium">esses sinais estão ligados.</strong>{" "}
+              Há 25 anos que ajudo famílias a ver o que outros não vêem.
+            </p>
+
+            <div className="flex flex-wrap gap-3.5 mb-11">
+              <a
+                href="#consulta"
+                className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+              >
+                <Wind className="w-4 h-4" /> Marcar Consulta RC360
+              </a>
+              <a
+                href="#sinais"
+                className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all"
+              >
+                Ver os sinais a observar
+              </a>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-5 border-t border-white/[0.08] text-[13px] text-white/45">
+              <span><strong className="text-white/70 font-medium">25 anos</strong> de experiência</span>
+              <span className="text-white/15">·</span>
+              <span>Metodologia <strong className="text-white/70 font-medium">exclusiva RC360</strong></span>
+              <span className="text-white/15">·</span>
+              <span>Avaliação <strong className="text-white/70 font-medium">integrada e sistémica</strong></span>
+            </div>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
-          >
-            O desenvolvimento do seu filho é um{" "}
-            <span className="text-gradient">sistema</span> — não partes isoladas
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            A Dra. Cristiane Martins integra respiração, sono, crescimento craniofacial
-            e função oral numa abordagem clínica única para o desenvolvimento saudável da criança.
-          </motion.p>
-
+          {/* Visual */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative hidden lg:block"
           >
-            <Button asChild size="lg" className="rounded-full px-8 text-base">
-              <Link to="/metodologia">Conhecer a Metodologia</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="rounded-full px-8 text-base">
-              <Link to="/contacto">Fale Connosco</Link>
-            </Button>
+            <div className="rounded-3xl overflow-hidden bg-white/[0.04] border border-white/[0.08] aspect-[4/5] flex items-center justify-center">
+              {/* SUBSTITUIR pela foto da Dra. Cristiane (cenário podcast ou clínica) */}
+              <div className="text-center px-8">
+                <div className="text-5xl opacity-20">👩‍⚕️</div>
+                <p className="text-xs text-white/30 mt-3 leading-relaxed">
+                  Foto da Dra. Cristiane<br />(cenário podcast ou clínica)
+                </p>
+              </div>
+            </div>
+            <div className="absolute -bottom-5 -left-6 bg-white rounded-2xl p-5 shadow-[0_16px_48px_rgba(0,0,0,0.25)] max-w-[240px]">
+              <p className="eyebrow mb-2.5">A minha leitura clínica</p>
+              {leitura.map((item) => (
+                <div key={item} className="flex items-center gap-2 py-1 text-xs text-muted-foreground">
+                  <Check className="w-3.5 h-3.5 text-teal shrink-0" strokeWidth={3} />
+                  {item}
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="flex justify-center mt-16"
-        >
-          <ArrowDown className="w-5 h-5 text-muted-foreground animate-float" />
-        </motion.div>
       </div>
     </section>
   );

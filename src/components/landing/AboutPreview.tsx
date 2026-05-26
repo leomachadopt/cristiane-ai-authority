@@ -1,55 +1,82 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+
+const credenciais = [
+  { icon: "🦷", title: "Odontopediatria Integrativa", desc: "Saúde oral da criança com visão sistémica do desenvolvimento" },
+  { icon: "🔧", title: "Ortopedia Funcional dos Maxilares", desc: "Orientação do crescimento — não apenas alinhamento dos dentes" },
+  { icon: "😴", title: "Medicina do Sono", desc: "Avaliação e tratamento das perturbações do sono infantil" },
+  { icon: "🌬️", title: "Metodologia RC360", desc: "Criadora do único método que observa os 4 pilares em conjunto" },
+];
+
+const numeros = [
+  { val: "25", label: "Anos de experiência" },
+  { val: "4", label: "Pilares observados" },
+  { val: "1", label: "Metodologia exclusiva" },
+];
 
 const AboutPreview = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28">
+    <section ref={ref} id="sobre" className="py-20 md:py-24 bg-[#F4F7F9]">
       <div className="container">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Foto */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
+            className="hidden lg:flex rounded-3xl bg-azul/[0.06] aspect-[3/4] items-center justify-center text-6xl opacity-30"
           >
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-accent/10 text-accent mb-4">
-              A Especialista Integradora
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              Uma visão que une o que outros{" "}
-              <span className="text-gradient">tratam em separado</span>
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              A Dra. Cristiane Martins é odontopediatra com uma abordagem clínica que vai muito além dos dentes. 
-              Ela observa como a respiração, o sono, o crescimento craniofacial e a função oral se conectam 
-              e influenciam mutuamente no desenvolvimento infantil.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              A sua missão é antecipar problemas, integrar observações e orientar famílias 
-              com clareza e rigor científico — transformando a consulta num momento de compreensão real.
-            </p>
+            {/* SUBSTITUIR pela foto profissional da Dra. Cristiane */}
+            👩‍⚕️
           </motion.div>
 
+          {/* Texto */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative"
+            transition={{ duration: 0.6, delay: 0.15 }}
           >
-            <div className="aspect-[4/5] rounded-2xl bg-gradient-to-br from-primary/10 via-accent/10 to-lavender/10 flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="w-24 h-24 rounded-full bg-primary/10 mx-auto mb-6 flex items-center justify-center">
-                  <span className="font-display text-3xl font-bold text-primary">CM</span>
-                </div>
-                <p className="font-display font-semibold text-lg">Dra. Cristiane Martins</p>
-                <p className="text-sm text-muted-foreground mt-1">Odontopediatria Integrativa</p>
-              </div>
+            <span className="eyebrow mb-4 block">Quem sou</span>
+            <blockquote className="font-display text-[22px] italic text-azul leading-[1.5] pl-7 border-l-4 border-ouro mb-6">
+              “Ao longo de 25 anos a trabalhar com crianças, fui percebendo que muitos sinais que
+              aparecem na boca e na face estavam ligados à forma como a criança respira, dorme,
+              funciona e cresce.”
+            </blockquote>
+            <p className="text-base text-muted-foreground leading-relaxed mb-7">
+              Sou a Dra. Cristiane Martins — especialista em Odontopediatria Integrativa, Ortopedia
+              Funcional dos Maxilares e Medicina do Sono. Criei a Metodologia Respira e Cresce 360
+              porque precisava de uma forma de observar a criança como sistema — não por
+              especialidades separadas. Hoje, o meu trabalho é ajudar famílias a perceber esses
+              sinais com mais clareza, antes de se tornarem problemas maiores.
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-3">
+              {credenciais.map((c, i) => (
+                <motion.div
+                  key={c.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.1 * i }}
+                  className="bg-white rounded-xl p-4 border border-border/70"
+                >
+                  <div className="text-lg mb-1.5">{c.icon}</div>
+                  <p className="text-xs font-bold text-azul mb-0.5">{c.title}</p>
+                  <p className="text-[11px] text-muted-foreground leading-snug">{c.desc}</p>
+                </motion.div>
+              ))}
             </div>
-            {/* Decorative corner accent */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-accent/10 -z-10" />
+
+            <div className="flex gap-8 mt-6 pt-6 border-t border-border">
+              {numeros.map((n) => (
+                <div key={n.label}>
+                  <div className="font-display text-3xl font-bold text-azul">{n.val}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{n.label}</div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>

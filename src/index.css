@@ -1,49 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — DRA. CRISTIANE MARTINS · METODOLOGIA RC360
+   Paleta oficial: azul, ouro, teal, rosa
+══════════════════════════════════════════════════════════ */
+
 @layer base {
   :root {
-    --background: 210 30% 98%;
-    --foreground: 220 40% 13%;
+    --background: 48 33% 98%;        /* branco quente #FAFAF9 */
+    --foreground: 202 30% 14%;       /* texto #1A2830 */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 40% 13%;
+    --card-foreground: 202 30% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 40% 13%;
+    --popover-foreground: 202 30% 14%;
 
-    --primary: 220 70% 45%;
+    --primary: 207 55% 22%;          /* azul #1A3D59 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 30% 94%;
-    --secondary-foreground: 220 40% 13%;
+    --secondary: 185 47% 94%;        /* teal-bg #E6F6F7 */
+    --secondary-foreground: 207 55% 22%;
 
-    --muted: 210 20% 95%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 200 22% 95%;
+    --muted-foreground: 202 11% 47%; /* cinza #6B7C86 */
 
-    --accent: 170 60% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 183 48% 59%;           /* teal #64C2C8 */
+    --accent-foreground: 209 58% 14%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 90%;
-    --input: 220 15% 90%;
-    --ring: 220 70% 45%;
+    --border: 207 16% 90%;
+    --input: 207 16% 90%;
+    --ring: 41 40% 58%;              /* ouro */
 
     --radius: 0.75rem;
 
-    --coral: 12 80% 62%;
-    --coral-foreground: 0 0% 100%;
+    /* ── Tokens de marca ── */
+    --azul: 207 55% 22%;             /* #1A3D59 */
+    --azul-dark: 209 58% 14%;        /* #0F2438 */
+    --ouro: 41 40% 58%;              /* #BFA468 */
+    --ouro-light: 40 45% 69%;        /* #D4BC8C */
+    --teal: 183 48% 59%;             /* #64C2C8 */
+    --rosa: 347 69% 80%;             /* #EFA7B7 */
+    --teal-bg: 185 47% 94%;          /* #E6F6F7 */
+    --rosa-bg: 345 71% 97%;          /* #FDF0F3 */
+    --ouro-bg: 41 50% 94%;           /* #F8F3E8 */
 
-    --lavender: 260 50% 65%;
-    --lavender-foreground: 0 0% 100%;
-
-    --warm: 35 90% 55%;
-    --warm-foreground: 0 0% 100%;
+    /* tons legados remapeados para a paleta de marca */
+    --coral: 347 69% 80%;
+    --coral-foreground: 209 58% 14%;
+    --lavender: 183 48% 59%;
+    --lavender-foreground: 209 58% 14%;
+    --warm: 41 40% 58%;
+    --warm-foreground: 209 58% 14%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -56,33 +71,25 @@
   }
 
   .dark {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 96%;
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 96%;
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 96%;
-    --primary: 220 70% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 220 30% 15%;
-    --secondary-foreground: 210 40% 96%;
-    --muted: 220 30% 15%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 170 60% 50%;
-    --accent-foreground: 0 0% 100%;
+    --background: 209 58% 8%;
+    --foreground: 48 33% 96%;
+    --card: 209 58% 11%;
+    --card-foreground: 48 33% 96%;
+    --popover: 209 58% 11%;
+    --popover-foreground: 48 33% 96%;
+    --primary: 41 40% 58%;
+    --primary-foreground: 209 58% 10%;
+    --secondary: 207 40% 18%;
+    --secondary-foreground: 48 33% 96%;
+    --muted: 207 40% 18%;
+    --muted-foreground: 200 14% 65%;
+    --accent: 183 48% 59%;
+    --accent-foreground: 209 58% 10%;
     --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 220 30% 18%;
-    --input: 220 30% 18%;
-    --ring: 220 70% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 48 33% 96%;
+    --border: 207 30% 20%;
+    --input: 207 30% 20%;
+    --ring: 41 40% 58%;
   }
 }
 
@@ -90,31 +97,60 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Compensa o header sticky ao saltar para âncoras */
+  section[id], div[id] {
+    scroll-margin-top: 110px;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+  }
+  ::selection {
+    background: hsl(var(--ouro) / 0.25);
   }
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  .font-display {
+    font-family: 'Playfair Display', serif;
   }
+  /* Palavra de destaque em dourado, no estilo editorial do site de referência */
+  .text-gradient {
+    @apply bg-clip-text text-transparent italic;
+    background-image: linear-gradient(135deg, hsl(var(--ouro)), hsl(var(--ouro-light)));
+  }
+  .text-ouro { color: hsl(var(--ouro)); }
+  .text-ouro-light { color: hsl(var(--ouro-light)); }
+  .text-teal { color: hsl(var(--teal)); }
+
+  .bg-azul-dark { background-color: hsl(var(--azul-dark)); }
+
   .bg-gradient-hero {
-    background: linear-gradient(135deg, hsl(220 70% 45% / 0.08), hsl(170 60% 45% / 0.06), hsl(260 50% 65% / 0.05));
+    background:
+      radial-gradient(ellipse 70% 80% at 80% 30%, hsl(var(--teal) / 0.10), transparent 70%),
+      linear-gradient(160deg, hsl(var(--ouro) / 0.08), hsl(var(--teal) / 0.05) 60%, transparent);
   }
   .bg-gradient-card {
-    background: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 70% 45% / 0.04));
+    background: linear-gradient(145deg, hsl(0 0% 100%), hsl(var(--ouro) / 0.05));
   }
   .glass {
-    @apply backdrop-blur-xl bg-background/70 border border-border/50;
+    @apply backdrop-blur-xl bg-background/90 border-b border-border/60;
   }
   .breathing {
     animation: breathe 4s ease-in-out infinite;
+  }
+  .eyebrow {
+    @apply inline-block text-xs font-semibold tracking-[0.18em] uppercase;
+    color: hsl(var(--ouro));
   }
 }
 

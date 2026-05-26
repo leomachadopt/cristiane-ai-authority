@@ -1,110 +1,126 @@
 import Layout from "@/components/Layout";
+import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
-import { Shield, Eye, Layers, HeartHandshake, Star } from "lucide-react";
+import { Shield, Eye, Layers, HeartHandshake, Star, Wind } from "lucide-react";
+import { WHATSAPP_LINK } from "@/lib/site";
+
+const credenciais = [
+  { icon: "🦷", title: "Odontopediatria Integrativa", desc: "Saúde oral da criança com visão sistémica do desenvolvimento" },
+  { icon: "🔧", title: "Ortopedia Funcional dos Maxilares", desc: "Orientação do crescimento — não apenas alinhamento dos dentes" },
+  { icon: "😴", title: "Medicina do Sono", desc: "Avaliação e tratamento das perturbações do sono infantil" },
+  { icon: "🌬️", title: "Metodologia RC360", desc: "Criadora do único método que observa os 4 pilares em conjunto" },
+];
+
+const numeros = [
+  { val: "25", label: "Anos de experiência" },
+  { val: "4", label: "Pilares observados" },
+  { val: "1", label: "Metodologia exclusiva" },
+];
 
 const values = [
   { icon: Shield, title: "Rigor", text: "Cada observação clínica é fundamentada. Sem suposições, sem modas." },
-  { icon: Eye, title: "Clareza", text: "Comunicação que as famílias entendem. Sem jargão desnecessário." },
+  { icon: Eye, title: "Clareza", text: "Comunico de forma que as famílias entendem. Sem jargão desnecessário." },
   { icon: Layers, title: "Prevenção", text: "Identificar sinais precoces antes que se tornem problemas instalados." },
-  { icon: HeartHandshake, title: "Integração", text: "Olhar para o todo — respiração, sono, face e função oral como um sistema." },
+  { icon: HeartHandshake, title: "Integração", text: "Olho para o todo — respiração, sono, face e função oral como um sistema." },
   { icon: Star, title: "Confiança", text: "Construída através de resultados consistentes e transparência total." },
 ];
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5 },
-  }),
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
 const Sobre = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-hero">
-        <div className="container max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary mb-4">
-              Sobre
-            </span>
-            <h1 className="font-display text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              De odontopediatra a{" "}
-              <span className="text-gradient">Especialista Integradora</span>
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-              A Dra. Cristiane Martins começou a sua carreira na odontopediatria clássica. Ao longo dos anos,
-              percebeu que muitos dos problemas que tratava na boca tinham raízes mais profundas:
-              na respiração, no sono, no crescimento facial.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Essa percepção transformou a sua prática. Hoje, a Dra. Cristiane não olha apenas para dentes — 
-              ela observa o sistema completo. Cada criança é avaliada através de quatro domínios interligados,
-              com foco na prevenção e na detecção precoce.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Quem sou"
+        title={<>Eu não olho só para dentes.<br /><span className="italic text-ouro-light">Eu observo desenvolvimento.</span></>}
+        subtitle="Sou a Dra. Cristiane Martins — especialista em Odontopediatria Integrativa, Ortopedia Funcional dos Maxilares e Medicina do Sono."
+      />
 
-      {/* Arquétipos */}
-      <section className="py-20 md:py-28">
+      {/* Bio em 1ª pessoa */}
+      <section className="py-20 md:py-24 bg-[#F4F7F9]">
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-card rounded-2xl p-8 border border-border/50"
+              className="hidden lg:flex rounded-3xl bg-azul/[0.06] aspect-[3/4] items-center justify-center text-6xl opacity-30"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <Layers className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-display font-bold text-xl mb-3">A Especialista Integradora</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                Enquanto outros profissionais tratam sintomas isolados, a Dra. Cristiane conecta os pontos.
-                Ela vê padrões onde outros veem problemas separados, integrando respiração, sono, crescimento
-                e função oral numa visão clínica unificada.
-              </p>
+              {/* SUBSTITUIR pela foto profissional da Dra. Cristiane */}
+              👩‍⚕️
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-card rounded-2xl p-8 border border-border/50"
-            >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-accent" />
-              </div>
-              <h3 className="font-display font-bold text-xl mb-3">A Orientadora Preventiva</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                A prevenção é o ato clínico mais poderoso. A Dra. Cristiane orienta famílias a identificar
-                sinais precoces, antes que se tornem problemas instalados, transformando cada consulta
-                num momento de aprendizagem e prevenção ativa.
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}>
+              <blockquote className="font-display text-[22px] italic text-azul leading-[1.5] pl-7 border-l-4 border-ouro mb-6">
+                “Ao longo de 25 anos a trabalhar com crianças, fui percebendo que muitos sinais que
+                aparecem na boca e na face estavam ligados à forma como a criança respira, dorme,
+                funciona e cresce.”
+              </blockquote>
+              <p className="text-base text-muted-foreground leading-relaxed mb-4">
+                Comecei a minha carreira na odontopediatria clássica. Ao longo dos anos, percebi que
+                muitos dos problemas que tratava na boca tinham raízes mais profundas — na respiração,
+                no sono, no crescimento da face. Não eram peças soltas: eram partes do mesmo sistema.
               </p>
+              <p className="text-base text-muted-foreground leading-relaxed mb-7">
+                Foi dessa convicção que nasceu a Metodologia Respira e Cresce 360. Hoje, o meu trabalho
+                é ajudar famílias a perceber esses sinais com mais clareza, antes de se tornarem
+                problemas maiores.
+              </p>
+              <div className="flex gap-8 pt-6 border-t border-border">
+                {numeros.map((n) => (
+                  <div key={n.label}>
+                    <div className="font-display text-3xl font-bold text-azul">{n.val}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{n.label}</div>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Valores */}
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-14"
-          >
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Valores <span className="text-gradient">profissionais</span>
+      {/* Credenciais */}
+      <section className="py-20 md:py-24">
+        <div className="container max-w-5xl">
+          <div className="text-center mb-12">
+            <span className="eyebrow mb-3.5 block">Áreas de especialidade</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-azul">
+              Quatro olhares, uma <span className="italic text-ouro">leitura só.</span>
             </h2>
-          </motion.div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {credenciais.map((c, i) => (
+              <motion.div
+                key={c.title}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-shadow"
+              >
+                <div className="text-2xl mb-3">{c.icon}</div>
+                <h3 className="text-sm font-bold text-azul mb-1.5">{c.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{c.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {/* Valores */}
+      <section className="py-20 md:py-24 bg-[#F4F7F9]">
+        <div className="container">
+          <div className="text-center mb-12">
+            <span className="eyebrow mb-3.5 block">Como trabalho</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-azul">
+              Valores que guiam a <span className="italic text-ouro">minha prática.</span>
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {values.map((v, i) => (
               <motion.div
                 key={v.title}
@@ -113,13 +129,26 @@ const Sobre = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeIn}
-                className="bg-card rounded-2xl p-6 border border-border/50 hover:shadow-lg transition-shadow"
+                className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-shadow"
               >
-                <v.icon className="w-8 h-8 text-primary mb-3" />
-                <h3 className="font-display font-bold mb-2">{v.title}</h3>
-                <p className="text-sm text-muted-foreground">{v.text}</p>
+                <div className="w-10 h-10 rounded-lg bg-ouro/12 flex items-center justify-center mb-3">
+                  <v.icon className="w-5 h-5 text-ouro" />
+                </div>
+                <h3 className="font-display font-bold text-azul mb-1.5">{v.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{v.text}</p>
               </motion.div>
             ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-all hover:-translate-y-0.5"
+            >
+              <Wind className="w-4 h-4" /> Marcar Consulta RC360
+            </a>
           </div>
         </div>
       </section>

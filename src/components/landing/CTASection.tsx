@@ -1,120 +1,61 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Send } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/hooks/use-toast";
+import { useRef } from "react";
+import { MessageCircle, Phone, MapPin, Clock, Wind } from "lucide-react";
+import { WHATSAPP_LINK, PHONE_LINK, LOCATION, SCHEDULE } from "@/lib/site";
 
 const CTASection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
-  const [consent, setConsent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!consent) {
-      toast({
-        title: "Consentimento necessário",
-        description: "Por favor, aceite a política de privacidade para enviar a mensagem.",
-        variant: "destructive",
-      });
-      return;
-    }
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        title: "Obrigado pelo seu contacto.",
-        description: "Entraremos em resposta assim que possível.",
-      });
-      (e.target as HTMLFormElement).reset();
-      setConsent(false);
-    }, 800);
-  };
 
   return (
-    <section ref={ref} className="py-20 md:py-28">
-      <div className="container">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-10"
+    <section
+      ref={ref}
+      id="marcar"
+      className="relative py-24 md:py-28 px-6 text-center overflow-hidden bg-[linear-gradient(135deg,#0F2438_0%,#1A3D59_100%)]"
+    >
+      <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full border border-ouro/[0.07]" />
+      <div className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full border border-teal/[0.06]" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="container max-w-2xl relative z-10"
+      >
+        <span className="inline-block bg-ouro/12 border border-ouro/20 text-ouro-light text-[11px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-6">
+          Pronto para dar o próximo passo?
+        </span>
+        <h2 className="font-display text-4xl md:text-[46px] font-bold text-white leading-[1.1] mb-5">
+          O teu filho merece<br />uma leitura <span className="italic text-ouro-light">integrada.</span>
+        </h2>
+        <p className="text-[17px] text-white/60 leading-relaxed max-w-lg mx-auto mb-10">
+          Não precisas de ter a certeza. Precisas apenas de ter uma dúvida. A Consulta Respira e
+          Cresce 360 existe exactamente para isso — para dar clareza onde há dúvidas.
+        </p>
+
+        <div className="flex flex-wrap gap-3.5 justify-center mb-10">
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-8 py-4 rounded-[10px] text-base font-semibold transition-all hover:-translate-y-0.5"
           >
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-warm/10 text-warm mb-4">
-              Contacte-nos
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Quer saber mais sobre a{" "}
-              <span className="text-gradient">abordagem integrada</span>?
-            </h2>
-            <p className="text-muted-foreground">
-              Preencha os seus dados e descreva brevemente a situação. 
-              Entraremos em contacto assim que possível.
-            </p>
-          </motion.div>
-
-          <motion.form
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            onSubmit={handleSubmit}
-            className="bg-card rounded-2xl p-6 md:p-8 border border-border/50 shadow-sm space-y-4"
+            <MessageCircle className="w-5 h-5" /> Escrever RESPIRA por WhatsApp
+          </a>
+          <a
+            href={PHONE_LINK}
+            className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 px-8 py-4 rounded-[10px] text-base font-semibold transition-all"
           >
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Nome</label>
-                <Input placeholder="O seu nome" required className="rounded-xl" />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Email</label>
-                <Input type="email" placeholder="email@exemplo.com" required className="rounded-xl" />
-              </div>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Telefone (opcional)</label>
-                <Input placeholder="+351 ..." className="rounded-xl" />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Idade da criança (opcional)</label>
-                <Input placeholder="Ex: 3 anos" className="rounded-xl" />
-              </div>
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-1.5 block">Mensagem</label>
-              <Textarea
-                placeholder="Conte-nos um pouco sobre a sua situação ou dúvida..."
-                rows={4}
-                className="rounded-xl"
-              />
-            </div>
-
-            <div className="flex items-start gap-3">
-              <Checkbox
-                id="cta-consent"
-                checked={consent}
-                onCheckedChange={(checked) => setConsent(checked === true)}
-                className="mt-0.5"
-              />
-              <label htmlFor="cta-consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                Autorizo o tratamento dos meus dados pessoais para efeitos de resposta ao contacto, 
-                de acordo com a política de privacidade.
-              </label>
-            </div>
-
-            <Button type="submit" disabled={loading} className="w-full rounded-xl" size="lg">
-              <Send className="w-4 h-4 mr-2" />
-              {loading ? "A enviar..." : "Enviar Pedido"}
-            </Button>
-          </motion.form>
+            <Phone className="w-5 h-5" /> Ligar para a Clínica
+          </a>
         </div>
-      </div>
+
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-[13px] text-white/45">
+          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {LOCATION}</span>
+          <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {SCHEDULE}</span>
+          <span className="flex items-center gap-1.5"><Wind className="w-4 h-4" /> Escreve RESPIRA por mensagem</span>
+        </div>
+      </motion.div>
     </section>
   );
 };
