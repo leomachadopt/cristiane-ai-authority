@@ -40,7 +40,7 @@ const Sobre = () => {
       />
 
       {/* Bio em 1ª pessoa */}
-      <section className="py-20 md:py-24 bg-[#F4F7F9]">
+      <section className="py-20 md:py-24 bg-[#EDE5D5]">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-5xl mx-auto">
             <motion.div
@@ -112,7 +112,7 @@ const Sobre = () => {
       </section>
 
       {/* Valores */}
-      <section className="py-20 md:py-24 bg-[#F4F7F9]">
+      <section className="py-20 md:py-24 bg-[#EDE5D5]">
         <div className="container">
           <div className="text-center mb-12">
             <span className="eyebrow mb-3.5 block">Como trabalho</span>

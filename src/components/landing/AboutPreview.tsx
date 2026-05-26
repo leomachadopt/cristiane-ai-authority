@@ -19,7 +19,7 @@ const AboutPreview = () => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="sobre" className="py-20 md:py-24 bg-[#F4F7F9]">
+    <section ref={ref} id="sobre" className="py-20 md:py-24 bg-[#EDE5D5]">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Foto */}

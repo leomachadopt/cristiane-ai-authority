@@ -45,7 +45,7 @@ const FAQSection = ({ items = faqs, title, subtitle }: FAQSectionProps) => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="faq" className="py-20 md:py-24 bg-[#F4F7F9]">
+    <section ref={ref} id="faq" className="py-20 md:py-24 bg-[#EDE5D5]">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

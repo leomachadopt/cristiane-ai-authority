@@ -17,10 +17,10 @@ const HeroSection = () => {
       {/* anéis decorativos */}
       <div className="pointer-events-none absolute right-[-120px] top-1/2 -translate-y-1/2 w-[600px] h-[600px] hidden md:block">
         <div className="absolute inset-0 rounded-full border border-ouro/[0.06]" />
-        <div className="absolute inset-[60px] rounded-full border border-teal/[0.07]" />
+        <div className="absolute inset-[60px] rounded-full border border-salvia/[0.07]" />
         <div className="absolute inset-[120px] rounded-full border border-ouro/[0.08]" />
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_85%_50%,hsl(var(--teal)/0.07),transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_85%_50%,hsl(var(--salvia)/0.07),transparent_70%)]" />
 
       <div className="container relative z-10 py-20 md:py-24">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
@@ -90,7 +90,7 @@ const HeroSection = () => {
               <p className="eyebrow mb-2.5">A minha leitura clínica</p>
               {leitura.map((item) => (
                 <div key={item} className="flex items-center gap-2 py-1 text-xs text-muted-foreground">
-                  <Check className="w-3.5 h-3.5 text-teal shrink-0" strokeWidth={3} />
+                  <Check className="w-3.5 h-3.5 text-salvia shrink-0" strokeWidth={3} />
                   {item}
                 </div>
               ))}

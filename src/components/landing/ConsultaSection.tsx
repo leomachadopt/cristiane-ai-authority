@@ -45,7 +45,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="consulta" className="py-20 md:py-24 bg-teal/10">
+    <section ref={ref} id="consulta" className="py-20 md:py-24 bg-salvia/10">
       <div className="container max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -65,8 +65,8 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
           transition={{ duration: 0.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
           className="bg-azul-dark rounded-3xl p-8 md:p-12 mb-9 relative overflow-hidden"
         >
-          <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-teal/[0.06]" />
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-teal mb-3.5 relative z-10">
+          <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-salvia/[0.06]" />
+          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-salvia mb-3.5 relative z-10">
             Avaliação integrada · Metodologia exclusiva
           </p>
           <h3 className="font-display text-2xl md:text-3xl text-white mb-4 leading-snug relative z-10">
@@ -94,7 +94,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
               <ul className="flex flex-col gap-2">
                 {c.items.map((item) => (
                   <li key={item} className="flex gap-2 items-start text-[13px] text-muted-foreground leading-relaxed">
-                    <ArrowRight className="w-3 h-3 text-teal shrink-0 mt-1" strokeWidth={3} />
+                    <ArrowRight className="w-3 h-3 text-salvia shrink-0 mt-1" strokeWidth={3} />
                     {item}
                   </li>
                 ))}

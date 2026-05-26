@@ -6,8 +6,8 @@ import { PODCAST_LINK, WHATSAPP_LINK } from "@/lib/site";
 
 const hosts = [
   { name: "Dra. Cristiane Martins", role: "Odontopediatria Integrativa", initials: "CM", bg: "hsl(var(--azul))", color: "hsl(var(--ouro-light))" },
-  { name: "Leonardo", role: "Co-apresentador", initials: "Le", bg: "#185FA5", color: "#fff" },
-  { name: "Dra. Vânia", role: "Saúde Integrativa Pediátrica", initials: "V", bg: "#1A7A50", color: "#fff" },
+  { name: "Leonardo", role: "Co-apresentador", initials: "Le", bg: "hsl(var(--terracota))", color: "#fff" },
+  { name: "Dra. Vânia", role: "Saúde Integrativa Pediátrica", initials: "V", bg: "hsl(var(--salvia))", color: "#fff" },
 ];
 
 const topics = [
@@ -83,7 +83,7 @@ const Podcast = () => {
       <section className="py-20 md:py-24 bg-azul-dark">
         <div className="container max-w-3xl">
           <div className="text-center mb-12">
-            <span className="eyebrow mb-3.5 block text-teal">Episódios em destaque</span>
+            <span className="eyebrow mb-3.5 block text-salvia">Episódios em destaque</span>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
               Conversas que dão <span className="italic text-ouro-light">clareza.</span>
             </h2>
@@ -98,7 +98,7 @@ const Podcast = () => {
                 transition={{ duration: 0.4, delay: i * 0.07, ease: [0.23, 1, 0.32, 1] }}
                 className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 flex items-start gap-4 hover:bg-white/[0.07] transition-colors"
               >
-                <div className="w-11 h-11 rounded-xl bg-teal/12 text-teal flex items-center justify-center text-lg shrink-0">{ep.ico}</div>
+                <div className="w-11 h-11 rounded-xl bg-salvia/12 text-salvia flex items-center justify-center text-lg shrink-0">{ep.ico}</div>
                 <div>
                   <h3 className="font-semibold text-white leading-snug mb-0.5">{ep.title}</h3>
                   <p className="text-sm text-white/40 leading-relaxed">{ep.desc}</p>

@@ -6,64 +6,65 @@
 
 /* ══════════════════════════════════════════════════════════
    DESIGN SYSTEM — DRA. CRISTIANE MARTINS · METODOLOGIA RC360
-   Paleta oficial: azul, ouro, teal, rosa
+   Nova Paleta Pessoal: marfim, petróleo, dourado, sálvia, coral, terracota
 ══════════════════════════════════════════════════════════ */
 
 @layer base {
   :root {
-    --background: 48 33% 98%;        /* branco quente #FAFAF9 */
-    --foreground: 202 30% 14%;       /* texto #1A2830 */
+    --background: 37 40% 94%;        /* marfim #F5F0E8 */
+    --foreground: 197 30% 16%;       /* texto — petróleo escuro */
 
     --card: 0 0% 100%;
-    --card-foreground: 202 30% 14%;
+    --card-foreground: 197 30% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 202 30% 14%;
+    --popover-foreground: 197 30% 16%;
 
-    --primary: 207 55% 22%;          /* azul #1A3D59 */
-    --primary-foreground: 0 0% 100%;
+    --primary: 194 43% 30%;          /* azul petróleo #2C5F6F */
+    --primary-foreground: 37 40% 97%;
 
-    --secondary: 185 47% 94%;        /* teal-bg #E6F6F7 */
-    --secondary-foreground: 207 55% 22%;
+    --secondary: 125 24% 92%;        /* sálvia-bg */
+    --secondary-foreground: 194 43% 30%;
 
-    --muted: 200 22% 95%;
-    --muted-foreground: 202 11% 47%; /* cinza #6B7C86 */
+    --muted: 40 25% 92%;
+    --muted-foreground: 45 8% 45%;   /* cinza quente */
 
-    --accent: 183 48% 59%;           /* teal #64C2C8 */
-    --accent-foreground: 209 58% 14%;
+    --accent: 127 16% 55%;           /* verde sálvia #7A9E7E */
+    --accent-foreground: 194 50% 14%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 207 16% 90%;
-    --input: 207 16% 90%;
-    --ring: 41 40% 58%;              /* ouro */
+    --border: 40 20% 86%;
+    --input: 40 20% 86%;
+    --ring: 39 45% 61%;              /* dourado */
 
     --radius: 0.75rem;
 
-    /* ── Tokens de marca ── */
-    --azul: 207 55% 22%;             /* #1A3D59 */
-    --azul-dark: 209 58% 14%;        /* #0F2438 */
-    --ouro: 41 40% 58%;              /* #BFA468 */
-    --ouro-light: 40 45% 69%;        /* #D4BC8C */
-    --teal: 183 48% 59%;             /* #64C2C8 */
-    --rosa: 347 69% 80%;             /* #EFA7B7 */
-    --teal-bg: 185 47% 94%;          /* #E6F6F7 */
-    --rosa-bg: 345 71% 97%;          /* #FDF0F3 */
-    --ouro-bg: 41 50% 94%;           /* #F8F3E8 */
+    /* ── Tokens de marca (Nova Paleta Pessoal) ── */
+    --azul: 194 43% 30%;             /* azul petróleo #2C5F6F */
+    --azul-dark: 194 50% 14%;        /* petróleo escuro */
+    --ouro: 39 45% 61%;              /* dourado âncora #C8A96E */
+    --ouro-light: 39 53% 71%;        /* dourado claro */
+    --salvia: 127 16% 55%;           /* verde sálvia #7A9E7E */
+    --coral: 12 59% 59%;             /* coral #D4735A */
+    --terracota: 20 51% 53%;         /* terracota #C4734A */
+    --salvia-bg: 125 24% 92%;
+    --coral-bg: 16 60% 95%;
+    --terracota-bg: 22 55% 93%;
+    --ouro-bg: 40 45% 91%;
 
     /* ── Curvas de easing (Emil Kowalski) ── */
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
     --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
-    /* tons legados remapeados para a paleta de marca */
-    --coral: 347 69% 80%;
-    --coral-foreground: 209 58% 14%;
-    --lavender: 183 48% 59%;
-    --lavender-foreground: 209 58% 14%;
-    --warm: 41 40% 58%;
-    --warm-foreground: 209 58% 14%;
+    /* tons legados remapeados para a nova paleta */
+    --coral-foreground: 0 0% 100%;
+    --lavender: 127 16% 55%;
+    --lavender-foreground: 194 50% 14%;
+    --warm: 39 45% 61%;
+    --warm-foreground: 194 50% 14%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -76,25 +77,25 @@
   }
 
   .dark {
-    --background: 209 58% 8%;
-    --foreground: 48 33% 96%;
-    --card: 209 58% 11%;
-    --card-foreground: 48 33% 96%;
-    --popover: 209 58% 11%;
-    --popover-foreground: 48 33% 96%;
-    --primary: 41 40% 58%;
-    --primary-foreground: 209 58% 10%;
-    --secondary: 207 40% 18%;
-    --secondary-foreground: 48 33% 96%;
-    --muted: 207 40% 18%;
-    --muted-foreground: 200 14% 65%;
-    --accent: 183 48% 59%;
-    --accent-foreground: 209 58% 10%;
+    --background: 194 50% 8%;
+    --foreground: 37 40% 96%;
+    --card: 194 45% 11%;
+    --card-foreground: 37 40% 96%;
+    --popover: 194 45% 11%;
+    --popover-foreground: 37 40% 96%;
+    --primary: 39 45% 61%;
+    --primary-foreground: 194 50% 10%;
+    --secondary: 194 30% 18%;
+    --secondary-foreground: 37 40% 96%;
+    --muted: 194 30% 18%;
+    --muted-foreground: 40 14% 70%;
+    --accent: 127 16% 55%;
+    --accent-foreground: 194 50% 10%;
     --destructive: 0 63% 31%;
-    --destructive-foreground: 48 33% 96%;
-    --border: 207 30% 20%;
-    --input: 207 30% 20%;
-    --ring: 41 40% 58%;
+    --destructive-foreground: 37 40% 96%;
+    --border: 194 30% 20%;
+    --input: 194 30% 20%;
+    --ring: 39 45% 61%;
   }
 }
 
@@ -146,14 +147,14 @@
   }
   .text-ouro { color: hsl(var(--ouro)); }
   .text-ouro-light { color: hsl(var(--ouro-light)); }
-  .text-teal { color: hsl(var(--teal)); }
+  .text-salvia { color: hsl(var(--salvia)); }
 
   .bg-azul-dark { background-color: hsl(var(--azul-dark)); }
 
   .bg-gradient-hero {
     background:
-      radial-gradient(ellipse 70% 80% at 80% 30%, hsl(var(--teal) / 0.10), transparent 70%),
-      linear-gradient(160deg, hsl(var(--ouro) / 0.08), hsl(var(--teal) / 0.05) 60%, transparent);
+      radial-gradient(ellipse 70% 80% at 80% 30%, hsl(var(--salvia) / 0.10), transparent 70%),
+      linear-gradient(160deg, hsl(var(--ouro) / 0.08), hsl(var(--salvia) / 0.05) 60%, transparent);
   }
   .bg-gradient-card {
     background: linear-gradient(145deg, hsl(0 0% 100%), hsl(var(--ouro) / 0.05));

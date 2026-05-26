@@ -32,7 +32,7 @@ const Metodologia = () => {
             <div className="inline-flex items-center gap-2 flex-wrap justify-center">
               {ciclo.map((c, i) => (
                 <span key={c} className="flex items-center gap-2">
-                  <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-teal/15 text-azul">{c}</span>
+                  <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-salvia/15 text-azul">{c}</span>
                   {i < ciclo.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-ouro" />}
                 </span>
               ))}

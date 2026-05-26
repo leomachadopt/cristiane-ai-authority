@@ -37,12 +37,12 @@ export default {
           light: "hsl(var(--ouro-light))",
           foreground: "hsl(var(--azul-dark))",
         },
-        teal: {
-          DEFAULT: "hsl(var(--teal))",
+        salvia: {
+          DEFAULT: "hsl(var(--salvia))",
           foreground: "hsl(var(--azul-dark))",
         },
-        rosa: {
-          DEFAULT: "hsl(var(--rosa))",
+        terracota: {
+          DEFAULT: "hsl(var(--terracota))",
           foreground: "hsl(var(--azul-dark))",
         },
         primary: {

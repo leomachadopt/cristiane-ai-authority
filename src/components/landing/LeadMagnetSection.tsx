@@ -31,7 +31,7 @@ const LeadMagnetSection = () => {
     <section
       ref={ref}
       id="checklist"
-      className="py-20 px-6 border-y border-ouro/20 bg-[linear-gradient(135deg,hsl(var(--ouro-bg)),#FFF6E8)]"
+      className="py-20 px-6 border-y border-ouro/20 bg-[linear-gradient(135deg,hsl(var(--ouro-bg)),#F7EDD9)]"
     >
       <div className="container max-w-4xl">
         <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-12 items-center">

@@ -88,7 +88,7 @@ const PainSection = () => {
             <div className="flex flex-col gap-2.5">
               {respostas.map((r) => (
                 <div key={r} className="flex gap-2.5 items-start text-[13px] text-white/75">
-                  <ArrowRight className="w-4 h-4 text-teal shrink-0 mt-0.5" strokeWidth={2.5} />
+                  <ArrowRight className="w-4 h-4 text-salvia shrink-0 mt-0.5" strokeWidth={2.5} />
                   {r}
                 </div>
               ))}

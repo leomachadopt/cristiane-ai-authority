@@ -50,7 +50,7 @@ const TestimonialsSection = () => {
                 {d.text}
               </p>
               <div className="flex items-center gap-3 mt-5 pt-4 border-t border-border/70">
-                <div className="w-10 h-10 rounded-full bg-teal/15 flex items-center justify-center text-sm font-bold text-[#0F6E56] shrink-0">
+                <div className="w-10 h-10 rounded-full bg-salvia/15 flex items-center justify-center text-sm font-bold text-[#3C5E46] shrink-0">
                   {d.iniciais}
                 </div>
                 <div>

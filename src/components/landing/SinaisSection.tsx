@@ -19,7 +19,7 @@ const SinaisSection = ({ ctaHref = "#consulta" }: { ctaHref?: string }) => {
     <section ref={ref} id="sinais" className="py-20 md:py-24 bg-azul-dark">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center mb-14">
-          <span className="eyebrow mb-3.5 block text-teal">Sinais que merecem atenção</span>
+          <span className="eyebrow mb-3.5 block text-salvia">Sinais que merecem atenção</span>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-[1.15] mb-4">
             Reconheces algum destes sinais<br />
             <span className="italic text-ouro-light">no teu filho?</span>
@@ -42,12 +42,12 @@ const SinaisSection = ({ ctaHref = "#consulta" }: { ctaHref?: string }) => {
               <div className="text-[26px] mb-3.5">{s.ico}</div>
               <h3 className="text-[15px] font-bold text-white mb-1.5">{s.title}</h3>
               <p className="text-[13px] text-white/50 leading-relaxed">{s.desc}</p>
-              <p className="text-[11px] text-teal font-medium mt-2.5">{s.alert}</p>
+              <p className="text-[11px] text-salvia font-medium mt-2.5">{s.alert}</p>
             </motion.div>
           ))}
         </div>
 
-        <div className="max-w-2xl mx-auto bg-teal/[0.07] border border-teal/15 rounded-2xl px-7 py-5 text-center mb-10">
+        <div className="max-w-2xl mx-auto bg-salvia/[0.07] border border-salvia/15 rounded-2xl px-7 py-5 text-center mb-10">
           <p className="text-sm text-white/60 leading-relaxed">
             <strong className="text-white/85 font-medium">Nenhum destes sinais isolado fecha um
             diagnóstico.</strong> Mas quando aparecem em conjunto — e sobretudo quando persistem —

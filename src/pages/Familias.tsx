@@ -56,8 +56,8 @@ const Familias = () => {
                 transition={{ duration: 0.45, delay: i * 0.1, ease: [0.23, 1, 0.32, 1] }}
                 className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-[box-shadow] duration-200 ease-out-expo"
               >
-                <div className="w-10 h-10 rounded-lg bg-teal/12 flex items-center justify-center mb-4">
-                  <BookOpen className="w-5 h-5 text-teal" />
+                <div className="w-10 h-10 rounded-lg bg-salvia/12 flex items-center justify-center mb-4">
+                  <BookOpen className="w-5 h-5 text-salvia" />
                 </div>
                 <h3 className="font-display font-bold text-azul mb-2 leading-snug">{item.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.summary}</p>
@@ -73,8 +73,8 @@ const Familias = () => {
             className="mt-10 bg-azul-dark rounded-3xl overflow-hidden grid md:grid-cols-5"
           >
             <div className="md:col-span-2 p-8 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-white/[0.08]">
-              <div className="w-16 h-16 rounded-2xl bg-teal/12 flex items-center justify-center mb-4">
-                <Mic className="w-8 h-8 text-teal" />
+              <div className="w-16 h-16 rounded-2xl bg-salvia/12 flex items-center justify-center mb-4">
+                <Mic className="w-8 h-8 text-salvia" />
               </div>
               <h3 className="font-display font-bold text-lg text-white">Família 360</h3>
               <p className="text-xs text-white/40">Saúde Integrada</p>

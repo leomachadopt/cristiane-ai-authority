@@ -82,12 +82,12 @@ const Contacto = () => {
               <span className="text-sm text-muted-foreground">{PHONE_DISPLAY}</span>
             </a>
             <div className="bg-white border border-border/70 rounded-2xl p-6 flex flex-col gap-2">
-              <MapPin className="w-6 h-6 text-teal" />
+              <MapPin className="w-6 h-6 text-salvia" />
               <span className="font-semibold text-azul mt-1">Localização</span>
               <span className="text-sm text-muted-foreground">{LOCATION}</span>
             </div>
             <div className="bg-white border border-border/70 rounded-2xl p-6 flex flex-col gap-2">
-              <Clock className="w-6 h-6 text-teal" />
+              <Clock className="w-6 h-6 text-salvia" />
               <span className="font-semibold text-azul mt-1">Horário</span>
               <span className="text-sm text-muted-foreground">{SCHEDULE}</span>
             </div>

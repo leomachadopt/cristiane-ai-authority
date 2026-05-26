@@ -5,8 +5,8 @@ import { PODCAST_LINK } from "@/lib/site";
 
 const hosts = [
   { initials: "CM", name: "Dra. Cristiane", bg: "hsl(var(--azul))", color: "hsl(var(--ouro-light))" },
-  { initials: "Le", name: "Leonardo", bg: "#185FA5", color: "#fff" },
-  { initials: "V", name: "Dra. Vânia", bg: "#1A7A50", color: "#fff" },
+  { initials: "Le", name: "Leonardo", bg: "hsl(var(--terracota))", color: "#fff" },
+  { initials: "V", name: "Dra. Vânia", bg: "hsl(var(--salvia))", color: "#fff" },
 ];
 
 const episodes = [
@@ -31,7 +31,7 @@ const PodcastPreview = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           >
-            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-teal mb-3.5">🎙️ Podcast</p>
+            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-salvia mb-3.5">🎙️ Podcast</p>
             <h2 className="font-display text-3xl md:text-4xl text-white leading-tight mb-4">
               Família 360<br />Saúde Integrada
             </h2>
@@ -76,7 +76,7 @@ const PodcastPreview = () => {
                 key={ep.title}
                 className={`flex gap-3.5 py-3.5 ${i < episodes.length - 1 ? "border-b border-white/[0.06]" : ""}`}
               >
-                <div className="w-9 h-9 rounded-[9px] bg-teal/15 text-teal flex items-center justify-center text-sm shrink-0">
+                <div className="w-9 h-9 rounded-[9px] bg-salvia/15 text-salvia flex items-center justify-center text-sm shrink-0">
                   {ep.ico}
                 </div>
                 <div>
