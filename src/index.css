@@ -6,7 +6,7 @@
 
 /* ══════════════════════════════════════════════════════════
    DESIGN SYSTEM — DRA. CRISTIANE MARTINS · METODOLOGIA RC360
-   Nova Paleta Pessoal: marfim, petróleo, dourado, sálvia, coral, terracota
+   Nova Paleta Pessoal: marfim, tinta (#1A1208), dourado, sálvia, coral, terracota
 ══════════════════════════════════════════════════════════ */
 
 @layer base {
@@ -20,17 +20,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 197 30% 16%;
 
-    --primary: 194 43% 30%;          /* azul petróleo #2C5F6F */
+    --primary: 34 53% 7%;            /* tinta #1A1208 */
     --primary-foreground: 37 40% 97%;
 
     --secondary: 125 24% 92%;        /* sálvia-bg */
-    --secondary-foreground: 194 43% 30%;
+    --secondary-foreground: 34 53% 7%;
 
     --muted: 40 25% 92%;
     --muted-foreground: 45 8% 45%;   /* cinza quente */
 
     --accent: 127 16% 55%;           /* verde sálvia #7A9E7E */
-    --accent-foreground: 194 50% 14%;
+    --accent-foreground: 34 53% 7%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -42,8 +42,10 @@
     --radius: 0.75rem;
 
     /* ── Tokens de marca (Nova Paleta Pessoal) ── */
-    --azul: 194 43% 30%;             /* azul petróleo #2C5F6F */
-    --azul-dark: 194 50% 14%;        /* petróleo escuro */
+    /* Nota: azul/azul-dark mantidos como aliases por compatibilidade,
+       mas apontam para a única cor escura da paleta — tinta #1A1208. */
+    --azul: 34 53% 7%;               /* tinta #1A1208 */
+    --azul-dark: 34 53% 7%;          /* tinta #1A1208 (única cor escura) */
     --ouro: 39 45% 61%;              /* dourado âncora #C8A96E */
     --ouro-light: 39 53% 71%;        /* dourado claro */
     --salvia: 127 16% 55%;           /* verde sálvia #7A9E7E */
@@ -62,9 +64,9 @@
     /* tons legados remapeados para a nova paleta */
     --coral-foreground: 0 0% 100%;
     --lavender: 127 16% 55%;
-    --lavender-foreground: 194 50% 14%;
+    --lavender-foreground: 34 53% 7%;
     --warm: 39 45% 61%;
-    --warm-foreground: 194 50% 14%;
+    --warm-foreground: 34 53% 7%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -77,24 +79,24 @@
   }
 
   .dark {
-    --background: 194 50% 8%;
+    --background: 34 53% 7%;
     --foreground: 37 40% 96%;
-    --card: 194 45% 11%;
+    --card: 34 40% 10%;
     --card-foreground: 37 40% 96%;
-    --popover: 194 45% 11%;
+    --popover: 34 40% 10%;
     --popover-foreground: 37 40% 96%;
     --primary: 39 45% 61%;
-    --primary-foreground: 194 50% 10%;
-    --secondary: 194 30% 18%;
+    --primary-foreground: 34 53% 7%;
+    --secondary: 34 25% 16%;
     --secondary-foreground: 37 40% 96%;
-    --muted: 194 30% 18%;
+    --muted: 34 25% 16%;
     --muted-foreground: 40 14% 70%;
     --accent: 127 16% 55%;
-    --accent-foreground: 194 50% 10%;
+    --accent-foreground: 34 53% 7%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 37 40% 96%;
-    --border: 194 30% 20%;
-    --input: 194 30% 20%;
+    --border: 34 25% 18%;
+    --input: 34 25% 18%;
     --ring: 39 45% 61%;
   }
 }

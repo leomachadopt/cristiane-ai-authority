@@ -11,7 +11,7 @@ const CTASection = () => {
     <section
       ref={ref}
       id="marcar"
-      className="relative py-24 md:py-28 px-6 text-center overflow-hidden bg-[linear-gradient(135deg,#10333D_0%,#2C5F6F_100%)]"
+      className="relative py-24 md:py-28 px-6 text-center overflow-hidden bg-[linear-gradient(135deg,#1A1208_0%,#2A1C0E_100%)]"
     >
       <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full border border-ouro/[0.07]" />
       <div className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full border border-salvia/[0.06]" />
