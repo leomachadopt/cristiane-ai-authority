@@ -1,0 +1,104 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { getDashboard } from "@/lib/ga";
+import { GA_ID } from "@/config";
+
+const days = Number(Astro.url.searchParams.get("days") ?? "28") || 28;
+const data = await getDashboard(days);
+
+const fmtNum = (v: number) => new Intl.NumberFormat("pt-PT").format(Math.round(v));
+const fmtDur = (s: number) => `${Math.floor(s / 60)}m ${Math.round(s % 60)}s`;
+const maxUsers = Math.max(1, ...(data.trend ?? []).map((t) => t.users));
+---
+
+<AdminLayout title="Analytics" active="analytics">
+  {
+    !data.configured ? (
+      <div class="bg-ouro/10 border border-ouro/30 rounded-xl px-5 py-5 text-sm text-azul max-w-2xl">
+        <p class="font-semibold mb-2">Dashboard de leitura ainda não configurado.</p>
+        <p class="mb-3">
+          O rastreio de visitas <strong>já está ativo</strong> no site (Measurement ID
+          <code>{GA_ID}</code>). Para <em>ler</em> os dados aqui, a Data API do GA4 precisa de:
+        </p>
+        <ol class="list-decimal pl-5 flex flex-col gap-1.5">
+          <li><strong>GA_PROPERTY_ID</strong> — o ID numérico da propriedade (GA4 → Admin → Detalhes da propriedade), ex.: <code>123456789</code>.</li>
+          <li><strong>GA_SERVICE_ACCOUNT</strong> — JSON de uma conta de serviço Google com acesso de leitura à propriedade (adicionar o email da conta como Visualizador no GA4).</li>
+        </ol>
+        <p class="mt-3 text-muted-foreground">Define ambas nas variáveis de ambiente (Vercel + .env local) e esta página acende-se.</p>
+      </div>
+    ) : data.error ? (
+      <div class="bg-destructive/10 border border-destructive/30 rounded-xl px-5 py-4 text-sm text-destructive max-w-2xl">
+        Erro ao ler o GA4: {data.error}
+      </div>
+    ) : (
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center gap-2">
+          {[7, 28, 90].map((d) => (
+            <a
+              href={`/admin/analytics/?days=${d}`}
+              class:list={["px-3 py-1.5 rounded-lg text-[13px] font-medium border", days === d ? "bg-azul-dark text-white border-azul-dark" : "bg-white text-azul border-border"]}
+            >
+              {d} dias
+            </a>
+          ))}
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white rounded-2xl border border-border/60 p-5">
+            <p class="text-[13px] text-muted-foreground uppercase tracking-wider mb-1">Utilizadores</p>
+            <p class="font-display text-3xl font-bold text-azul">{fmtNum(data.summary!.users)}</p>
+          </div>
+          <div class="bg-white rounded-2xl border border-border/60 p-5">
+            <p class="text-[13px] text-muted-foreground uppercase tracking-wider mb-1">Sessões</p>
+            <p class="font-display text-3xl font-bold text-azul">{fmtNum(data.summary!.sessions)}</p>
+          </div>
+          <div class="bg-white rounded-2xl border border-border/60 p-5">
+            <p class="text-[13px] text-muted-foreground uppercase tracking-wider mb-1">Visualizações</p>
+            <p class="font-display text-3xl font-bold text-azul">{fmtNum(data.summary!.pageViews)}</p>
+          </div>
+          <div class="bg-white rounded-2xl border border-border/60 p-5">
+            <p class="text-[13px] text-muted-foreground uppercase tracking-wider mb-1">Duração média</p>
+            <p class="font-display text-3xl font-bold text-azul">{fmtDur(data.summary!.avgDuration)}</p>
+          </div>
+        </div>
+
+        {data.trend && data.trend.length > 0 && (
+          <div class="bg-white rounded-2xl border border-border/60 p-5">
+            <p class="text-sm font-semibold text-azul mb-4">Utilizadores por dia</p>
+            <div class="flex items-end gap-1 h-32">
+              {data.trend.map((t) => (
+                <div class="flex-1 bg-salvia/40 hover:bg-salvia rounded-t" style={`height:${Math.max(2, (t.users / maxUsers) * 100)}%`} title={`${t.date}: ${t.users}`} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white rounded-2xl border border-border/60 p-5">
+            <p class="text-sm font-semibold text-azul mb-3">Páginas mais vistas</p>
+            <ul class="flex flex-col gap-2">
+              {(data.topPages ?? []).map((p) => (
+                <li class="flex justify-between gap-3 text-[13px]">
+                  <span class="text-muted-foreground truncate">{p.path}</span>
+                  <span class="font-semibold text-azul">{fmtNum(p.views)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="bg-white rounded-2xl border border-border/60 p-5">
+            <p class="text-sm font-semibold text-azul mb-3">Origens de tráfego</p>
+            <ul class="flex flex-col gap-2">
+              {(data.sources ?? []).map((s) => (
+                <li class="flex justify-between gap-3 text-[13px]">
+                  <span class="text-muted-foreground truncate">{s.source}</span>
+                  <span class="font-semibold text-azul">{fmtNum(s.users)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    )
+  }
+</AdminLayout>

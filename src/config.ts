@@ -49,5 +49,5 @@ export const BUSINESS = {
   instagramHandle: INSTAGRAM_HANDLE,
 } as const;
 
-/** ID do Google Analytics 4 (vazio = desligado). Definir em produção. */
-export const GA_ID = import.meta.env.PUBLIC_GA_ID ?? "";
+/** Measurement ID do Google Analytics 4 (gtag.js — rastreio de visitas). Público. */
+export const GA_ID = import.meta.env.PUBLIC_GA_ID ?? "G-SSFYWMC11M";
