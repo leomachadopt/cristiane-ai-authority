@@ -71,8 +71,14 @@ const json = (v: unknown) => JSON.stringify(v ?? [], null, 2);
 
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
-            <label class="text-sm font-medium text-azul mb-1.5 block">Imagem de capa (URL)</label>
-            <input name="image" value={article.image ?? ""} placeholder="https://…blob…" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
+            <label class="text-sm font-medium text-azul mb-1.5 block">Imagem de capa</label>
+            <input id="cover-url" name="image" value={article.image ?? ""} placeholder="URL ou carrega abaixo" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
+            <div class="flex items-center gap-2 mt-2 flex-wrap">
+              <input id="cover-file" type="file" accept="image/*" class="text-[13px] file:mr-2 file:px-3 file:py-1 file:rounded-md file:border-0 file:bg-azul-dark file:text-white file:text-[13px]" />
+              <button type="button" id="cover-upload" class="text-[13px] bg-salvia/20 text-[#3C5E46] px-3 py-1.5 rounded-lg font-medium">Carregar capa</button>
+              <span id="cover-msg" class="text-[13px] text-muted-foreground"></span>
+            </div>
+            <img id="cover-preview" src={article.image ?? ""} alt="" class:list={["mt-3 rounded-lg max-h-40 border border-border/60", !article.image && "hidden"]} />
           </div>
           <div>
             <label class="text-sm font-medium text-azul mb-1.5 block">Alt da capa</label>
@@ -116,6 +122,37 @@ const json = (v: unknown) => JSON.stringify(v ?? [], null, 2);
           <a href="/admin/" class="text-sm text-muted-foreground hover:text-azul">Cancelar</a>
         </div>
       </form>
+
+      <script is:inline>
+        (function () {
+          const fileEl = document.getElementById("cover-file");
+          const btn = document.getElementById("cover-upload");
+          const urlEl = document.getElementById("cover-url");
+          const altEl = document.querySelector('input[name="cover_alt"]');
+          const msg = document.getElementById("cover-msg");
+          const prev = document.getElementById("cover-preview");
+          urlEl?.addEventListener("input", () => {
+            if (urlEl.value) { prev.src = urlEl.value; prev.classList.remove("hidden"); }
+          });
+          btn?.addEventListener("click", async () => {
+            const f = fileEl.files[0];
+            if (!f) { msg.textContent = "Escolhe um ficheiro."; return; }
+            const fd = new FormData();
+            fd.append("file", f);
+            fd.append("alt", altEl?.value || "");
+            msg.textContent = "A carregar..."; btn.disabled = true;
+            try {
+              const res = await fetch("/api/media/upload/", { method: "POST", body: fd });
+              const d = await res.json();
+              if (d.ok) {
+                urlEl.value = d.url; prev.src = d.url; prev.classList.remove("hidden");
+                msg.textContent = "Capa carregada ✓ — não esqueças de Guardar.";
+              } else msg.textContent = d.error || "Falha no upload.";
+            } catch (e) { msg.textContent = "Erro: " + e.message; }
+            btn.disabled = false;
+          });
+        })();
+      </script>
     )
   }
 </AdminLayout>
