@@ -12,3 +12,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+
+Sitemap: https://www.cristianemartins.pt/sitemap-index.xml
+Sitemap: https://www.cristianemartins.pt/sitemap-blog.xml
