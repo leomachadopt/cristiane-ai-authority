@@ -1,19 +1,37 @@
 ---
 export const prerender = false;
 import AdminLayout from "@/layouts/AdminLayout.astro";
-import { getArticleBySlug } from "@/lib/articles";
+import { getArticleBySlug, getAllArticlesAdmin } from "@/lib/articles";
 import { PILAR_LABELS } from "@/lib/cta";
 
 const { slug } = Astro.params;
 const article = slug ? await getArticleBySlug(slug) : null;
-const saved = Astro.url.searchParams.get("saved");
 
 const ctaOptions = [
   { v: "agendar-consulta", l: "Agendar consulta" },
   { v: "checklist", l: "Checklist (7 sinais)" },
   { v: "podcast", l: "Podcast" },
 ];
-const json = (v: unknown) => JSON.stringify(v ?? [], null, 2);
+
+// Opções de "related": páginas do site + artigos publicados (exceto o atual).
+const PAGES = [
+  { path: "/metodologia/", label: "Página: Metodologia" },
+  { path: "/familias/", label: "Página: Sinais a Observar" },
+  { path: "/sobre/", label: "Página: Sobre" },
+  { path: "/podcast/", label: "Página: Podcast" },
+  { path: "/contacto/", label: "Página: Contacto" },
+];
+const all = article ? await getAllArticlesAdmin() : [];
+const articleOpts = all
+  .filter((x) => !x.draft && x.slug !== slug)
+  .map((x) => ({ path: `/blog/${x.slug}/`, label: x.title }));
+const relatedOptions = [...PAGES, ...articleOpts];
+const norm = (p: string) => "/" + String(p).replace(/^\/+|\/+$/g, "") + "/";
+const currentRelated = (article?.related ?? []).map(norm);
+const d = (v: string | null) => (v ? new Date(v).toISOString().slice(0, 10) : "");
+const jsonStr = (v: unknown) => JSON.stringify(v ?? [], null, 2);
+const inputCls =
+  "w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro";
 ---
 
 <AdminLayout title="Editar artigo" active="dashboard">
@@ -21,137 +39,264 @@ const json = (v: unknown) => JSON.stringify(v ?? [], null, 2);
     !article ? (
       <p class="text-muted-foreground">Artigo não encontrado. <a href="/admin/" class="text-azul underline">Voltar à lista</a>.</p>
     ) : (
-      <form method="POST" action="/api/articles/update/" class="flex flex-col gap-5 max-w-3xl">
-        <input type="hidden" name="slug" value={article.slug} />
+      <div class="grid lg:grid-cols-[1fr_minmax(360px,460px)] gap-6 items-start">
+        <!-- Coluna do formulário -->
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="/admin/" class="text-[13px] text-azul underline">← Voltar</a>
+            <span class="text-[13px] text-muted-foreground">/blog/{article.slug}/</span>
+            <span
+              class:list={["text-[12px] font-semibold px-2.5 py-0.5 rounded-full", article.draft ? "bg-ouro/15 text-[#854F0B]" : "bg-salvia/20 text-[#3C5E46]"]}
+            >
+              {article.draft ? "Rascunho" : "Publicado"}
+            </span>
+          </div>
 
-        {saved && <div class="bg-salvia/10 border border-salvia/30 rounded-xl px-4 py-3 text-sm text-[#3C5E46]">Alterações guardadas.</div>}
-
-        <div class="flex flex-wrap items-center gap-3 -mb-1">
-          <span class="text-[13px] text-muted-foreground">/blog/{article.slug}/</span>
-          <span class:list={["text-[12px] font-semibold px-2.5 py-0.5 rounded-full", article.draft ? "bg-ouro/15 text-[#854F0B]" : "bg-salvia/20 text-[#3C5E46]"]}>
-            {article.draft ? "Rascunho" : "Publicado"}
-          </span>
-          <a href={article.draft ? `/admin/preview/${article.slug}/` : `/blog/${article.slug}/`} target="_blank" class="text-[13px] text-azul underline">Pré-visualizar ↗</a>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium text-azul mb-1.5 block">Título</label>
-          <input name="title" value={article.title} required class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
-        </div>
-
-        <div class="grid sm:grid-cols-2 gap-4">
           <div>
-            <label class="text-sm font-medium text-azul mb-1.5 block">Pilar</label>
-            <select name="pilar" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">
-              {Object.entries(PILAR_LABELS).map(([v, l]) => (
-                <option value={v} selected={article.pilar === v}>{l}</option>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Título</label>
+            <input id="title" value={article.title} class={inputCls} />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Resumo / descrição</label>
+            <textarea id="description" rows="2" class={inputCls}>{article.description}</textarea>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm font-medium text-azul mb-1.5 block">Pilar</label>
+              <select id="pilar" class={inputCls}>
+                {Object.entries(PILAR_LABELS).map(([v, l]) => <option value={v} selected={article.pilar === v}>{l}</option>)}
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-azul mb-1.5 block">Tema clínico</label>
+              <input id="tema_clinico" value={article.tema_clinico ?? ""} class={inputCls} />
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Resposta direta (bloco GEO)</label>
+            <textarea id="resposta_direta" rows="3" class={inputCls}>{article.resposta_direta ?? ""}</textarea>
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Corpo (Markdown)</label>
+            <textarea id="content" rows="16" class={`${inputCls} font-mono text-[13px]`}>{article.content ?? ""}</textarea>
+          </div>
+
+          <!-- FAQ repetível -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="text-sm font-medium text-azul">Perguntas frequentes (FAQPage)</label>
+              <button type="button" id="faq-add" class="text-[13px] text-azul bg-azul/10 px-3 py-1 rounded-lg font-medium">+ Pergunta</button>
+            </div>
+            <div id="faq-list" class="flex flex-col gap-2">
+              {(article.faq ?? []).map((f) => (
+                <div class="faq-row bg-white rounded-xl border border-border/60 p-3">
+                  <input class="fq-q w-full mb-2 px-3 py-1.5 rounded-lg border border-border text-sm" placeholder="Pergunta" value={f.pergunta} />
+                  <textarea class="fq-a w-full px-3 py-1.5 rounded-lg border border-border text-sm" rows="2" placeholder="Resposta">{f.resposta}</textarea>
+                  <button type="button" class="fq-del text-[13px] text-destructive mt-1">Remover</button>
+                </div>
               ))}
-            </select>
+            </div>
           </div>
-          <div>
-            <label class="text-sm font-medium text-azul mb-1.5 block">Tema clínico</label>
-            <input name="tema_clinico" value={article.tema_clinico ?? ""} class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
-          </div>
-        </div>
 
-        <div>
-          <label class="text-sm font-medium text-azul mb-1.5 block">Resumo (cartões + meta)</label>
-          <textarea name="resumo" rows="2" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">{article.description}</textarea>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium text-azul mb-1.5 block">Resposta direta (bloco GEO)</label>
-          <textarea name="resposta_direta" rows="3" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">{article.resposta_direta ?? ""}</textarea>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium text-azul mb-1.5 block">Corpo (Markdown)</label>
-          <textarea name="content" rows="16" class="w-full font-mono text-[13px] px-4 py-3 rounded-xl border-[1.5px] border-border bg-white outline-none focus:border-ouro">{article.content ?? ""}</textarea>
-        </div>
-
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="text-sm font-medium text-azul mb-1.5 block">Imagem de capa</label>
-            <input id="cover-url" name="image" value={article.image ?? ""} placeholder="URL ou carrega abaixo" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
-            <div class="flex items-center gap-2 mt-2 flex-wrap">
+          <!-- Capa -->
+          <div class="bg-white rounded-xl border border-border/60 p-4">
+            <label class="text-sm font-medium text-azul mb-2 block">Imagem de capa</label>
+            <img id="cover-preview" src={article.image ?? ""} alt="" class:list={["mb-3 rounded-lg max-h-48 border border-border/60", !article.image && "hidden"]} />
+            <input id="image" type="hidden" value={article.image ?? ""} />
+            <div class="flex items-center gap-2 flex-wrap">
               <input id="cover-file" type="file" accept="image/*" class="text-[13px] file:mr-2 file:px-3 file:py-1 file:rounded-md file:border-0 file:bg-azul-dark file:text-white file:text-[13px]" />
-              <button type="button" id="cover-upload" class="text-[13px] bg-salvia/20 text-[#3C5E46] px-3 py-1.5 rounded-lg font-medium">Carregar capa</button>
+              <button type="button" id="cover-upload" class="text-[13px] bg-salvia/20 text-[#3C5E46] px-3 py-1.5 rounded-lg font-medium">Carregar / substituir</button>
               <span id="cover-msg" class="text-[13px] text-muted-foreground"></span>
             </div>
-            <img id="cover-preview" src={article.image ?? ""} alt="" class:list={["mt-3 rounded-lg max-h-40 border border-border/60", !article.image && "hidden"]} />
+            <div class="grid sm:grid-cols-2 gap-3 mt-3">
+              <div>
+                <label class="text-[13px] font-medium text-azul mb-1 block">Alt (SEO/acessibilidade)</label>
+                <input id="cover_alt" value={article.cover_alt ?? ""} class={inputCls} />
+              </div>
+              <div>
+                <label class="text-[13px] font-medium text-azul mb-1 block">Legenda</label>
+                <input id="cover_caption" value={article.cover_caption ?? ""} class={inputCls} />
+              </div>
+            </div>
+          </div>
+
+          <!-- SEO + datas + cta + noindex -->
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm font-medium text-azul mb-1.5 block">Meta título (SEO)</label>
+              <input id="seo_title" value={article.seo_title ?? ""} class={inputCls} />
+            </div>
+            <div>
+              <label class="text-sm font-medium text-azul mb-1.5 block">CTA</label>
+              <select id="cta" class={inputCls}>
+                {ctaOptions.map((o) => <option value={o.v} selected={article.cta === o.v}>{o.l}</option>)}
+              </select>
+            </div>
           </div>
           <div>
-            <label class="text-sm font-medium text-azul mb-1.5 block">Alt da capa</label>
-            <input name="cover_alt" value={article.cover_alt ?? ""} class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
+            <label class="text-sm font-medium text-azul mb-1.5 block">Meta descrição (SEO)</label>
+            <textarea id="meta_description" rows="2" class={inputCls}>{article.meta_description ?? ""}</textarea>
           </div>
-        </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm font-medium text-azul mb-1.5 block">Data de publicação</label>
+              <input id="pub_date" type="date" value={d(article.pub_date)} class={inputCls} />
+            </div>
+            <div>
+              <label class="text-sm font-medium text-azul mb-1.5 block">Última atualização</label>
+              <input id="updated_date" type="date" value={d(article.updated_date)} class={inputCls} />
+            </div>
+          </div>
+          <label class="flex items-center gap-2 text-sm text-azul">
+            <input type="checkbox" id="noindex" checked={article.noindex ?? false} class="w-4 h-4" /> Não indexar (noindex)
+          </label>
 
-        <div class="grid sm:grid-cols-2 gap-4">
+          <!-- Related checkboxes -->
           <div>
-            <label class="text-sm font-medium text-azul mb-1.5 block">CTA</label>
-            <select name="cta" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">
-              {ctaOptions.map((o) => <option value={o.v} selected={article.cta === o.v}>{o.l}</option>)}
-            </select>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Leitura relacionada (crosslinks)</label>
+            <div class="bg-white rounded-xl border border-border/60 p-3 grid sm:grid-cols-2 gap-x-4 gap-y-1.5 max-h-56 overflow-auto">
+              {relatedOptions.map((o) => (
+                <label class="flex items-center gap-2 text-[13px] text-foreground">
+                  <input type="checkbox" class="f-related w-4 h-4" value={o.path} checked={currentRelated.includes(o.path)} />
+                  <span class="truncate">{o.label}</span>
+                </label>
+              ))}
+            </div>
           </div>
-          <div class="flex items-center gap-2 pt-7">
-            <input type="checkbox" id="noindex" name="noindex" checked={article.noindex ?? false} class="w-4 h-4" />
-            <label for="noindex" class="text-sm text-azul">noindex (não indexar)</label>
+
+          <!-- Referências (avançado) -->
+          <details class="bg-white rounded-xl border border-border/60 px-4 py-3">
+            <summary class="text-sm font-medium text-azul cursor-pointer">Referências (JSON)</summary>
+            <textarea id="referencias" rows="5" class="w-full mt-3 font-mono text-[12px] px-3 py-2 rounded-lg border border-border bg-background">{jsonStr(article.referencias)}</textarea>
+          </details>
+
+          <!-- Ações -->
+          <div class="flex items-center gap-2 flex-wrap sticky bottom-0 bg-[#F5F0E8] py-3 border-t border-border">
+            <button id="save" class="bg-azul-dark hover:bg-azul text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors">Guardar</button>
+            {article.draft
+              ? <button id="publish" data-action="publish" class="bg-salvia/80 hover:bg-salvia text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors">Publicar</button>
+              : <button id="publish" data-action="unpublish" class="border border-border bg-white text-azul px-5 py-2.5 rounded-lg text-sm font-semibold">Despublicar</button>}
+            <button id="preview-btn" class="border border-border bg-white text-azul px-4 py-2.5 rounded-lg text-sm font-semibold">Pré-visualizar</button>
+            <a href={`/blog/${article.slug}/`} target="_blank" class="text-sm text-azul underline">Ver no site ↗</a>
+            <span id="msg" class="text-[13px]"></span>
           </div>
         </div>
 
-        <details class="bg-white rounded-xl border border-border/60 px-4 py-3">
-          <summary class="text-sm font-medium text-azul cursor-pointer">Campos avançados (FAQ, referências, related — JSON)</summary>
-          <div class="flex flex-col gap-4 mt-4">
-            <div>
-              <label class="text-[13px] font-medium text-azul mb-1 block">FAQ</label>
-              <textarea name="faq" rows="5" class="w-full font-mono text-[12px] px-3 py-2 rounded-lg border border-border bg-background">{json(article.faq)}</textarea>
-            </div>
-            <div>
-              <label class="text-[13px] font-medium text-azul mb-1 block">Referências</label>
-              <textarea name="referencias" rows="4" class="w-full font-mono text-[12px] px-3 py-2 rounded-lg border border-border bg-background">{json(article.referencias)}</textarea>
-            </div>
-            <div>
-              <label class="text-[13px] font-medium text-azul mb-1 block">Related (caminhos)</label>
-              <textarea name="related" rows="3" class="w-full font-mono text-[12px] px-3 py-2 rounded-lg border border-border bg-background">{json(article.related)}</textarea>
-            </div>
-          </div>
-        </details>
-
-        <div class="flex items-center gap-3 sticky bottom-0 bg-[#F5F0E8] py-3 -mx-1 px-1">
-          <button type="submit" class="bg-azul-dark hover:bg-azul text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors">Guardar</button>
-          <a href="/admin/" class="text-sm text-muted-foreground hover:text-azul">Cancelar</a>
+        <!-- Coluna do preview (iframe ao vivo) -->
+        <div class="lg:sticky lg:top-20">
+          <p class="text-sm font-semibold text-azul mb-2">Pré-visualização</p>
+          <iframe id="preview" src={`/admin/preview/${article.slug}/`} title="Pré-visualização" class="w-full h-[70vh] rounded-2xl border border-border bg-white"></iframe>
         </div>
-      </form>
+      </div>
 
-      <script is:inline>
-        (function () {
-          const fileEl = document.getElementById("cover-file");
-          const btn = document.getElementById("cover-upload");
-          const urlEl = document.getElementById("cover-url");
-          const altEl = document.querySelector('input[name="cover_alt"]');
+      <script is:inline define:vars={{ slug: article.slug }}>
+        const val = (id) => document.getElementById(id).value;
+
+        // FAQ repetível
+        function newFaqRow(q = "", a = "") {
+          const wrap = document.createElement("div");
+          wrap.className = "faq-row bg-white rounded-xl border border-border/60 p-3";
+          wrap.innerHTML =
+            '<input class="fq-q w-full mb-2 px-3 py-1.5 rounded-lg border border-border text-sm" placeholder="Pergunta">' +
+            '<textarea class="fq-a w-full px-3 py-1.5 rounded-lg border border-border text-sm" rows="2" placeholder="Resposta"></textarea>' +
+            '<button type="button" class="fq-del text-[13px] text-destructive mt-1">Remover</button>';
+          wrap.querySelector(".fq-q").value = q;
+          wrap.querySelector(".fq-a").value = a;
+          return wrap;
+        }
+        document.getElementById("faq-add").addEventListener("click", () =>
+          document.getElementById("faq-list").appendChild(newFaqRow())
+        );
+        document.getElementById("faq-list").addEventListener("click", (e) => {
+          if (e.target.classList.contains("fq-del")) e.target.closest(".faq-row").remove();
+        });
+        const collectFaq = () =>
+          [...document.querySelectorAll("#faq-list .faq-row")]
+            .map((r) => ({ pergunta: r.querySelector(".fq-q").value.trim(), resposta: r.querySelector(".fq-a").value.trim() }))
+            .filter((f) => f.pergunta && f.resposta);
+
+        // Upload de capa
+        document.getElementById("cover-upload").addEventListener("click", async () => {
+          const file = document.getElementById("cover-file").files[0];
           const msg = document.getElementById("cover-msg");
-          const prev = document.getElementById("cover-preview");
-          urlEl?.addEventListener("input", () => {
-            if (urlEl.value) { prev.src = urlEl.value; prev.classList.remove("hidden"); }
-          });
-          btn?.addEventListener("click", async () => {
-            const f = fileEl.files[0];
-            if (!f) { msg.textContent = "Escolhe um ficheiro."; return; }
-            const fd = new FormData();
-            fd.append("file", f);
-            fd.append("alt", altEl?.value || "");
-            msg.textContent = "A carregar..."; btn.disabled = true;
-            try {
-              const res = await fetch("/api/media/upload/", { method: "POST", body: fd });
-              const d = await res.json();
-              if (d.ok) {
-                urlEl.value = d.url; prev.src = d.url; prev.classList.remove("hidden");
-                msg.textContent = "Capa carregada ✓ — não esqueças de Guardar.";
-              } else msg.textContent = d.error || "Falha no upload.";
-            } catch (e) { msg.textContent = "Erro: " + e.message; }
-            btn.disabled = false;
-          });
-        })();
+          if (!file) { msg.textContent = "Escolhe um ficheiro."; return; }
+          const fd = new FormData();
+          fd.append("file", file); fd.append("alt", val("cover_alt")); fd.append("slug", slug);
+          msg.textContent = "A carregar…";
+          try {
+            const res = await fetch("/api/media/upload/", { method: "POST", body: fd });
+            const d = await res.json();
+            if (d.ok) {
+              document.getElementById("image").value = d.url;
+              const p = document.getElementById("cover-preview");
+              p.src = d.url; p.classList.remove("hidden");
+              msg.textContent = "Carregada ✓ (Guardar para aplicar)";
+            } else msg.textContent = d.error || "Erro no upload.";
+          } catch (e) { msg.textContent = "Falha: " + e.message; }
+        });
+
+        const refreshPreview = () => {
+          document.getElementById("preview").src = "/admin/preview/" + slug + "/?t=" + Date.now();
+        };
+
+        // Guardar
+        document.getElementById("save").addEventListener("click", async () => {
+          const btn = document.getElementById("save");
+          const msg = document.getElementById("msg");
+          let referencias = [];
+          try { referencias = JSON.parse(val("referencias") || "[]"); } catch { msg.textContent = "Referências: JSON inválido."; return; }
+          btn.disabled = true; btn.textContent = "A guardar…";
+          const payload = {
+            slug,
+            title: val("title"), description: val("description"),
+            pilar: val("pilar"), tema_clinico: val("tema_clinico"),
+            resposta_direta: val("resposta_direta"), content: val("content"),
+            seo_title: val("seo_title"), meta_description: val("meta_description"),
+            cta: val("cta"),
+            image: val("image"), cover_alt: val("cover_alt"), cover_caption: val("cover_caption"),
+            pub_date: val("pub_date"), updated_date: val("updated_date"),
+            noindex: document.getElementById("noindex").checked,
+            related: [...document.querySelectorAll(".f-related:checked")].map((c) => c.value),
+            faq: collectFaq(),
+            referencias,
+          };
+          try {
+            const res = await fetch("/api/articles/update/", {
+              method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload),
+            });
+            const d = await res.json();
+            msg.className = "text-[13px] " + (d.ok ? "text-[#3C5E46]" : "text-destructive");
+            msg.textContent = d.ok ? "Guardado ✓ — já visível no preview/site." : (d.error || "Erro");
+            if (d.ok) refreshPreview();
+          } catch (e) { msg.className = "text-[13px] text-destructive"; msg.textContent = "Falha: " + e.message; }
+          btn.disabled = false; btn.textContent = "Guardar";
+        });
+
+        // Publicar / Despublicar
+        const pubBtn = document.getElementById("publish");
+        pubBtn?.addEventListener("click", async () => {
+          const msg = document.getElementById("msg");
+          const action = pubBtn.getAttribute("data-action");
+          pubBtn.disabled = true; pubBtn.textContent = "…";
+          try {
+            const res = await fetch("/api/articles/publish/", {
+              method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug, action }),
+            });
+            const d = await res.json();
+            if (d.ok) { msg.className = "text-[13px] text-[#3C5E46]"; msg.textContent = action === "publish" ? "Publicado ✓" : "Despublicado ✓"; setTimeout(() => location.reload(), 900); }
+            else { msg.className = "text-[13px] text-destructive"; msg.textContent = d.error || "Erro"; pubBtn.disabled = false; }
+          } catch (e) { msg.textContent = "Falha: " + e.message; pubBtn.disabled = false; }
+        });
+
+        // Pré-visualizar
+        document.getElementById("preview-btn").addEventListener("click", () => {
+          refreshPreview();
+          document.getElementById("preview").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       </script>
     )
   }
