@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import Providers from "@/views/Providers";
 import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
@@ -52,7 +53,8 @@ const Contacto = () => {
   };
 
   return (
-    <Layout>
+    <Providers>
+    <Layout pathname="/contacto/">
       <PageHero
         eyebrow="Marcar consulta"
         title={<>O teu filho merece uma <span className="italic text-ouro-light">leitura integrada.</span></>}
@@ -71,7 +73,7 @@ const Contacto = () => {
             >
               <MessageCircle className="w-6 h-6 text-ouro-light" />
               <span className="font-semibold mt-1">WhatsApp</span>
-              <span className="text-sm text-white/55">Escreve RESPIRA — resposta rápida</span>
+              <span className="text-sm text-white/70">Escreve RESPIRA — resposta rápida</span>
             </a>
             <a
               href={PHONE_LINK}
@@ -110,7 +112,7 @@ const Contacto = () => {
                 melhor a resposta e a preparar a consulta.
               </p>
               <div className="bg-ouro-bg rounded-xl p-4 border-l-4 border-ouro">
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-[13px] text-muted-foreground leading-relaxed">
                   Este contacto não substitui avaliação clínica. Vou responder assim que possível.
                 </p>
               </div>
@@ -172,7 +174,7 @@ const Contacto = () => {
                     onCheckedChange={(checked) => setConsent(checked === true)}
                     className="mt-0.5"
                   />
-                  <label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
+                  <label htmlFor="consent" className="text-[13px] text-muted-foreground leading-relaxed cursor-pointer">
                     Autorizo o tratamento dos meus dados pessoais para efeitos de resposta ao contacto,
                     de acordo com a política de privacidade. Os dados não serão partilhados com terceiros.
                   </label>
@@ -188,6 +190,7 @@ const Contacto = () => {
         </div>
       </section>
     </Layout>
+    </Providers>
   );
 };
 

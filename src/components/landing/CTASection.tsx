@@ -22,13 +22,13 @@ const CTASection = () => {
         transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
         className="container max-w-2xl relative z-10"
       >
-        <span className="inline-block bg-ouro/12 border border-ouro/20 text-ouro-light text-[11px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-6">
+        <span className="inline-block bg-ouro/12 border border-ouro/20 text-ouro-light text-[13px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-6">
           Pronto para dar o próximo passo?
         </span>
         <h2 className="font-display text-4xl md:text-[46px] font-bold text-white leading-[1.1] mb-5">
           O teu filho merece<br />uma leitura <span className="italic text-ouro-light">integrada.</span>
         </h2>
-        <p className="text-[17px] text-white/60 leading-relaxed max-w-lg mx-auto mb-10">
+        <p className="text-[17px] text-white/75 leading-relaxed max-w-lg mx-auto mb-10">
           Não precisas de ter a certeza. Precisas apenas de ter uma dúvida. A Consulta Respira e
           Cresce 360 existe exactamente para isso — para dar clareza onde há dúvidas.
         </p>
@@ -50,7 +50,7 @@ const CTASection = () => {
           </a>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-[13px] text-white/45">
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-white/65">
           <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {LOCATION}</span>
           <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {SCHEDULE}</span>
           <span className="flex items-center gap-1.5"><Wind className="w-4 h-4" /> Escreve RESPIRA por mensagem</span>

@@ -1,0 +1,121 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { getArticleBySlug } from "@/lib/articles";
+import { PILAR_LABELS } from "@/lib/cta";
+
+const { slug } = Astro.params;
+const article = slug ? await getArticleBySlug(slug) : null;
+const saved = Astro.url.searchParams.get("saved");
+
+const ctaOptions = [
+  { v: "agendar-consulta", l: "Agendar consulta" },
+  { v: "checklist", l: "Checklist (7 sinais)" },
+  { v: "podcast", l: "Podcast" },
+];
+const json = (v: unknown) => JSON.stringify(v ?? [], null, 2);
+---
+
+<AdminLayout title="Editar artigo" active="dashboard">
+  {
+    !article ? (
+      <p class="text-muted-foreground">Artigo não encontrado. <a href="/admin/" class="text-azul underline">Voltar à lista</a>.</p>
+    ) : (
+      <form method="POST" action="/api/articles/update/" class="flex flex-col gap-5 max-w-3xl">
+        <input type="hidden" name="slug" value={article.slug} />
+
+        {saved && <div class="bg-salvia/10 border border-salvia/30 rounded-xl px-4 py-3 text-sm text-[#3C5E46]">Alterações guardadas.</div>}
+
+        <div class="flex flex-wrap items-center gap-3 -mb-1">
+          <span class="text-[13px] text-muted-foreground">/blog/{article.slug}/</span>
+          <span class:list={["text-[12px] font-semibold px-2.5 py-0.5 rounded-full", article.draft ? "bg-ouro/15 text-[#854F0B]" : "bg-salvia/20 text-[#3C5E46]"]}>
+            {article.draft ? "Rascunho" : "Publicado"}
+          </span>
+          <a href={article.draft ? `/admin/preview/${article.slug}/` : `/blog/${article.slug}/`} target="_blank" class="text-[13px] text-azul underline">Pré-visualizar ↗</a>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-azul mb-1.5 block">Título</label>
+          <input name="title" value={article.title} required class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Pilar</label>
+            <select name="pilar" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">
+              {Object.entries(PILAR_LABELS).map(([v, l]) => (
+                <option value={v} selected={article.pilar === v}>{l}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Tema clínico</label>
+            <input name="tema_clinico" value={article.tema_clinico ?? ""} class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-azul mb-1.5 block">Resumo (cartões + meta)</label>
+          <textarea name="resumo" rows="2" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">{article.description}</textarea>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-azul mb-1.5 block">Resposta direta (bloco GEO)</label>
+          <textarea name="resposta_direta" rows="3" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">{article.resposta_direta ?? ""}</textarea>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-azul mb-1.5 block">Corpo (Markdown)</label>
+          <textarea name="content" rows="16" class="w-full font-mono text-[13px] px-4 py-3 rounded-xl border-[1.5px] border-border bg-white outline-none focus:border-ouro">{article.content ?? ""}</textarea>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Imagem de capa (URL)</label>
+            <input name="image" value={article.image ?? ""} placeholder="https://…blob…" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">Alt da capa</label>
+            <input name="cover_alt" value={article.cover_alt ?? ""} class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro" />
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium text-azul mb-1.5 block">CTA</label>
+            <select name="cta" class="w-full px-4 py-2.5 rounded-xl border-[1.5px] border-border bg-white text-sm outline-none focus:border-ouro">
+              {ctaOptions.map((o) => <option value={o.v} selected={article.cta === o.v}>{o.l}</option>)}
+            </select>
+          </div>
+          <div class="flex items-center gap-2 pt-7">
+            <input type="checkbox" id="noindex" name="noindex" checked={article.noindex ?? false} class="w-4 h-4" />
+            <label for="noindex" class="text-sm text-azul">noindex (não indexar)</label>
+          </div>
+        </div>
+
+        <details class="bg-white rounded-xl border border-border/60 px-4 py-3">
+          <summary class="text-sm font-medium text-azul cursor-pointer">Campos avançados (FAQ, referências, related — JSON)</summary>
+          <div class="flex flex-col gap-4 mt-4">
+            <div>
+              <label class="text-[13px] font-medium text-azul mb-1 block">FAQ</label>
+              <textarea name="faq" rows="5" class="w-full font-mono text-[12px] px-3 py-2 rounded-lg border border-border bg-background">{json(article.faq)}</textarea>
+            </div>
+            <div>
+              <label class="text-[13px] font-medium text-azul mb-1 block">Referências</label>
+              <textarea name="referencias" rows="4" class="w-full font-mono text-[12px] px-3 py-2 rounded-lg border border-border bg-background">{json(article.referencias)}</textarea>
+            </div>
+            <div>
+              <label class="text-[13px] font-medium text-azul mb-1 block">Related (caminhos)</label>
+              <textarea name="related" rows="3" class="w-full font-mono text-[12px] px-3 py-2 rounded-lg border border-border bg-background">{json(article.related)}</textarea>
+            </div>
+          </div>
+        </details>
+
+        <div class="flex items-center gap-3 sticky bottom-0 bg-[#F5F0E8] py-3 -mx-1 px-1">
+          <button type="submit" class="bg-azul-dark hover:bg-azul text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors">Guardar</button>
+          <a href="/admin/" class="text-sm text-muted-foreground hover:text-azul">Cancelar</a>
+        </div>
+      </form>
+    )
+  }
+</AdminLayout>

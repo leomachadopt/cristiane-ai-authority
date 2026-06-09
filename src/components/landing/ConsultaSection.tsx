@@ -66,7 +66,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
           className="bg-azul-dark rounded-3xl p-8 md:p-12 mb-9 relative overflow-hidden"
         >
           <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-salvia/[0.06]" />
-          <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-salvia mb-3.5 relative z-10">
+          <p className="text-[13px] font-semibold tracking-[0.18em] uppercase text-salvia mb-3.5 relative z-10">
             Avaliação integrada · Metodologia exclusiva
           </p>
           <h3 className="font-display text-2xl md:text-3xl text-white mb-4 leading-snug relative z-10">
@@ -88,12 +88,12 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
               transition={{ duration: 0.45, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
               className="bg-white rounded-2xl p-6"
             >
-              <h4 className="text-xs font-bold tracking-wider uppercase text-ouro pb-2.5 mb-3.5 border-b border-border">
+              <h4 className="text-[15px] font-bold tracking-wider uppercase text-ouro pb-2.5 mb-3.5 border-b border-border">
                 {c.title}
               </h4>
               <ul className="flex flex-col gap-2">
                 {c.items.map((item) => (
-                  <li key={item} className="flex gap-2 items-start text-[13px] text-muted-foreground leading-relaxed">
+                  <li key={item} className="flex gap-2 items-start text-[15px] text-muted-foreground leading-relaxed">
                     <ArrowRight className="w-3 h-3 text-salvia shrink-0 mt-1" strokeWidth={3} />
                     {item}
                   </li>
@@ -110,7 +110,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
           >
             <CalendarDays className="w-5 h-5" /> Marcar Consulta Respira e Cresce 360
           </a>
-          <p className="text-[13px] text-muted-foreground mt-3">
+          <p className="text-sm text-muted-foreground mt-3">
             Disponível em {LOCATION} · Escreve RESPIRA por mensagem para mais informações
           </p>
         </div>

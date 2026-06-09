@@ -60,8 +60,8 @@ const PainSection = () => {
                 >
                   <span className="text-[22px] shrink-0 leading-none mt-0.5">{d.icon}</span>
                   <div>
-                    <p className="text-sm font-bold text-azul mb-1">{d.title}</p>
-                    <p className="text-[13px] text-muted-foreground leading-relaxed">{d.desc}</p>
+                    <p className="text-base font-bold text-azul mb-1">{d.title}</p>
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">{d.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -79,7 +79,7 @@ const PainSection = () => {
             <h3 className="font-display text-2xl text-white leading-snug mb-4">
               Estes sinais não são coincidência — estão todos ligados.
             </h3>
-            <p className="text-sm text-white/65 leading-relaxed mb-6">
+            <p className="text-[15px] text-white/75 leading-relaxed mb-6">
               A respiração oral influencia o crescimento da face. O crescimento da face influencia a
               mordida. A mordida influencia a função. A função influencia o sono. O sono influencia o
               desenvolvimento e o comportamento. Tudo está ligado — e é exactamente isso que a
@@ -87,7 +87,7 @@ const PainSection = () => {
             </p>
             <div className="flex flex-col gap-2.5">
               {respostas.map((r) => (
-                <div key={r} className="flex gap-2.5 items-start text-[13px] text-white/75">
+                <div key={r} className="flex gap-2.5 items-start text-[15px] text-white/80">
                   <ArrowRight className="w-4 h-4 text-salvia shrink-0 mt-0.5" strokeWidth={2.5} />
                   {r}
                 </div>

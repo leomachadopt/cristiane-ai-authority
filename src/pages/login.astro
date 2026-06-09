@@ -1,0 +1,50 @@
+---
+export const prerender = false;
+import { SITE } from "@/config";
+import "@/index.css";
+
+const error = Astro.url.searchParams.get("error");
+// Se já tem sessão válida, vai para o admin.
+const pass = import.meta.env.ADMIN_PASSWORD ?? process.env.ADMIN_PASSWORD;
+if (pass && Astro.cookies.get("admin_session")?.value === pass) {
+  return Astro.redirect("/admin/");
+}
+---
+
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Entrar · {SITE.name}</title>
+  </head>
+  <body class="min-h-screen flex items-center justify-center bg-azul-dark px-6">
+    <div class="w-full max-w-sm">
+      <div class="text-center mb-8">
+        <p class="font-display text-2xl font-bold text-white">Dra. Cristiane Martins</p>
+        <p class="text-sm text-white/55 mt-1">Área de administração · RC360</p>
+      </div>
+      <form method="POST" action="/api/login/" class="bg-white rounded-2xl p-7 shadow-xl flex flex-col gap-4">
+        <div>
+          <label for="password" class="text-sm font-medium text-azul mb-1.5 block">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            autofocus
+            class="w-full px-4 py-3 rounded-xl border-[1.5px] border-border bg-background text-sm outline-none focus:border-ouro transition-colors"
+          />
+        </div>
+        {error && <p class="text-[13px] text-destructive">Password incorreta. Tenta novamente.</p>}
+        <button
+          type="submit"
+          class="bg-azul-dark hover:bg-azul text-white px-6 py-3 rounded-xl text-sm font-semibold transition-colors active:scale-[0.98]"
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

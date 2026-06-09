@@ -1,0 +1,75 @@
+---
+import { SITE, BUSINESS, GA_ID } from "@/config";
+import SEO from "@/components/SEO.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import FloatingCTA from "@/components/FloatingCTA.tsx";
+import "@/index.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  noindex?: boolean;
+}
+
+const props = Astro.props;
+
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  name: BUSINESS.name,
+  url: SITE.url,
+  image: SITE.ogImage,
+  description: SITE.description,
+  areaServed: BUSINESS.location,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: BUSINESS.location,
+    addressCountry: "PT",
+  },
+  sameAs: [BUSINESS.instagram],
+  medicalSpecialty: "Pediatric Dentistry",
+};
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <SEO {...props} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(businessSchema)}
+    />
+    {
+      GA_ID && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+          <script is:inline define:vars={{ GA_ID }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            window.gtag = gtag;
+            gtag("js", new Date());
+            gtag("config", GA_ID);
+          </script>
+        </>
+      )
+    }
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingCTA client:idle />
+  </body>
+</html>

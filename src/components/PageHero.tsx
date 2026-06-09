@@ -18,7 +18,7 @@ const PageHero = ({ eyebrow, title, subtitle }: PageHeroProps) => {
           <h1 className="font-display text-4xl md:text-5xl font-bold text-white leading-[1.12] mb-5">
             {title}
           </h1>
-          {subtitle && <p className="text-lg text-white/60 leading-relaxed max-w-2xl">{subtitle}</p>}
+          {subtitle && <p className="text-lg text-white/75 leading-relaxed max-w-2xl">{subtitle}</p>}
         </motion.div>
       </div>
     </section>

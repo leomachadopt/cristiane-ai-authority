@@ -15,7 +15,7 @@ const SocialProofBar = () => {
           <div key={item.strong} className="flex items-center gap-6">
             <div className="flex items-center gap-3">
               <item.icon className="w-5 h-5 text-ouro shrink-0" />
-              <div className="text-[13px] text-muted-foreground leading-tight">
+              <div className="text-sm text-muted-foreground leading-tight">
                 <strong className="block text-[15px] font-bold text-azul">{item.strong}</strong>
                 {item.text}
               </div>

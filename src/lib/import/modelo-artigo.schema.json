@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.cristianemartins.pt/schemas/modelo-artigo.schema.json",
+  "title": "Modelo de Artigo — Dra. Cristiane Martins · RC360 (rápida publicação)",
+  "description": "Contrato único para produzir um artigo completo (corpo + todos os metadados) para o blog. Importar SEMPRE como rascunho. As referências nunca podem ser inventadas — ver estado_verificacao.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "pilar", "tema_clinico", "autor", "resumo", "corpo_markdown"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 70,
+      "description": "Título do artigo. Idealmente <= 60 caracteres. Espelha a pergunta-alvo do pai/mãe."
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Minúsculas, hífens, sem acentos. Deixar vazio para gerar a partir do título. NÃO reutilizar um slug já existente."
+    },
+    "pilar": {
+      "type": "string",
+      "enum": [
+        "cavidade-oral",
+        "respiracao",
+        "crescimento-craniofacial",
+        "funcao-oral",
+        "sono",
+        "desenvolvimento-integrado"
+      ],
+      "description": "Cluster de conteúdo RC360. Define o hub e o breadcrumb. Os 4 pilares + sono + um hub integrado."
+    },
+    "tema_clinico": {
+      "type": "string",
+      "description": "Etiqueta clínica mais fina por baixo do pilar (ex.: 'respiração oral', 'mordida cruzada', 'ronco infantil', 'deglutição atípica')."
+    },
+    "pergunta_alvo": {
+      "type": "string",
+      "description": "Nota interna: a query real que o artigo persegue. Ajuda a evitar canibalização. Não é publicada."
+    },
+    "autor": {
+      "type": "string",
+      "default": "Dra. Cristiane Martins",
+      "description": "Dra. Cristiane Martins — odontopediatra integrativa, criadora da Metodologia Respira e Cresce 360."
+    },
+    "mercado": {
+      "type": "string",
+      "enum": ["pt-PT", "pt-BR"],
+      "default": "pt-PT",
+      "description": "Idioma/mercado. Por defeito pt-PT."
+    },
+    "resumo": {
+      "type": "string",
+      "minLength": 80,
+      "maxLength": 200,
+      "description": "Usado nos cartões do blog e como meta descrição por defeito (se seo.meta_descricao vazio)."
+    },
+    "resposta_direta": {
+      "type": "string",
+      "minLength": 200,
+      "maxLength": 900,
+      "description": "Bloco GEO: 1 parágrafo autossuficiente e citável que responde diretamente à pergunta-alvo. Renderiza em destaque no topo da página, antes do corpo. O corpo NÃO o repete."
+    },
+    "corpo_markdown": {
+      "type": "string",
+      "minLength": 800,
+      "description": "Corpo em Markdown. >= 1000 palavras de SUBSTÂNCIA. NÃO repete a resposta_direta — começa pelo primeiro H2 (em forma de pergunta) e desenvolve. Os H2 cobrem sub-perguntas (fan-out). Termina antes do bloco de CTA."
+    },
+    "faq": {
+      "type": "array",
+      "description": "Gera FAQPage. Opcional mas recomendado em artigos com perguntas claras.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pergunta", "resposta"],
+        "properties": {
+          "pergunta": { "type": "string", "minLength": 8 },
+          "resposta": { "type": "string", "minLength": 20 }
+        }
+      }
+    },
+    "referencias": {
+      "type": "array",
+      "description": "Referências científicas (PubMed/DOI). NUNCA inventar. Só 'verificada-pubmed' se houver PMID ou DOI reais; caso contrário 'a-verificar'.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["citacao", "estado_verificacao"],
+        "properties": {
+          "citacao": { "type": "string", "description": "Citação formatada (autores, ano, revista, volume, páginas)." },
+          "pmid": { "type": "string", "pattern": "^[0-9]+$" },
+          "doi": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "estado_verificacao": {
+            "type": "string",
+            "enum": ["verificada-pubmed", "a-verificar"],
+            "description": "Gate anti-alucinação."
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "estado_verificacao": { "const": "verificada-pubmed" } } },
+            "then": {
+              "anyOf": [{ "required": ["pmid"] }, { "required": ["doi"] }],
+              "description": "Uma referência verificada TEM de trazer PMID ou DOI."
+            }
+          }
+        ]
+      }
+    },
+    "imagem_capa": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "O ficheiro NÃO entra no JSON (upload manual no admin). Aqui vai só o alt e ajudas.",
+      "required": ["alt"],
+      "properties": {
+        "alt": { "type": "string", "minLength": 8, "description": "Texto alternativo descritivo (SEO + acessibilidade). Obrigatório." },
+        "legenda": { "type": "string", "description": "Legenda opcional da imagem de capa." },
+        "asset_ref": { "type": "string", "description": "Preenchido na importação/upload. Deixar vazio na geração." },
+        "prompt_geracao": { "type": "string", "description": "Opcional: sugestão de prompt para gerar a imagem de capa." }
+      }
+    },
+    "related": {
+      "type": "array",
+      "description": "Links internos curados (hub-and-spoke): 2-3 artigos irmãos + uma página do site + conversão. Caminhos relativos. Páginas que existem: /metodologia/, /familias/, /sobre/, /podcast/, /contacto/, /blog/.",
+      "items": { "type": "string", "pattern": "^/[a-z0-9/_-]+$" }
+    },
+    "cta": {
+      "type": "string",
+      "enum": ["agendar-consulta", "checklist", "podcast"],
+      "description": "Bloco de conversão no fim. agendar-consulta -> WhatsApp/Consulta RC360. checklist -> guia dos 7 sinais. podcast -> Família 360."
+    },
+    "seo": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Override do título/descrição para motores. Se vazio, usa title e resumo.",
+      "properties": {
+        "meta_titulo": { "type": "string", "maxLength": 60 },
+        "meta_descricao": { "type": "string", "minLength": 150, "maxLength": 160 }
+      }
+    },
+    "data_publicacao": { "type": "string", "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$", "description": "ISO YYYY-MM-DD ou vazio." },
+    "data_atualizacao": { "type": "string", "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$", "description": "ISO YYYY-MM-DD ou vazio. Recência conta para SEO e GEO." },
+    "noindex": { "type": "boolean", "default": false, "description": "True só para artigos finos/temporários." },
+    "draft": { "type": "boolean", "default": true, "description": "Importar SEMPRE como rascunho. Publicação é decisão humana após revisão." }
+  }
+}

@@ -46,7 +46,7 @@ const TestimonialsSection = () => {
               className="relative bg-background rounded-2xl p-7 border border-border/70"
             >
               <span className="absolute top-3 left-5 font-display text-6xl text-ouro/40 leading-none select-none">&ldquo;</span>
-              <p className="relative text-sm text-muted-foreground leading-relaxed italic pt-6">
+              <p className="relative text-[15px] text-muted-foreground leading-relaxed italic pt-6">
                 {d.text}
               </p>
               <div className="flex items-center gap-3 mt-5 pt-4 border-t border-border/70">
@@ -54,16 +54,16 @@ const TestimonialsSection = () => {
                   {d.iniciais}
                 </div>
                 <div>
-                  <p className="text-[13px] font-semibold text-azul leading-tight">{d.nome}</p>
-                  <p className="text-[11px] text-muted-foreground">{d.detalhe}</p>
-                  <p className="text-xs text-ouro mt-0.5">★★★★★</p>
+                  <p className="text-sm font-semibold text-azul leading-tight">{d.nome}</p>
+                  <p className="text-[13px] text-muted-foreground">{d.detalhe}</p>
+                  <p className="text-sm text-ouro mt-0.5">★★★★★</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <p className="text-center text-xs text-muted-foreground/70 mt-8 max-w-lg mx-auto">
+        <p className="text-center text-[13px] text-muted-foreground/70 mt-8 max-w-lg mx-auto">
           Depoimentos ilustrativos — substituir por testemunhos reais de famílias acompanhadas.
         </p>
       </div>

@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{ts,tsx,astro,html,md,mdx}"],
   prefix: "",
   // Filosofia Emil Kowalski: hover só em dispositivos com ponteiro fino (evita
   // estados "presos" no toque). Gera todos os hover: atrás de @media (hover:hover).
@@ -143,5 +143,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;

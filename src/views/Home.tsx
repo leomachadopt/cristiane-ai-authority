@@ -1,3 +1,4 @@
+import Providers from "./Providers";
 import Layout from "@/components/Layout";
 import HeroSection from "@/components/landing/HeroSection";
 import SocialProofBar from "@/components/landing/SocialProofBar";
@@ -12,9 +13,9 @@ import FAQSection from "@/components/landing/FAQSection";
 import PodcastPreview from "@/components/landing/PodcastPreview";
 import CTASection from "@/components/landing/CTASection";
 
-const Index = () => {
-  return (
-    <Layout>
+const Home = () => (
+  <Providers>
+    <Layout pathname="/">
       <HeroSection />
       <SocialProofBar />
       <PainSection />
@@ -28,7 +29,7 @@ const Index = () => {
       <PodcastPreview />
       <CTASection />
     </Layout>
-  );
-};
+  </Providers>
+);
 
-export default Index;
+export default Home;

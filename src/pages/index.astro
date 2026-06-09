@@ -1,0 +1,9 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SITE } from "@/config";
+import Home from "@/views/Home.tsx";
+---
+
+<BaseLayout title={SITE.title} description={SITE.description} canonical="/">
+  <Home client:load />
+</BaseLayout>

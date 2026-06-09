@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import Providers from "@/views/Providers";
 import PageHero from "@/components/PageHero";
 import { motion, type Variants } from "framer-motion";
 import { Shield, Eye, Layers, HeartHandshake, Star, Wind } from "lucide-react";
@@ -32,7 +33,8 @@ const fadeIn: Variants = {
 
 const Sobre = () => {
   return (
-    <Layout>
+    <Providers>
+    <Layout pathname="/sobre/">
       <PageHero
         eyebrow="Quem sou"
         title={<>Eu não olho só para dentes.<br /><span className="italic text-ouro-light">Eu observo desenvolvimento.</span></>}
@@ -72,8 +74,8 @@ const Sobre = () => {
               <div className="flex gap-8 pt-6 border-t border-border">
                 {numeros.map((n) => (
                   <div key={n.label}>
-                    <div className="font-display text-3xl font-bold text-azul">{n.val}</div>
-                    <div className="text-xs text-muted-foreground mt-0.5">{n.label}</div>
+                    <div className="font-display text-4xl md:text-5xl font-bold text-azul">{n.val}</div>
+                    <div className="text-[15px] text-muted-foreground mt-0.5">{n.label}</div>
                   </div>
                 ))}
               </div>
@@ -103,8 +105,8 @@ const Sobre = () => {
                 className="bg-white rounded-2xl p-6 border border-border/70 hover:shadow-lg transition-[box-shadow] duration-200 ease-out-expo"
               >
                 <div className="text-2xl mb-3">{c.icon}</div>
-                <h3 className="text-sm font-bold text-azul mb-1.5">{c.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{c.desc}</p>
+                <h3 className="text-base font-bold text-azul mb-1.5">{c.title}</h3>
+                <p className="text-[15px] text-muted-foreground leading-relaxed">{c.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -153,6 +155,7 @@ const Sobre = () => {
         </div>
       </section>
     </Layout>
+    </Providers>
   );
 };
 

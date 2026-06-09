@@ -168,7 +168,7 @@
     animation: breathe 4s ease-in-out infinite;
   }
   .eyebrow {
-    @apply inline-block text-xs font-semibold tracking-[0.18em] uppercase;
+    @apply inline-block text-[13px] font-semibold tracking-[0.18em] uppercase;
     color: hsl(var(--ouro));
   }
 }

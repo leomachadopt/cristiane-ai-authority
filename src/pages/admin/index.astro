@@ -1,0 +1,89 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { getAllArticlesAdmin } from "@/lib/articles";
+import { hasDb } from "@/lib/db";
+import { pilarLabel } from "@/lib/cta";
+
+const dbReady = hasDb();
+const articles = dbReady ? await getAllArticlesAdmin() : [];
+const drafts = articles.filter((a) => a.draft);
+const published = articles.filter((a) => !a.draft);
+
+const fmt = (d: string | null) =>
+  d ? new Date(d).toLocaleDateString("pt-PT", { day: "2-digit", month: "short", year: "numeric" }) : "—";
+---
+
+<AdminLayout title="Artigos" active="dashboard">
+  {
+    !dbReady && (
+      <div class="bg-coral/10 border border-coral/30 rounded-xl px-5 py-4 mb-6 text-sm text-azul">
+        <strong>Base de dados não configurada.</strong> Define <code>DATABASE_URL</code> (Neon) nas variáveis
+        da Vercel e corre o <code>scripts/schema.sql</code> para ativar o CMS.
+      </div>
+    )
+  }
+
+  <div class="flex flex-wrap items-center gap-3 mb-6">
+    <a href="/admin/import/" class="bg-azul-dark hover:bg-azul text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+      + Importar artigo (JSON)
+    </a>
+    <span class="text-sm text-muted-foreground">{published.length} publicado(s) · {drafts.length} rascunho(s)</span>
+  </div>
+
+  {
+    articles.length === 0 ? (
+      <p class="text-muted-foreground">Ainda não há artigos. Importa o primeiro a partir de um JSON.</p>
+    ) : (
+      <div class="bg-white rounded-2xl border border-border/60 overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-[12px] uppercase tracking-wider text-muted-foreground border-b border-border/60">
+              <th class="px-4 py-3 font-semibold">Título</th>
+              <th class="px-4 py-3 font-semibold hidden md:table-cell">Pilar</th>
+              <th class="px-4 py-3 font-semibold">Estado</th>
+              <th class="px-4 py-3 font-semibold hidden sm:table-cell">Data</th>
+              <th class="px-4 py-3 font-semibold text-right">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {articles.map((a) => (
+              <tr class="border-b border-border/40 last:border-0 hover:bg-salvia/[0.04]">
+                <td class="px-4 py-3">
+                  <div class="font-medium text-azul">{a.title}</div>
+                  <div class="text-[12px] text-muted-foreground">/blog/{a.slug}/</div>
+                </td>
+                <td class="px-4 py-3 hidden md:table-cell text-muted-foreground">{pilarLabel(a.pilar)}</td>
+                <td class="px-4 py-3">
+                  {a.draft ? (
+                    <span class="inline-block bg-ouro/15 text-[#854F0B] text-[12px] font-semibold px-2.5 py-0.5 rounded-full">Rascunho</span>
+                  ) : (
+                    <span class="inline-block bg-salvia/20 text-[#3C5E46] text-[12px] font-semibold px-2.5 py-0.5 rounded-full">Publicado</span>
+                  )}
+                </td>
+                <td class="px-4 py-3 hidden sm:table-cell text-muted-foreground">{fmt(a.pub_date ?? a.updated_at)}</td>
+                <td class="px-4 py-3">
+                  <div class="flex items-center justify-end gap-1.5 flex-wrap">
+                    <a href={`/admin/edit/${a.slug}/`} class="px-2.5 py-1 rounded-md text-[13px] text-azul hover:bg-azul/10 transition-colors">Editar</a>
+                    <a href={a.draft ? `/admin/preview/${a.slug}/` : `/blog/${a.slug}/`} target="_blank" class="px-2.5 py-1 rounded-md text-[13px] text-muted-foreground hover:bg-muted transition-colors">Ver</a>
+                    <form method="POST" action="/api/articles/publish/" class="inline">
+                      <input type="hidden" name="slug" value={a.slug} />
+                      <input type="hidden" name="draft" value={a.draft ? "false" : "true"} />
+                      <button class="px-2.5 py-1 rounded-md text-[13px] font-medium text-salvia hover:bg-salvia/10 transition-colors">
+                        {a.draft ? "Publicar" : "Despublicar"}
+                      </button>
+                    </form>
+                    <form method="POST" action="/api/articles/delete/" class="inline" onsubmit="return confirm('Eliminar este artigo definitivamente?')">
+                      <input type="hidden" name="slug" value={a.slug} />
+                      <button class="px-2.5 py-1 rounded-md text-[13px] text-destructive hover:bg-destructive/10 transition-colors">Eliminar</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+</AdminLayout>

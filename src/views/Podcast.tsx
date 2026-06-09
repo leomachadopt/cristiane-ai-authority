@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import Providers from "@/views/Providers";
 import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
 import { Headphones, Wind } from "lucide-react";
@@ -29,7 +30,8 @@ const episodes = [
 
 const Podcast = () => {
   return (
-    <Layout>
+    <Providers>
+    <Layout pathname="/podcast/">
       <PageHero
         eyebrow="🎙️ Podcast"
         title={<>Família 360 — <span className="italic text-ouro-light">Saúde Integrada.</span></>}
@@ -70,7 +72,7 @@ const Podcast = () => {
                   </span>
                   <div>
                     <p className="font-semibold text-azul leading-tight">{h.name}</p>
-                    <p className="text-xs text-muted-foreground">{h.role}</p>
+                    <p className="text-[15px] text-muted-foreground">{h.role}</p>
                   </div>
                 </div>
               ))}
@@ -101,7 +103,7 @@ const Podcast = () => {
                 <div className="w-11 h-11 rounded-xl bg-salvia/12 text-salvia flex items-center justify-center text-lg shrink-0">{ep.ico}</div>
                 <div>
                   <h3 className="font-semibold text-white leading-snug mb-0.5">{ep.title}</h3>
-                  <p className="text-sm text-white/40 leading-relaxed">{ep.desc}</p>
+                  <p className="text-sm text-white/65 leading-relaxed">{ep.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -132,6 +134,7 @@ const Podcast = () => {
         </div>
       </section>
     </Layout>
+    </Providers>
   );
 };
 

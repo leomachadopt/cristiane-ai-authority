@@ -1,11 +1,11 @@
 import Layout from "@/components/Layout";
+import Providers from "@/views/Providers";
 import PageHero from "@/components/PageHero";
 import SinaisSection from "@/components/landing/SinaisSection";
 import LeadMagnetSection from "@/components/landing/LeadMagnetSection";
 import FAQSection from "@/components/landing/FAQSection";
 import { motion } from "framer-motion";
 import { BookOpen, ArrowRight, Mic } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const educationalContent = [
   {
@@ -24,7 +24,8 @@ const educationalContent = [
 
 const Familias = () => {
   return (
-    <Layout>
+    <Providers>
+    <Layout pathname="/familias/">
       <PageHero
         eyebrow="Para famílias · Sinais a observar"
         title={<>O que observar em casa — <span className="italic text-ouro-light">e quando procurar ajuda.</span></>}
@@ -77,20 +78,20 @@ const Familias = () => {
                 <Mic className="w-8 h-8 text-salvia" />
               </div>
               <h3 className="font-display font-bold text-lg text-white">Família 360</h3>
-              <p className="text-xs text-white/40">Saúde Integrada</p>
+              <p className="text-[15px] text-white/60">Saúde Integrada</p>
             </div>
             <div className="md:col-span-3 p-8 flex flex-col justify-center">
               <h3 className="font-display font-bold text-xl text-white mb-2">Oiça o nosso podcast</h3>
-              <p className="text-sm text-white/55 leading-relaxed mb-5">
+              <p className="text-sm text-white/70 leading-relaxed mb-5">
                 Conversas claras sobre respiração, sono, função e crescimento infantil — para pais
                 que querem perceber melhor.
               </p>
-              <Link
-                to="/podcast"
+              <a
+                href="/podcast/"
                 className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-5 py-2.5 rounded-[10px] text-sm font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo w-fit"
               >
                 Conhecer o Podcast <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
             </div>
           </motion.div>
         </div>
@@ -99,6 +100,7 @@ const Familias = () => {
       {/* FAQ — 6 objecções */}
       <FAQSection subtitle="As dúvidas mais comuns das famílias antes de marcar a Consulta RC360." />
     </Layout>
+    </Providers>
   );
 };
 

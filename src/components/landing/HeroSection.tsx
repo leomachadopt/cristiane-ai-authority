@@ -30,7 +30,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
           >
-            <div className="inline-flex items-center gap-2 bg-ouro/10 border border-ouro/20 text-ouro-light text-[11px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-7">
+            <div className="inline-flex items-center gap-2 bg-ouro/10 border border-ouro/20 text-ouro-light text-[13px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-7">
               <span className="w-1.5 h-1.5 rounded-full bg-ouro breathing" />
               Odontopediatria Integrativa · Oliveira de Azeméis
             </div>
@@ -40,7 +40,7 @@ const HeroSection = () => {
               <span className="italic text-ouro-light">desenvolvimento.</span>
             </h1>
 
-            <p className="text-lg text-white/60 leading-relaxed max-w-xl mb-9">
+            <p className="text-lg text-white/75 leading-relaxed max-w-xl mb-9">
               Se o teu filho respira pela boca, ronca, tem sono agitado ou a mordida não parece
               certa — <strong className="text-white/85 font-medium">esses sinais estão ligados.</strong>{" "}
               Há 25 anos que ajudo famílias a ver o que outros não vêem.
@@ -61,7 +61,7 @@ const HeroSection = () => {
               </a>
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-5 border-t border-white/[0.08] text-[13px] text-white/45">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-5 border-t border-white/[0.08] text-sm text-white/65">
               <span><strong className="text-white/70 font-medium">25 anos</strong> de experiência</span>
               <span className="text-white/15">·</span>
               <span>Metodologia <strong className="text-white/70 font-medium">exclusiva RC360</strong></span>
@@ -81,7 +81,7 @@ const HeroSection = () => {
               {/* SUBSTITUIR pela foto da Dra. Cristiane (cenário podcast ou clínica) */}
               <div className="text-center px-8">
                 <div className="text-5xl opacity-20">👩‍⚕️</div>
-                <p className="text-xs text-white/30 mt-3 leading-relaxed">
+                <p className="text-[15px] text-white/45 mt-3 leading-relaxed">
                   Foto da Dra. Cristiane<br />(cenário podcast ou clínica)
                 </p>
               </div>
@@ -89,7 +89,7 @@ const HeroSection = () => {
             <div className="absolute -bottom-5 -left-6 bg-white rounded-2xl p-5 shadow-[0_16px_48px_rgba(0,0,0,0.25)] max-w-[240px]">
               <p className="eyebrow mb-2.5">A minha leitura clínica</p>
               {leitura.map((item) => (
-                <div key={item} className="flex items-center gap-2 py-1 text-xs text-muted-foreground">
+                <div key={item} className="flex items-center gap-2 py-1 text-[15px] text-muted-foreground">
                   <Check className="w-3.5 h-3.5 text-salvia shrink-0" strokeWidth={3} />
                   {item}
                 </div>

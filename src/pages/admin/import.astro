@@ -1,0 +1,107 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { importArticleModel, type ImportResult, type OnConflict } from "@/lib/import/importArticle";
+import { hasDb } from "@/lib/db";
+
+const dbReady = hasDb();
+let result: ImportResult | null = null;
+let parseError: string | null = null;
+let rawJson = "";
+
+if (Astro.request.method === "POST" && dbReady) {
+  const form = await Astro.request.formData();
+  rawJson = String(form.get("json") ?? "");
+  const onConflict = (String(form.get("onConflict") ?? "") || undefined) as OnConflict;
+  try {
+    const data = JSON.parse(rawJson);
+    result = await importArticleModel(data, onConflict);
+  } catch (e) {
+    parseError = `JSON inválido: ${(e as Error).message}`;
+  }
+}
+---
+
+<AdminLayout title="Importar artigo (JSON)" active="import">
+  {
+    !dbReady && (
+      <div class="bg-coral/10 border border-coral/30 rounded-xl px-5 py-4 mb-6 text-sm text-azul">
+        <strong>Base de dados não configurada.</strong> Define <code>DATABASE_URL</code> (Neon) para importar.
+      </div>
+    )
+  }
+
+  {parseError && <div class="bg-destructive/10 border border-destructive/30 rounded-xl px-5 py-4 mb-5 text-sm text-destructive">{parseError}</div>}
+
+  {
+    result && !result.ok && result.conflict && (
+      <div class="bg-ouro/10 border border-ouro/30 rounded-xl px-5 py-4 mb-5 text-sm">
+        <p class="text-azul mb-3">
+          Já existe um artigo com o slug <strong>{result.slug}</strong> ("{result.existingTitle}"). O que queres fazer?
+        </p>
+        <div class="flex gap-2">
+          <form method="POST" class="inline">
+            <input type="hidden" name="json" value={rawJson} />
+            <input type="hidden" name="onConflict" value="update" />
+            <button class="bg-azul-dark text-white px-4 py-2 rounded-lg text-[13px] font-semibold">Atualizar o existente</button>
+          </form>
+          <form method="POST" class="inline">
+            <input type="hidden" name="json" value={rawJson} />
+            <input type="hidden" name="onConflict" value="new" />
+            <button class="border border-border bg-white px-4 py-2 rounded-lg text-[13px] font-semibold text-azul">Criar como novo</button>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    result && !result.ok && !result.conflict && result.errors.length > 0 && (
+      <div class="bg-destructive/10 border border-destructive/30 rounded-xl px-5 py-4 mb-5 text-sm">
+        <p class="font-semibold text-destructive mb-2">O JSON não passou na validação:</p>
+        <ul class="list-disc pl-5 flex flex-col gap-1 text-destructive/90">
+          {result.errors.map((e) => <li>{e}</li>)}
+        </ul>
+      </div>
+    )
+  }
+
+  {
+    result && result.ok && (
+      <div class="bg-salvia/10 border border-salvia/30 rounded-xl px-5 py-4 mb-5 text-sm">
+        <p class="font-semibold text-[#3C5E46] mb-1">
+          {result.updated ? "Artigo atualizado" : "Rascunho criado"}: <strong>{result.slug}</strong>
+        </p>
+        {result.warnings.length > 0 && (
+          <ul class="list-disc pl-5 my-2 text-[#854F0B]">
+            {result.warnings.map((w) => <li>{w}</li>)}
+          </ul>
+        )}
+        <div class="flex gap-3 mt-3">
+          <a href={`/admin/preview/${result.slug}/`} target="_blank" class="text-azul font-semibold underline">Pré-visualizar</a>
+          <a href="/admin/" class="text-azul font-semibold underline">Ir para a lista</a>
+        </div>
+      </div>
+    )
+  }
+
+  <form method="POST">
+    <label for="json" class="text-sm font-medium text-azul mb-2 block">
+      Cola o JSON do artigo (conforme <code>modelo-artigo.schema.json</code>)
+    </label>
+    <textarea
+      id="json"
+      name="json"
+      rows="18"
+      placeholder={'{\n  "title": "...",\n  "pilar": "respiracao",\n  "tema_clinico": "...",\n  "autor": "Dra. Cristiane Martins",\n  "resumo": "...",\n  "corpo_markdown": "## ..."\n}'}
+      class="w-full font-mono text-[13px] px-4 py-3 rounded-xl border-[1.5px] border-border bg-white outline-none focus:border-ouro transition-colors"
+      set:html={rawJson}
+    />
+    <div class="flex items-center gap-3 mt-3">
+      <button type="submit" disabled={!dbReady} class="bg-azul-dark hover:bg-azul disabled:opacity-50 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors">
+        Validar e criar rascunho
+      </button>
+      <span class="text-[13px] text-muted-foreground">Importa sempre como rascunho — a publicação é uma decisão à parte.</span>
+    </div>
+  </form>
+</AdminLayout>

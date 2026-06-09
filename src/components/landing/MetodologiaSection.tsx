@@ -87,12 +87,12 @@ const MetodologiaSection = () => {
                   className={`rounded-2xl p-6 border ${p.cls} transition-transform duration-200 ease-out-expo hover:-translate-y-1`}
                 >
                   <div className="text-[26px] mb-2.5">{p.icon}</div>
-                  <div className={`text-[10px] font-bold tracking-wider uppercase mb-1.5 ${p.numCls}`}>{p.num}</div>
-                  <h3 className="font-display text-base font-bold text-azul mb-1.5">{p.title}</h3>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed mb-3">{p.desc}</p>
+                  <div className={`text-[13px] font-bold tracking-wider uppercase mb-1.5 ${p.numCls}`}>{p.num}</div>
+                  <h3 className="font-display text-lg font-bold text-azul mb-1.5">{p.title}</h3>
+                  <p className="text-[15px] text-muted-foreground leading-relaxed mb-3">{p.desc}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {p.tags.map((t) => (
-                      <span key={t} className={`text-[11px] px-2.5 py-0.5 rounded-full font-medium ${p.tagCls}`}>{t}</span>
+                      <span key={t} className={`text-[13px] px-2.5 py-0.5 rounded-full font-medium ${p.tagCls}`}>{t}</span>
                     ))}
                   </div>
                 </motion.div>
@@ -118,14 +118,14 @@ const MetodologiaSection = () => {
                     {i + 1}
                   </div>
                   <div className="pb-6 flex-1">
-                    <p className="text-[15px] font-bold text-white mb-1">{s.t}</p>
-                    <p className="text-[13px] text-white/50 leading-relaxed">{s.d}</p>
+                    <p className="text-base font-bold text-white mb-1">{s.t}</p>
+                    <p className="text-sm text-white/70 leading-relaxed">{s.d}</p>
                   </div>
                 </div>
               ))}
             </div>
             <div className="mt-2 bg-ouro/[0.08] border border-ouro/20 rounded-xl px-4 py-3.5">
-              <p className="text-[13px] text-ouro-light leading-relaxed">
+              <p className="text-sm text-ouro-light leading-relaxed">
                 <strong className="font-bold">Regra de ouro:</strong> Nenhum sinal é interpretado
                 isolado. A leitura integrada dos 4 pilares é o que nos permite ver o que outros não vêem.
               </p>

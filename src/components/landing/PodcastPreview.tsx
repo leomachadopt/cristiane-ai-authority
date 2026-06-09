@@ -31,11 +31,11 @@ const PodcastPreview = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           >
-            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-salvia mb-3.5">🎙️ Podcast</p>
+            <p className="text-[13px] font-semibold tracking-[0.18em] uppercase text-salvia mb-3.5">🎙️ Podcast</p>
             <h2 className="font-display text-3xl md:text-4xl text-white leading-tight mb-4">
               Família 360<br />Saúde Integrada
             </h2>
-            <p className="text-base text-white/60 leading-relaxed mb-7 max-w-md">
+            <p className="text-base text-white/75 leading-relaxed mb-7 max-w-md">
               Um podcast criado para pais que querem perceber melhor o que acontece com os seus
               filhos — respiração, sono, crescimento, função oral e desenvolvimento. Porque
               compreender melhor é cuidar melhor.
@@ -44,12 +44,12 @@ const PodcastPreview = () => {
               {hosts.map((h) => (
                 <div key={h.name} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full pl-1.5 pr-4 py-1.5">
                   <span
-                    className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold"
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-[13px] font-bold"
                     style={{ background: h.bg, color: h.color }}
                   >
                     {h.initials}
                   </span>
-                  <span className="text-xs text-white font-medium">{h.name}</span>
+                  <span className="text-[15px] text-white font-medium">{h.name}</span>
                 </div>
               ))}
             </div>
@@ -68,7 +68,7 @@ const PodcastPreview = () => {
             transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
             className="bg-white/[0.04] border border-white/[0.08] rounded-3xl p-7"
           >
-            <p className="text-[11px] font-semibold tracking-[0.15em] uppercase text-ouro-light mb-4">
+            <p className="text-[13px] font-semibold tracking-[0.15em] uppercase text-ouro-light mb-4">
               Episódios em destaque
             </p>
             {episodes.map((ep, i) => (
@@ -80,8 +80,8 @@ const PodcastPreview = () => {
                   {ep.ico}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white mb-0.5 leading-snug">{ep.title}</p>
-                  <p className="text-xs text-white/35 leading-relaxed">{ep.desc}</p>
+                  <p className="text-[15px] font-semibold text-white mb-0.5 leading-snug">{ep.title}</p>
+                  <p className="text-[15px] text-white/55 leading-relaxed">{ep.desc}</p>
                 </div>
               </div>
             ))}

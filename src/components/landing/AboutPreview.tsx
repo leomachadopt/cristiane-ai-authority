@@ -63,8 +63,8 @@ const AboutPreview = () => {
                   className="bg-white rounded-xl p-4 border border-border/70"
                 >
                   <div className="text-lg mb-1.5">{c.icon}</div>
-                  <p className="text-xs font-bold text-azul mb-0.5">{c.title}</p>
-                  <p className="text-[11px] text-muted-foreground leading-snug">{c.desc}</p>
+                  <p className="text-base font-bold text-azul mb-0.5">{c.title}</p>
+                  <p className="text-[15px] text-muted-foreground leading-snug">{c.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -72,8 +72,8 @@ const AboutPreview = () => {
             <div className="flex gap-8 mt-6 pt-6 border-t border-border">
               {numeros.map((n) => (
                 <div key={n.label}>
-                  <div className="font-display text-3xl font-bold text-azul">{n.val}</div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{n.label}</div>
+                  <div className="font-display text-4xl md:text-5xl font-bold text-azul">{n.val}</div>
+                  <div className="text-[15px] text-muted-foreground mt-0.5">{n.label}</div>
                 </div>
               ))}
             </div>

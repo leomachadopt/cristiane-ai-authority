@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import Providers from "@/views/Providers";
 import PageHero from "@/components/PageHero";
 import MetodologiaSection from "@/components/landing/MetodologiaSection";
 import ConsultaSection from "@/components/landing/ConsultaSection";
@@ -9,7 +10,8 @@ const ciclo = ["Respiração", "Crescimento", "Mordida", "Função", "Sono"];
 
 const Metodologia = () => {
   return (
-    <Layout>
+    <Providers>
+    <Layout pathname="/metodologia/">
       <PageHero
         eyebrow="Metodologia Respira e Cresce 360"
         title={<>O desenvolvimento do teu filho é um sistema — <span className="italic text-ouro-light">não partes isoladas.</span></>}
@@ -32,7 +34,7 @@ const Metodologia = () => {
             <div className="inline-flex items-center gap-2 flex-wrap justify-center">
               {ciclo.map((c, i) => (
                 <span key={c} className="flex items-center gap-2">
-                  <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-salvia/15 text-azul">{c}</span>
+                  <span className="px-3.5 py-1.5 rounded-full text-[13px] font-semibold bg-salvia/15 text-azul">{c}</span>
                   {i < ciclo.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-ouro" />}
                 </span>
               ))}
@@ -44,6 +46,7 @@ const Metodologia = () => {
       <MetodologiaSection />
       <ConsultaSection />
     </Layout>
+    </Providers>
   );
 };
 

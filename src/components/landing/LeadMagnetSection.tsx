@@ -84,7 +84,7 @@ const LeadMagnetSection = () => {
               >
                 Quero receber o guia gratuito <ArrowRight className="w-4 h-4" />
               </button>
-              <p className="text-[11px] text-muted-foreground leading-snug mt-1">
+              <p className="text-[13px] text-muted-foreground leading-snug mt-1">
                 Sem spam. Apenas conteúdo que importa para a saúde do teu filho. Podes cancelar a
                 qualquer momento.
               </p>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Podcast from "@/views/Podcast.tsx";
+---
+
+<BaseLayout
+  title="Podcast Família 360 · Saúde Integrada"
+  description="Um podcast para pais que querem perceber melhor a respiração, o sono, o crescimento e a função oral dos seus filhos. Conversas claras sobre desenvolvimento infantil."
+  canonical="/podcast/"
+>
+  <Podcast client:load />
+</BaseLayout>

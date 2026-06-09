@@ -1,0 +1,194 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getPublishedCmsArticles, resolveRelated, type DbArticle } from "@/lib/articles";
+import { getCta, pilarLabel } from "@/lib/cta";
+import { renderMarkdown } from "@/lib/markdown";
+import { SITE } from "@/config";
+
+export async function getStaticPaths() {
+  const articles = await getPublishedCmsArticles();
+  return articles.map((a) => ({ params: { slug: a.slug }, props: { article: a } }));
+}
+
+const { article } = Astro.props as { article: DbArticle };
+
+const bodyHtml = renderMarkdown(article.content ?? "");
+const related = await resolveRelated(article.related ?? []);
+const cta = getCta(article.cta);
+const refs = article.referencias ?? [];
+const faqs = article.faq ?? [];
+const aVerificar = refs.some((r) => r.estado_verificacao === "a-verificar");
+
+const fmtDate = (d: string | null) =>
+  d ? new Date(d).toLocaleDateString("pt-PT", { day: "2-digit", month: "long", year: "numeric" }) : "";
+
+const url = `${SITE.url}/blog/${article.slug}/`;
+const metaTitle = article.seo_title || article.title;
+const metaDesc = article.meta_description || article.description || "";
+
+// JSON-LD
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: article.title,
+  description: metaDesc,
+  author: { "@type": "Person", name: article.author ?? SITE.name },
+  publisher: { "@type": "Organization", name: SITE.name },
+  datePublished: article.pub_date ?? undefined,
+  dateModified: article.updated_date ?? article.pub_date ?? undefined,
+  image: article.image ?? SITE.ogImage,
+  mainEntityOfPage: url,
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Início", item: `${SITE.url}/` },
+    { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE.url}/blog/` },
+    { "@type": "ListItem", position: 3, name: article.title, item: url },
+  ],
+};
+const faqSchema =
+  faqs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.pergunta,
+          acceptedAnswer: { "@type": "Answer", text: f.resposta },
+        })),
+      }
+    : null;
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDesc}
+  canonical={`/blog/${article.slug}/`}
+  image={article.image ?? undefined}
+  type="article"
+  publishedTime={article.pub_date ? new Date(article.pub_date) : undefined}
+  modifiedTime={article.updated_date ? new Date(article.updated_date) : undefined}
+  noindex={article.noindex ?? false}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+
+  <article class="py-12 md:py-16">
+    <div class="container max-w-3xl">
+      <!-- Breadcrumb -->
+      <nav class="flex flex-wrap items-center gap-1.5 text-[13px] text-muted-foreground mb-6">
+        <a href="/" class="hover:text-azul">Início</a><span>/</span>
+        <a href="/blog/" class="hover:text-azul">Blog</a><span>/</span>
+        <span class="text-azul font-medium">{pilarLabel(article.pilar)}</span>
+      </nav>
+
+      <span class="text-[13px] font-semibold tracking-wider uppercase text-ouro mb-3 block">{pilarLabel(article.pilar)}</span>
+      <h1 class="font-display text-3xl md:text-[42px] font-bold text-azul leading-[1.15] mb-4">{article.title}</h1>
+
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground mb-8">
+        <span class="font-medium text-azul">{article.author}</span>
+        {article.pub_date && <><span>·</span><time datetime={article.pub_date}>{fmtDate(article.pub_date)}</time></>}
+      </div>
+
+      {
+        article.image && (
+          <figure class="mb-8">
+            <img src={article.image} alt={article.cover_alt ?? article.image_alt ?? article.title} class="w-full rounded-2xl" />
+            {article.cover_caption && <figcaption class="text-[13px] text-muted-foreground/70 mt-2 text-center">{article.cover_caption}</figcaption>}
+          </figure>
+        )
+      }
+
+      <!-- Resposta direta (GEO) -->
+      {
+        article.resposta_direta && (
+          <div class="bg-salvia/10 border-l-4 border-salvia rounded-r-xl px-6 py-5 mb-10">
+            <p class="text-[13px] font-semibold tracking-wider uppercase text-salvia mb-2">Resposta rápida</p>
+            <p class="text-[17px] text-azul leading-relaxed">{article.resposta_direta}</p>
+          </div>
+        )
+      }
+
+      <!-- Corpo -->
+      <div class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-azul prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-p:text-foreground/85 prose-p:leading-relaxed prose-a:text-ouro prose-a:font-medium prose-strong:text-azul prose-li:text-foreground/85" set:html={bodyHtml} />
+
+      <!-- FAQ -->
+      {
+        faqs.length > 0 && (
+          <section class="mt-14">
+            <h2 class="font-display text-2xl font-bold text-azul mb-6">Perguntas frequentes</h2>
+            <div class="flex flex-col gap-3">
+              {faqs.map((f) => (
+                <details class="bg-card rounded-xl border border-border/60 px-6 py-4 group">
+                  <summary class="font-display font-semibold text-base text-azul cursor-pointer list-none flex justify-between items-center gap-4">
+                    {f.pergunta}
+                    <span class="text-ouro transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+                  </summary>
+                  <p class="text-sm text-muted-foreground leading-relaxed mt-3">{f.resposta}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- Referências -->
+      {
+        refs.length > 0 && (
+          <section class="mt-14">
+            <h2 class="font-display text-xl font-bold text-azul mb-4">Referências</h2>
+            {aVerificar && (
+              <p class="text-[13px] text-coral mb-3">⚠ Algumas referências estão a aguardar verificação.</p>
+            )}
+            <ol class="list-decimal pl-5 flex flex-col gap-2 text-[13px] text-muted-foreground leading-relaxed">
+              {refs.map((r) => (
+                <li>
+                  {r.citacao}
+                  {r.pmid && <> · <a class="text-ouro" href={`https://pubmed.ncbi.nlm.nih.gov/${r.pmid}/`} target="_blank" rel="noopener">PMID {r.pmid}</a></>}
+                  {r.doi && <> · <a class="text-ouro" href={`https://doi.org/${r.doi}`} target="_blank" rel="noopener">DOI</a></>}
+                  {r.estado_verificacao === "a-verificar" && <span class="text-coral"> (a verificar)</span>}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
+
+      <!-- Related -->
+      {
+        related.length > 0 && (
+          <section class="mt-14">
+            <h2 class="font-display text-xl font-bold text-azul mb-4">Continua a ler</h2>
+            <div class="flex flex-col gap-2.5">
+              {related.map((r) => (
+                <a href={r.href} class="flex items-center gap-2 text-[15px] text-azul hover:text-ouro transition-colors group">
+                  <span class="text-ouro">→</span>
+                  <span class="group-hover:underline">{r.label}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </article>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-20 px-6 text-center bg-[linear-gradient(135deg,#1A1208_0%,#2A1C0E_100%)]">
+    <div class="container max-w-2xl">
+      <span class="inline-block bg-ouro/12 border border-ouro/20 text-ouro-light text-[13px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-5">{cta.eyebrow}</span>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-white leading-[1.15] mb-4">{cta.title}</h2>
+      <p class="text-[17px] text-white/75 leading-relaxed max-w-lg mx-auto mb-8">{cta.text}</p>
+      <a
+        href={cta.href}
+        {...(cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        class="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-8 py-4 rounded-[10px] text-base font-semibold transition-[transform,background-color] ease-out-expo hover:-translate-y-0.5"
+      >
+        {cta.button}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

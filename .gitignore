@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Variáveis de ambiente (segredos)
+.env
+.env.local
+.env.production
+
+# Astro / Vercel / tooling local
+.astro/
+.vercel/
+.claude/

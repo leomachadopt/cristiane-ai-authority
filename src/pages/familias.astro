@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Familias from "@/views/Familias.tsx";
+---
+
+<BaseLayout
+  title="Sinais a Observar · Para Famílias"
+  description="Os sinais que merecem atenção no desenvolvimento do teu filho — respiração, sono, mordida, função — e como a leitura integrada RC360 os interpreta. Checklist gratuito."
+  canonical="/familias/"
+>
+  <Familias client:load />
+</BaseLayout>

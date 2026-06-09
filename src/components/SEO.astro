@@ -1,0 +1,58 @@
+---
+import { SITE } from "@/config";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  noindex?: boolean;
+  appendSiteName?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  image = SITE.ogImage,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  noindex = false,
+  appendSiteName = true,
+} = Astro.props;
+
+const fullTitle = appendSiteName && !title.includes(SITE.name)
+  ? `${title} | ${SITE.name}`
+  : title;
+
+// Canonical absoluto, respeitando o trailing slash.
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, SITE.url).href;
+const imageURL = new URL(image, SITE.url).href;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={SITE.name} />
+<link rel="canonical" href={canonicalURL} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={imageURL} />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />

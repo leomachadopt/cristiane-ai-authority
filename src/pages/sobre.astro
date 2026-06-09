@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Sobre from "@/views/Sobre.tsx";
+---
+
+<BaseLayout
+  title="Sobre · Quem é a Dra. Cristiane Martins"
+  description="Especialista em Odontopediatria Integrativa, Ortopedia Funcional dos Maxilares e Medicina do Sono. 25 anos a ajudar famílias a ver o desenvolvimento dos filhos como um sistema."
+  canonical="/sobre/"
+>
+  <Sobre client:load />
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getPublishedCmsArticles } from "@/lib/articles";
+import { pilarLabel } from "@/lib/cta";
+
+const articles = await getPublishedCmsArticles();
+
+const fmtDate = (d: string | null) =>
+  d ? new Date(d).toLocaleDateString("pt-PT", { day: "2-digit", month: "long", year: "numeric" }) : "";
+---
+
+<BaseLayout
+  title="Blog · Desenvolvimento Infantil"
+  description="Artigos sobre respiração, sono, crescimento craniofacial e função oral na criança — pela Dra. Cristiane Martins. Compreender melhor é cuidar melhor."
+  canonical="/blog/"
+>
+  <!-- Hero -->
+  <section class="relative bg-azul-dark overflow-hidden py-20 md:py-24">
+    <div class="pointer-events-none absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full border border-ouro/[0.07]"></div>
+    <div class="container max-w-3xl relative z-10">
+      <span class="eyebrow mb-4 block text-ouro">Blog</span>
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-white leading-[1.12] mb-5">
+        Compreender melhor é <span class="italic text-ouro-light">cuidar melhor.</span>
+      </h1>
+      <p class="text-lg text-white/75 leading-relaxed max-w-2xl">
+        Artigos sobre o desenvolvimento do teu filho — respiração, sono, crescimento e função oral —
+        com a leitura integrada da Metodologia RC360.
+      </p>
+    </div>
+  </section>
+
+  <!-- Lista -->
+  <section class="py-20 md:py-24">
+    <div class="container max-w-5xl">
+      {
+        articles.length === 0 ? (
+          <div class="text-center max-w-md mx-auto py-10">
+            <p class="font-display text-2xl font-bold text-azul mb-3">Artigos a chegar em breve.</p>
+            <p class="text-muted-foreground leading-relaxed">
+              Estamos a preparar conteúdo para te ajudar a compreender melhor o desenvolvimento do teu
+              filho. Entretanto, conhece a <a href="/metodologia/" class="text-ouro font-semibold underline">Metodologia RC360</a>.
+            </p>
+          </div>
+        ) : (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {articles.map((a) => (
+              <a
+                href={`/blog/${a.slug}/`}
+                class="group bg-white rounded-2xl border border-border/70 overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-[transform,box-shadow] duration-200 ease-out-expo"
+              >
+                {a.image && (
+                  <div class="aspect-[16/10] overflow-hidden bg-salvia/10">
+                    <img src={a.image} alt={a.image_alt ?? a.cover_alt ?? a.title} loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300" />
+                  </div>
+                )}
+                <div class="p-6 flex flex-col flex-1">
+                  <span class="text-[13px] font-semibold tracking-wider uppercase text-ouro mb-2">{pilarLabel(a.pilar)}</span>
+                  <h2 class="font-display text-lg font-bold text-azul leading-snug mb-2 group-hover:text-ouro transition-colors">{a.title}</h2>
+                  <p class="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{a.description}</p>
+                  <span class="text-[13px] text-muted-foreground/70">{fmtDate(a.pub_date)}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
