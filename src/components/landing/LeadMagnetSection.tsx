@@ -80,7 +80,7 @@ const LeadMagnetSection = () => {
               />
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-6 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-6 py-3.5 rounded-full text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
               >
                 Quero receber o guia gratuito <ArrowRight className="w-4 h-4" />
               </button>

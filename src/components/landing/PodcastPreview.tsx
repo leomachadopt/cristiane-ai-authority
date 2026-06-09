@@ -81,7 +81,7 @@ const PodcastPreview = () => {
                 </div>
                 <div>
                   <p className="text-[15px] font-semibold text-white mb-0.5 leading-snug">{ep.title}</p>
-                  <p className="text-[15px] text-white/55 leading-relaxed">{ep.desc}</p>
+                  <p className="text-[15px] text-white/70 leading-relaxed">{ep.desc}</p>
                 </div>
               </div>
             ))}

@@ -12,7 +12,7 @@
 @layer base {
   :root {
     --background: 37 40% 94%;        /* marfim #F5F0E8 */
-    --foreground: 197 30% 16%;       /* texto — petróleo escuro */
+    --foreground: 30 27% 18%;        /* texto sobre marfim #3A2E22 */
 
     --card: 0 0% 100%;
     --card-foreground: 197 30% 16%;
@@ -37,20 +37,22 @@
 
     --border: 40 20% 86%;
     --input: 40 20% 86%;
-    --ring: 39 45% 61%;              /* dourado */
+    --ring: 12 59% 59%;              /* coral (foco) */
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     /* ── Tokens de marca (Nova Paleta Pessoal) ── */
     /* Nota: azul/azul-dark mantidos como aliases por compatibilidade,
        mas apontam para a única cor escura da paleta — tinta #1A1208. */
-    --azul: 34 53% 7%;               /* tinta #1A1208 */
-    --azul-dark: 34 53% 7%;          /* tinta #1A1208 (única cor escura) */
+    --azul: 34 53% 7%;               /* tinta #1A1208 — texto/headings */
+    --azul-dark: 194 44% 30%;        /* Azul Petróleo #2C5F6F — secções/cartões escuros */
     --ouro: 39 45% 61%;              /* dourado âncora #C8A96E */
     --ouro-light: 39 53% 71%;        /* dourado claro */
     --salvia: 127 16% 55%;           /* verde sálvia #7A9E7E */
-    --coral: 12 59% 59%;             /* coral #D4735A */
+    --coral: 12 59% 59%;             /* coral #D4735A — CTAs/ação */
     --terracota: 20 51% 53%;         /* terracota #C4734A */
+    --petroleo: 194 44% 30%;         /* azul petróleo #2C5F6F — autoridade */
+    --petroleo-foreground: 0 0% 100%;
     --salvia-bg: 125 24% 92%;
     --coral-bg: 16 60% 95%;
     --terracota-bg: 22 55% 93%;
@@ -164,12 +166,63 @@
   .glass {
     @apply backdrop-blur-xl bg-background/90 border-b border-border/60;
   }
+
+  /* Header em Azul Petróleo sólido — funde-se com a barra de urgência e o hero (também petróleo) */
+  #site-header { background-color: hsl(var(--petroleo)); }
+  #site-header.is-scrolled { box-shadow: 0 6px 24px rgba(10, 30, 36, 0.22); }
   .breathing {
     animation: breathe 4s ease-in-out infinite;
   }
   .eyebrow {
     @apply inline-block text-[13px] font-semibold tracking-[0.18em] uppercase;
     color: hsl(var(--ouro));
+  }
+
+  /* ── Azul Petróleo (autoridade) ── */
+  .bg-petroleo { background-color: hsl(var(--petroleo)); }
+  .text-petroleo { color: hsl(var(--petroleo)); }
+  .bg-escuro { background-color: hsl(var(--azul)); }
+
+  /* ── Botões pill (design language Leonardo, com a paleta quente) ── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold;
+    background-color: hsl(var(--coral));
+    color: #fff;
+    box-shadow: 0 8px 24px hsl(var(--coral) / 0.32);
+    transition: transform 0.2s var(--ease-out), background-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+  .btn-primary:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover { background-color: hsl(12 59% 64%); transform: translateY(-2px); box-shadow: 0 12px 30px hsl(var(--coral) / 0.4); }
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold;
+    border: 1.5px solid hsl(var(--azul) / 0.22);
+    color: hsl(var(--azul));
+    transition: transform 0.2s var(--ease-out), background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .btn-outline:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-outline:hover { background-color: hsl(var(--azul)); color: #fff; transform: translateY(-2px); }
+  }
+
+  /* Botão pill sobre fundo escuro (outline claro) */
+  .btn-outline-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    transition: transform 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
+  }
+  .btn-outline-light:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-outline-light:hover { background-color: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
+  }
+
+  /* Cartão padrão (raio e sombra suaves) */
+  .card-soft {
+    @apply rounded-2xl bg-card border border-border/60;
+    box-shadow: 0 8px 28px hsl(var(--azul) / 0.06);
   }
 }
 

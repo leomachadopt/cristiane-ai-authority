@@ -9,7 +9,7 @@ const isActive = (href: string) =>
 ---
 
 <!-- Barra de urgência -->
-<div class="bg-azul text-white text-sm py-2.5 px-4 flex items-center justify-center gap-2 text-center">
+<div class="bg-petroleo text-white text-sm py-2.5 px-4 flex items-center justify-center gap-2 text-center">
   <svg class="w-4 h-4 text-ouro-light shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>
   <span class="text-white/80">
     Consulta <strong class="text-ouro-light font-semibold">Respira e Cresce 360</strong> disponível em {LOCATION}
@@ -21,12 +21,12 @@ const isActive = (href: string) =>
 
 <header
   id="site-header"
-  class="sticky top-0 left-0 right-0 z-50 glass transition-[box-shadow] duration-200 ease-out-expo"
+  class="sticky top-0 left-0 right-0 z-50 transition-[background-color,box-shadow,border-color] duration-300 ease-out-expo"
 >
   <nav class="container flex items-center justify-between h-16 md:h-[68px]">
     <a href="/" class="leading-tight">
-      <span class="block font-display text-base md:text-lg font-semibold text-azul">Dra. Cristiane Martins</span>
-      <span class="block text-[13px] md:text-[13px] text-muted-foreground tracking-wide">
+      <span class="block font-display text-base md:text-lg font-semibold text-white">Dra. Cristiane Martins</span>
+      <span class="block text-[13px] md:text-[13px] text-white/65 tracking-wide">
         Odontopediatria Integrativa · RC360
       </span>
     </a>
@@ -39,7 +39,7 @@ const isActive = (href: string) =>
             href={link.href}
             class:list={[
               "text-sm font-medium tracking-wide transition-colors",
-              isActive(link.href) ? "text-azul" : "text-muted-foreground hover:text-azul",
+              isActive(link.href) ? "text-white" : "text-white/70 hover:text-white",
             ]}
           >
             {link.label}
@@ -48,7 +48,7 @@ const isActive = (href: string) =>
       }
       <a
         href="/contacto/"
-        class="bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-5 py-2.5 rounded-lg text-sm font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
+        class="bg-coral hover:bg-coral text-white active:scale-[0.97] px-5 py-2.5 rounded-full text-sm font-semibold shadow-[0_6px_18px_hsl(var(--coral)/0.3)] transition-[transform,box-shadow] ease-out-expo hover:-translate-y-0.5"
       >
         Marcar Consulta
       </a>
@@ -64,7 +64,7 @@ const isActive = (href: string) =>
   (function () {
     const h = document.getElementById("site-header");
     if (!h) return;
-    const onScroll = () => h.classList.toggle("shadow-[0_2px_20px_rgba(0,0,0,0.08)]", window.scrollY > 80);
+    const onScroll = () => h.classList.toggle("is-scrolled", window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   })();

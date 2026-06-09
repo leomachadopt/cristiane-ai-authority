@@ -17,7 +17,7 @@ const FloatingCTA = () => {
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      className={`fixed bottom-6 right-6 z-[60] bg-ouro hover:bg-ouro-light text-ouro-foreground pl-4 pr-5 py-3.5 rounded-full text-sm font-semibold shadow-[0_8px_32px_rgba(191,164,104,0.45)] flex items-center gap-2 transition-[transform,background-color,box-shadow,opacity] ease-out-expo duration-300 hover:-translate-y-0.5 active:scale-[0.97] ${
+      className={`fixed bottom-6 right-6 z-[60] bg-coral hover:bg-coral text-white pl-4 pr-5 py-3.5 rounded-full text-sm font-semibold shadow-[0_8px_32px_rgba(191,164,104,0.45)] flex items-center gap-2 transition-[transform,background-color,box-shadow,opacity] ease-out-expo duration-300 hover:-translate-y-0.5 active:scale-[0.97] ${
         scrolled ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0 pointer-events-none"
       }`}
     >

@@ -147,7 +147,7 @@ const Sobre = () => {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-7 py-3.5 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-7 py-3.5 rounded-full text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
             >
               <Wind className="w-4 h-4" /> Marcar Consulta RC360
             </a>

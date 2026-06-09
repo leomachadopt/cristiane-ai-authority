@@ -13,7 +13,7 @@ const MobileMenu = ({ nav, pathname }: { nav: NavItem[]; pathname: string }) => 
 
   return (
     <div className="lg:hidden">
-      <button className="p-2 text-azul" onClick={() => setOpen(!open)} aria-label="Menu">
+      <button className="p-2 text-white" onClick={() => setOpen(!open)} aria-label="Menu">
         {open ? <X size={24} /> : <Menu size={24} />}
       </button>
 
@@ -41,7 +41,7 @@ const MobileMenu = ({ nav, pathname }: { nav: NavItem[]; pathname: string }) => 
               <a
                 href="/contacto/"
                 onClick={() => setOpen(false)}
-                className="mt-2 bg-ouro hover:bg-ouro-light text-ouro-foreground px-4 py-3 rounded-lg text-sm font-semibold text-center transition-[transform,background-color] duration-200 ease-out-expo active:scale-[0.97]"
+                className="mt-2 bg-coral text-white px-4 py-3 rounded-full text-sm font-semibold text-center transition-[transform,background-color] duration-200 ease-out-expo active:scale-[0.97]"
               >
                 Marcar Consulta
               </a>

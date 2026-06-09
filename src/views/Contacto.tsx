@@ -180,7 +180,7 @@ const Contacto = () => {
                   </label>
                 </div>
 
-                <Button type="submit" disabled={loading} className="w-full rounded-xl bg-azul-dark hover:bg-azul" size="lg">
+                <Button type="submit" disabled={loading} className="w-full rounded-full bg-coral hover:bg-coral text-white" size="lg">
                   <Send className="w-4 h-4 mr-2" />
                   {loading ? "A enviar..." : "Enviar mensagem"}
                 </Button>

@@ -1,4 +1,6 @@
 import { Award, Wind, Mic, Link2 } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const items = [
   { icon: Award, strong: "25 anos", text: "de experiência clínica" },
@@ -8,8 +10,17 @@ const items = [
 ];
 
 const SocialProofBar = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
   return (
-    <div className="bg-white border-b border-border/60 py-9 px-6">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+      className="bg-white border-b border-border/60 py-9 px-6"
+    >
       <div className="container max-w-5xl flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
         {items.map((item, i) => (
           <div key={item.strong} className="flex items-center gap-6">
@@ -24,7 +35,7 @@ const SocialProofBar = () => {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

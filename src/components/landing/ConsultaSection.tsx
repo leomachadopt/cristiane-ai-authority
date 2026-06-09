@@ -106,7 +106,7 @@ const ConsultaSection = ({ ctaHref = "/contacto" }: { ctaHref?: string }) => {
         <div className="text-center mt-9">
           <a
             href={ctaHref}
-            className="inline-flex items-center gap-2 bg-azul-dark hover:bg-azul text-white active:scale-[0.97] px-9 py-4 rounded-[10px] text-[17px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-9 py-4 rounded-full text-[17px] font-semibold shadow-[0_8px_24px_hsl(var(--coral)/0.32)] transition-[transform,box-shadow] ease-out-expo hover:-translate-y-0.5"
           >
             <CalendarDays className="w-5 h-5" /> Marcar Consulta Respira e Cresce 360
           </a>

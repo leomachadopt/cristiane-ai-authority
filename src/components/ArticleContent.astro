@@ -114,7 +114,7 @@ const fmtDate = (d: string | null) =>
   </div>
 </article>
 
-<section class="py-16 md:py-20 px-6 text-center bg-[linear-gradient(135deg,#1A1208_0%,#2A1C0E_100%)]">
+<section class="py-16 md:py-20 px-6 text-center bg-[linear-gradient(135deg,#2C5F6F_0%,#244E5A_100%)]">
   <div class="container max-w-2xl">
     <span class="inline-block bg-ouro/12 border border-ouro/20 text-ouro-light text-[12px] font-semibold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-5">{cta.eyebrow}</span>
     <h2 class="font-display text-3xl md:text-4xl font-bold text-white leading-[1.15] mb-4">{cta.title}</h2>
@@ -122,7 +122,7 @@ const fmtDate = (d: string | null) =>
     <a
       href={cta.href}
       {...(cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      class="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-8 py-4 rounded-[10px] text-base font-semibold transition-[transform,background-color] ease-out-expo hover:-translate-y-0.5"
+      class="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-8 py-4 rounded-full text-base font-semibold transition-[transform,background-color] ease-out-expo hover:-translate-y-0.5"
     >
       {cta.button}
     </a>

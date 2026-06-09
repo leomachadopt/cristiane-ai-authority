@@ -11,7 +11,7 @@ const CTASection = () => {
     <section
       ref={ref}
       id="marcar"
-      className="relative py-24 md:py-28 px-6 text-center overflow-hidden bg-[linear-gradient(135deg,#1A1208_0%,#2A1C0E_100%)]"
+      className="relative py-24 md:py-28 px-6 text-center overflow-hidden bg-[linear-gradient(135deg,#2C5F6F_0%,#244E5A_100%)]"
     >
       <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full border border-ouro/[0.07]" />
       <div className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full border border-salvia/[0.06]" />
@@ -38,13 +38,13 @@ const CTASection = () => {
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-ouro hover:bg-ouro-light text-ouro-foreground active:scale-[0.97] px-8 py-4 rounded-[10px] text-base font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-8 py-4 rounded-full text-base font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
           >
             <MessageCircle className="w-5 h-5" /> Escrever RESPIRA por WhatsApp
           </a>
           <a
             href={PHONE_LINK}
-            className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-8 py-4 rounded-[10px] text-base font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
+            className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-8 py-4 rounded-full text-base font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
           >
             <Phone className="w-5 h-5" /> Ligar para a Clínica
           </a>

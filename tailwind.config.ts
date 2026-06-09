@@ -45,6 +45,10 @@ export default {
           DEFAULT: "hsl(var(--terracota))",
           foreground: "hsl(var(--azul-dark))",
         },
+        petroleo: {
+          DEFAULT: "hsl(var(--petroleo))",
+          foreground: "hsl(var(--petroleo-foreground))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
