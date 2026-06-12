@@ -16,18 +16,20 @@ import CTASection from "@/components/landing/CTASection";
 const Home = () => (
   <Providers>
     <Layout pathname="/">
-      <HeroSection />
-      <SocialProofBar />
-      <PainSection />
-      <AboutPreview />
-      <MetodologiaSection />
-      <SinaisSection />
-      <ConsultaSection />
-      {/* <TestimonialsSection /> — oculto até haver 2–3 depoimentos reais autorizados */}
+      {/* Sequência: Autoridade → Oportunidade → O que faço */}
+      <HeroSection />          {/* 1. Autoridade (Dra. + missão) */}
+      <SocialProofBar />       {/*    credibilidade rápida */}
+      <PainSection />          {/* 2. "Reconheces isto?" (dores dos pais) */}
+      <SinaisSection />        {/* 3. Estes sinais estão ligados */}
+      <MetodologiaSection />   {/*    + os 4 pilares */}
+      <AboutPreview />         {/* 4. Quem sou (mini-bio) */}
+      {/* 5. A ciência por trás do método — bloco a adicionar (precisa de referências) */}
+      <PodcastPreview />       {/* 6. Prova social + Podcast */}
+      <ConsultaSection />      {/* 7. Consulta RC360 */}
       <LeadMagnetSection />
       <FAQSection />
-      <PodcastPreview />
-      <CTASection />
+      <CTASection />           {/*    CTA final */}
+      {/* <TestimonialsSection /> — oculto até haver 2–3 depoimentos reais autorizados */}
     </Layout>
   </Providers>
 );

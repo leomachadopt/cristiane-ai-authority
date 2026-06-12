@@ -30,8 +30,8 @@ export const SITE = {
 export const NAV = [
   { href: "/", label: "Início" },
   { href: "/sobre/", label: "Sobre" },
-  { href: "/metodologia/", label: "Metodologia" },
   { href: "/familias/", label: "Sinais a Observar" },
+  { href: "/metodologia/", label: "Metodologia" },
   { href: "/blog/", label: "Blog" },
   { href: "/podcast/", label: "Podcast" },
   { href: "/contacto/", label: "Contacto" },
