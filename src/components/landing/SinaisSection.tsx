@@ -11,9 +11,10 @@ const sinais = [
   { ico: "🍽️", title: "Dificuldades na mastigação ou fala", desc: "Preferência por alimentos moles, pronúncia pouco clara, hábitos de sucção prolongados.", alert: "→ Pilar 4: Função Oral" },
 ];
 
-const SinaisSection = ({ ctaHref = "#consulta" }: { ctaHref?: string }) => {
+const SinaisSection = ({ ctaHref = "#consulta", teaser = false }: { ctaHref?: string; teaser?: boolean }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const lista = teaser ? sinais.slice(0, 3) : sinais;
 
   return (
     <section ref={ref} id="sinais" className="py-20 md:py-24 bg-azul-dark">
@@ -31,7 +32,7 @@ const SinaisSection = ({ ctaHref = "#consulta" }: { ctaHref?: string }) => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          {sinais.map((s, i) => (
+          {lista.map((s, i) => (
             <motion.div
               key={s.title}
               initial={{ opacity: 0, y: 24 }}
@@ -47,25 +48,35 @@ const SinaisSection = ({ ctaHref = "#consulta" }: { ctaHref?: string }) => {
           ))}
         </div>
 
-        <div className="max-w-2xl mx-auto bg-salvia/[0.07] border border-salvia/15 rounded-2xl px-7 py-5 text-center mb-10">
-          <p className="text-[15px] text-white/75 leading-relaxed">
-            <strong className="text-white font-medium">Nenhum destes sinais isolado fecha um
-            diagnóstico.</strong> Mas quando aparecem em conjunto — e sobretudo quando persistem —
-            merecem ser observados com critério. É exactamente isso que faço.
-          </p>
-        </div>
+        {!teaser && (
+          <div className="max-w-2xl mx-auto bg-salvia/[0.07] border border-salvia/15 rounded-2xl px-7 py-5 text-center mb-10">
+            <p className="text-[15px] text-white/75 leading-relaxed">
+              <strong className="text-white font-medium">Nenhum destes sinais isolado fecha um
+              diagnóstico.</strong> Mas quando aparecem em conjunto — e sobretudo quando persistem —
+              merecem ser observados com critério. É exactamente isso que faço.
+            </p>
+          </div>
+        )}
 
         <div className="text-center">
-          <p className="text-[15px] text-white/65 mb-4">
-            Se reconheceste algum destes sinais, a Consulta Respira e Cresce 360 foi criada para a
-            vossa família.
-          </p>
-          <a
-            href={ctaHref}
-            className="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-7 py-3.5 rounded-full text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
-          >
-            <Wind className="w-4 h-4" /> Marcar Consulta RC360
-          </a>
+          {teaser ? (
+            <a href="/familias/" className="btn-outline-light">
+              Ver todos os sinais e receber o checklist →
+            </a>
+          ) : (
+            <>
+              <p className="text-[15px] text-white/65 mb-4">
+                Se reconheceste algum destes sinais, a Consulta Respira e Cresce 360 foi criada para a
+                vossa família.
+              </p>
+              <a
+                href={ctaHref}
+                className="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-7 py-3.5 rounded-full text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
+              >
+                <Wind className="w-4 h-4" /> Marcar Consulta RC360
+              </a>
+            </>
+          )}
         </div>
       </div>
     </section>
