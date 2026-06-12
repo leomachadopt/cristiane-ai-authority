@@ -48,10 +48,10 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-wrap gap-3.5 mb-11">
-              <a href="#consulta" className="btn-primary">
+              <a href="/consulta/" className="btn-primary">
                 <Wind className="w-4 h-4" /> Marcar Consulta RC360
               </a>
-              <a href="#sinais" className="btn-outline">
+              <a href="/familias/" className="btn-outline">
                 Ver os sinais a observar
               </a>
             </div>

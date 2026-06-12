@@ -6,7 +6,7 @@ import PainSection from "@/components/landing/PainSection";
 import AboutPreview from "@/components/landing/AboutPreview";
 import MetodologiaSection from "@/components/landing/MetodologiaSection";
 import SinaisSection from "@/components/landing/SinaisSection";
-import ConsultaSection from "@/components/landing/ConsultaSection";
+// ConsultaSection movido para a página /consulta/ (oferta) — na home fica só o teaser (CTASection)
 // import TestimonialsSection from "@/components/landing/TestimonialsSection"; // oculto até haver depoimentos reais
 import LeadMagnetSection from "@/components/landing/LeadMagnetSection";
 import FAQSection from "@/components/landing/FAQSection";
@@ -25,7 +25,6 @@ const Home = () => (
       <AboutPreview />         {/* 4. Quem sou (mini-bio) */}
       {/* 5. A ciência por trás do método — bloco a adicionar (precisa de referências) */}
       <PodcastPreview />       {/* 6. Prova social + Podcast */}
-      <ConsultaSection />      {/* 7. Consulta RC360 */}
       <LeadMagnetSection />
       <FAQSection />
       <CTASection />           {/*    CTA final */}

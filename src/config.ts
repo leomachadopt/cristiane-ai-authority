@@ -29,9 +29,10 @@ export const SITE = {
 /** Navegação principal (header + footer). */
 export const NAV = [
   { href: "/", label: "Início" },
-  { href: "/sobre/", label: "Sobre" },
   { href: "/familias/", label: "Sinais a Observar" },
   { href: "/metodologia/", label: "Metodologia" },
+  { href: "/consulta/", label: "Consulta" },
+  { href: "/sobre/", label: "Sobre" },
   { href: "/blog/", label: "Blog" },
   { href: "/podcast/", label: "Podcast" },
   { href: "/contacto/", label: "Contacto" },

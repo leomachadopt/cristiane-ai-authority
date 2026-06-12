@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Consulta from "@/views/Consulta.tsx";
+---
+
+<BaseLayout
+  title="Consulta Respira e Cresce 360"
+  description="A consulta que liga o que outros veem separado. Avaliação clínica integrada dos 4 pilares — cavidade oral, respiração, crescimento craniofacial e função oral — com um plano por fases. Em Oliveira de Azeméis."
+  canonical="/consulta/"
+>
+  <Consulta client:load />
+</BaseLayout>
