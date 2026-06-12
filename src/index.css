@@ -198,13 +198,13 @@
 
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold;
-    border: 1.5px solid hsl(var(--azul) / 0.22);
-    color: hsl(var(--azul));
+    border: 1.5px solid hsl(var(--petroleo) / 0.4);
+    color: hsl(var(--petroleo));
     transition: transform 0.2s var(--ease-out), background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
   }
   .btn-outline:active { transform: scale(0.97); }
   @media (hover: hover) and (pointer: fine) {
-    .btn-outline:hover { background-color: hsl(var(--azul)); color: #fff; transform: translateY(-2px); }
+    .btn-outline:hover { background-color: hsl(var(--petroleo)); color: #fff; transform: translateY(-2px); }
   }
 
   /* Botão pill sobre fundo escuro (outline claro) */

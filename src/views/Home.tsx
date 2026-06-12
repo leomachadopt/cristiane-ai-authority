@@ -7,7 +7,7 @@ import AboutPreview from "@/components/landing/AboutPreview";
 import MetodologiaSection from "@/components/landing/MetodologiaSection";
 import SinaisSection from "@/components/landing/SinaisSection";
 import ConsultaSection from "@/components/landing/ConsultaSection";
-import TestimonialsSection from "@/components/landing/TestimonialsSection";
+// import TestimonialsSection from "@/components/landing/TestimonialsSection"; // oculto até haver depoimentos reais
 import LeadMagnetSection from "@/components/landing/LeadMagnetSection";
 import FAQSection from "@/components/landing/FAQSection";
 import PodcastPreview from "@/components/landing/PodcastPreview";
@@ -23,7 +23,7 @@ const Home = () => (
       <MetodologiaSection />
       <SinaisSection />
       <ConsultaSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> — oculto até haver 2–3 depoimentos reais autorizados */}
       <LeadMagnetSection />
       <FAQSection />
       <PodcastPreview />

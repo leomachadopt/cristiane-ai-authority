@@ -1,4 +1,4 @@
-import { WHATSAPP_LINK, PODCAST_LINK } from "@/lib/site";
+import { WHATSAPP_LINK } from "@/lib/site";
 
 export interface CtaBlock {
   eyebrow: string;
@@ -30,9 +30,9 @@ const CTAS: Record<string, CtaBlock> = {
     eyebrow: "Família 360",
     title: "Ouve o podcast Saúde Integrada.",
     text: "Conversas claras sobre respiração, sono, crescimento e função oral — para pais que querem perceber melhor.",
-    href: PODCAST_LINK,
-    button: "Ouvir o Podcast",
-    external: true,
+    href: "/podcast/",
+    button: "Conhecer o Podcast",
+    external: false,
   },
 };
 

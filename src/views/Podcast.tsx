@@ -3,7 +3,7 @@ import Providers from "@/views/Providers";
 import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
 import { Headphones, Wind } from "lucide-react";
-import { PODCAST_LINK, WHATSAPP_LINK } from "@/lib/site";
+import { PODCAST_LINK, PODCAST_COMING_SOON, WHATSAPP_LINK } from "@/lib/site";
 
 const hosts = [
   { name: "Dra. Cristiane Martins", role: "Odontopediatria Integrativa", initials: "CM", bg: "hsl(var(--azul))", color: "hsl(var(--ouro-light))" },
@@ -56,12 +56,18 @@ const Podcast = () => {
                 Cada episódio é uma conversa entre profissionais que acreditam na prevenção e em olhar
                 para a criança como um todo. Porque compreender melhor é cuidar melhor.
               </p>
-              <a
-                href={PODCAST_LINK}
-                className="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-7 py-3.5 rounded-full text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
-              >
-                <Headphones className="w-4 h-4" /> Ouvir o Podcast
-              </a>
+              {PODCAST_COMING_SOON ? (
+                <span className="inline-flex items-center gap-2 bg-coral/15 text-coral border border-coral/30 px-7 py-3.5 rounded-full text-[15px] font-semibold cursor-default">
+                  <Headphones className="w-4 h-4" /> Episódios em breve
+                </span>
+              ) : (
+                <a
+                  href={PODCAST_LINK}
+                  className="inline-flex items-center gap-2 bg-coral hover:bg-coral text-white active:scale-[0.97] px-7 py-3.5 rounded-full text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo hover:-translate-y-0.5"
+                >
+                  <Headphones className="w-4 h-4" /> Ouvir o Podcast
+                </a>
+              )}
             </motion.div>
 
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }} className="flex flex-col gap-3">

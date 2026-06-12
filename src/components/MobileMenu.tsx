@@ -39,11 +39,11 @@ const MobileMenu = ({ nav, pathname }: { nav: NavItem[]; pathname: string }) => 
                 </a>
               ))}
               <a
-                href="/contacto/"
+                href="/metodologia/"
                 onClick={() => setOpen(false)}
                 className="mt-2 bg-coral text-white px-4 py-3 rounded-full text-sm font-semibold text-center transition-[transform,background-color] duration-200 ease-out-expo active:scale-[0.97]"
               >
-                Marcar Consulta
+                Conhecer a metodologia
               </a>
             </div>
           </motion.div>

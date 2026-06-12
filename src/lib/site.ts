@@ -3,10 +3,12 @@
  * Atualize aqui os contactos reais (telefone, WhatsApp, morada, redes).
  */
 
-// ⚠️ SUBSTITUIR pelo número real (formato internacional, só dígitos).
-export const WHATSAPP_NUMBER = "351900000000";
-export const PHONE_NUMBER = "351900000000";
-export const PHONE_DISPLAY = "+351 900 000 000";
+export const WHATSAPP_NUMBER = "351916209737";
+export const PHONE_NUMBER = "351916209737";
+export const PHONE_DISPLAY = "+351 916 209 737";
+
+/** true = podcast ainda sem episódios publicados → mostra "Em breve" em vez de links mortos. */
+export const PODCAST_COMING_SOON = true;
 
 export const WHATSAPP_MESSAGE =
   "Olá Dra. Cristiane! Gostaria de marcar a Consulta Respira e Cresce 360.";

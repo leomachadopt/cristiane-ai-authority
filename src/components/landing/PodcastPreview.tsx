@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Headphones } from "lucide-react";
-import { PODCAST_LINK } from "@/lib/site";
+import { PODCAST_LINK, PODCAST_COMING_SOON } from "@/lib/site";
 
 const hosts = [
   { initials: "CM", name: "Dra. Cristiane", bg: "hsl(var(--azul))", color: "hsl(var(--ouro-light))" },
@@ -53,12 +53,18 @@ const PodcastPreview = () => {
                 </div>
               ))}
             </div>
-            <a
-              href={PODCAST_LINK}
-              className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-6 py-3 rounded-[10px] text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
-            >
-              <Headphones className="w-4 h-4" /> Ouvir o Podcast
-            </a>
+            {PODCAST_COMING_SOON ? (
+              <span className="inline-flex items-center gap-2 border-2 border-white/25 text-white/70 px-6 py-3 rounded-full text-[15px] font-semibold cursor-default">
+                <Headphones className="w-4 h-4" /> Episódios em breve
+              </span>
+            ) : (
+              <a
+                href={PODCAST_LINK}
+                className="inline-flex items-center gap-2 border-2 border-white/35 text-white hover:bg-white/10 active:scale-[0.97] px-6 py-3 rounded-full text-[15px] font-semibold transition-[transform,background-color,border-color,box-shadow,color,opacity] ease-out-expo"
+              >
+                <Headphones className="w-4 h-4" /> Ouvir o Podcast
+              </a>
+            )}
           </motion.div>
 
           {/* Episódios */}

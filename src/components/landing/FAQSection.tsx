@@ -1,11 +1,5 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const faqs = [
   {
@@ -44,8 +38,20 @@ const FAQSection = ({ items = faqs, title, subtitle }: FAQSectionProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
+  // FAQPage structured data (as respostas são visíveis no acordeão → elegível).
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+
   return (
     <section ref={ref} id="faq" className="py-20 md:py-24 bg-[#EDE5D5]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -66,22 +72,17 @@ const FAQSection = ({ items = faqs, title, subtitle }: FAQSectionProps) => {
           transition={{ duration: 0.5, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
           className="max-w-3xl mx-auto"
         >
-          <Accordion type="single" collapsible className="space-y-3">
+          <div className="space-y-3">
             {items.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`faq-${i}`}
-                className="bg-card rounded-xl border border-border/50 px-6 data-[state=open]:shadow-sm"
-              >
-                <AccordionTrigger className="text-left font-display font-semibold text-sm md:text-base hover:no-underline py-5">
+              <details key={i} className="bg-card rounded-xl border border-border/50 px-6 group open:shadow-sm">
+                <summary className="text-left font-display font-semibold text-sm md:text-base py-5 cursor-pointer list-none flex justify-between items-center gap-4">
                   {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-5">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+                  <span className="text-coral transition-transform group-open:rotate-45 text-xl leading-none shrink-0">+</span>
+                </summary>
+                <p className="text-sm text-muted-foreground leading-relaxed pb-5">{faq.answer}</p>
+              </details>
             ))}
-          </Accordion>
+          </div>
         </motion.div>
       </div>
     </section>

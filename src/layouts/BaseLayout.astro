@@ -21,19 +21,32 @@ const props = Astro.props;
 
 const businessSchema = {
   "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
-  name: BUSINESS.name,
+  "@type": "Physician",
+  name: SITE.name,
   url: SITE.url,
   image: SITE.ogImage,
   description: SITE.description,
+  telephone: BUSINESS.phoneDisplay,
+  priceRange: "€€",
+  medicalSpecialty: ["PediatricDentistry", "Dentistry"],
   areaServed: BUSINESS.location,
   address: {
     "@type": "PostalAddress",
     addressLocality: BUSINESS.location,
     addressCountry: "PT",
   },
-  sameAs: [BUSINESS.instagram],
-  medicalSpecialty: "Pediatric Dentistry",
+  openingHours: "Mo-Fr 09:00-19:00, Sa 09:00-13:00",
+  sameAs: [
+    "https://instagram.com/dracristianemartins",
+    "https://instagram.com/clinicacristianemartins",
+  ],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.url,
 };
 ---
 
@@ -45,10 +58,8 @@ const businessSchema = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <SEO {...props} />
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(businessSchema)}
-    />
+    <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {
       GA_ID && (
         <>

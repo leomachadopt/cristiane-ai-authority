@@ -1,6 +1,5 @@
 ---
-import { NAV, BUSINESS } from "@/config";
-import { LOCATION } from "@/lib/site";
+import { NAV } from "@/config";
 import MobileMenu from "@/components/MobileMenu.tsx";
 
 const pathname = Astro.url.pathname;
@@ -8,15 +7,15 @@ const isActive = (href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
 ---
 
-<!-- Barra de urgência -->
-<div class="bg-petroleo text-white text-sm py-2.5 px-4 flex items-center justify-center gap-2 text-center">
-  <svg class="w-4 h-4 text-ouro-light shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>
-  <span class="text-white/80">
-    Consulta <strong class="text-ouro-light font-semibold">Respira e Cresce 360</strong> disponível em {LOCATION}
-  </span>
-  <a href="/contacto/" class="hidden sm:inline text-ouro-light font-semibold border-b border-ouro/40 hover:opacity-80 transition">
-    Ver como funciona →
-  </a>
+<!-- Faixa de credibilidade -->
+<div class="bg-petroleo text-white text-[13px] sm:text-sm py-2.5 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center">
+  <span><strong class="font-semibold">25 anos</strong> de experiência</span>
+  <span class="text-white/40" aria-hidden="true">·</span>
+  <span>Baseado em evidência</span>
+  <span class="text-white/40" aria-hidden="true">·</span>
+  <span>Metodologia própria <strong class="text-ouro-light font-semibold">RC360</strong></span>
+  <span class="hidden sm:inline text-white/40" aria-hidden="true">·</span>
+  <span class="hidden sm:inline">Formadora</span>
 </div>
 
 <header
@@ -47,10 +46,10 @@ const isActive = (href: string) =>
         ))
       }
       <a
-        href="/contacto/"
+        href="/metodologia/"
         class="bg-coral hover:bg-coral text-white active:scale-[0.97] px-5 py-2.5 rounded-full text-sm font-semibold shadow-[0_6px_18px_hsl(var(--coral)/0.3)] transition-[transform,box-shadow] ease-out-expo hover:-translate-y-0.5"
       >
-        Marcar Consulta
+        Conhecer a metodologia
       </a>
     </div>
 
