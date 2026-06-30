@@ -8,7 +8,7 @@ const leitura = [
   "Função oral integrada",
 ];
 
-const HeroSection = () => {
+const HeroSection = ({ image }: { image?: { url: string; alt: string } }) => {
   return (
     <section
       id="inicio"
@@ -74,15 +74,22 @@ const HeroSection = () => {
           >
             <div
               className="rounded-3xl overflow-hidden border border-ouro/25 aspect-[4/5] flex items-center justify-center"
-              style={{
-                background:
-                  "repeating-linear-gradient(45deg, hsl(var(--ouro) / 0.10) 0 16px, hsl(var(--ouro) / 0.03) 16px 32px)",
-              }}
+              style={
+                image
+                  ? undefined
+                  : {
+                      background:
+                        "repeating-linear-gradient(45deg, hsl(var(--ouro) / 0.10) 0 16px, hsl(var(--ouro) / 0.03) 16px 32px)",
+                    }
+              }
             >
-              {/* SUBSTITUIR pela foto da Dra. Cristiane (cenário podcast ou clínica) */}
-              <p className="text-[15px] text-muted-foreground text-center px-8 leading-relaxed">
-                [ Foto profissional da Dra. Cristiane<br />(clínica ou podcast) ]
-              </p>
+              {image ? (
+                <img src={image.url} alt={image.alt} className="w-full h-full object-cover" />
+              ) : (
+                <p className="text-[15px] text-muted-foreground text-center px-8 leading-relaxed">
+                  [ Foto profissional da Dra. Cristiane<br />(clínica ou podcast) ]
+                </p>
+              )}
             </div>
             <div className="absolute -bottom-5 -left-6 bg-card rounded-2xl p-5 shadow-[0_16px_48px_rgba(26,18,8,0.12)] max-w-[240px]">
               <p className="text-[13px] font-semibold tracking-[0.18em] uppercase text-coral mb-2.5">A minha leitura clínica</p>

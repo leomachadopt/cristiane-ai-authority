@@ -9,7 +9,7 @@ const isActive = (href: string) =>
 
 <!-- Faixa de credibilidade -->
 <div class="bg-petroleo text-white text-[13px] sm:text-sm py-2.5 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center">
-  <span><strong class="font-semibold">25 anos</strong> de experiência</span>
+  <span><strong class="font-semibold text-ouro-light">25 anos</strong> de experiência</span>
   <span class="text-white/40" aria-hidden="true">·</span>
   <span>Médica dentista · Odontopediatria</span>
   <span class="hidden sm:inline text-white/40" aria-hidden="true">·</span>
@@ -24,8 +24,8 @@ const isActive = (href: string) =>
 >
   <nav class="container flex items-center justify-between h-16 md:h-[68px]">
     <a href="/" class="leading-tight">
-      <span class="block font-display text-base md:text-lg font-semibold text-white">Dra. Cristiane Martins</span>
-      <span class="block text-[13px] md:text-[13px] text-white/65 tracking-wide">
+      <span class="block font-display text-base md:text-lg font-semibold text-petroleo">Dra. Cristiane Martins</span>
+      <span class="block text-[13px] md:text-[13px] text-muted-foreground tracking-wide">
         Odontopediatria · Ortopedia Funcional
       </span>
     </a>
@@ -38,7 +38,7 @@ const isActive = (href: string) =>
             href={link.href}
             class:list={[
               "text-sm font-medium tracking-wide transition-colors",
-              isActive(link.href) ? "text-white" : "text-white/70 hover:text-white",
+              isActive(link.href) ? "text-petroleo" : "text-foreground/70 hover:text-petroleo",
             ]}
           >
             {link.label}

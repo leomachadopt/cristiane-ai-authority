@@ -14,7 +14,7 @@ const numeros = [
   { val: "1", label: "Metodologia exclusiva" },
 ];
 
-const AboutPreview = () => {
+const AboutPreview = ({ image }: { image?: { url: string; alt: string } }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -27,9 +27,13 @@ const AboutPreview = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-            className="hidden lg:flex rounded-3xl bg-salvia/10 border border-border aspect-[3/4] items-center justify-center p-6 text-center"
+            className={`hidden lg:flex rounded-3xl bg-salvia/10 border border-border aspect-[3/4] items-center justify-center overflow-hidden ${image ? "" : "p-6 text-center"}`}
           >
-            <p className="text-sm text-muted-foreground leading-relaxed">[ FOTO: retrato profissional da Dra. Cristiane — contexto clínico ]</p>
+            {image ? (
+              <img src={image.url} alt={image.alt} className="w-full h-full object-cover" />
+            ) : (
+              <p className="text-sm text-muted-foreground leading-relaxed">[ FOTO: retrato profissional da Dra. Cristiane — contexto clínico ]</p>
+            )}
           </motion.div>
 
           {/* Texto */}

@@ -13,7 +13,7 @@ const MobileMenu = ({ nav, pathname }: { nav: NavItem[]; pathname: string }) => 
 
   return (
     <div className="lg:hidden">
-      <button className="p-2 text-white" onClick={() => setOpen(!open)} aria-label="Menu">
+      <button className="p-2 text-petroleo" onClick={() => setOpen(!open)} aria-label="Menu">
         {open ? <X size={24} /> : <Menu size={24} />}
       </button>
 

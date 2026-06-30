@@ -1,9 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SITE } from "@/config";
+import { getSiteImages } from "@/lib/siteImages";
 import Home from "@/views/Home.tsx";
+
+const images = await getSiteImages();
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description} canonical="/">
-  <Home client:load />
+  <Home client:load images={images} />
 </BaseLayout>

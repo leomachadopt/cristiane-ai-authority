@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getSiteImages } from "@/lib/siteImages";
 import Sobre from "@/views/Sobre.tsx";
+
+const images = await getSiteImages();
 ---
 
 <BaseLayout
@@ -8,5 +11,5 @@ import Sobre from "@/views/Sobre.tsx";
   description="Especialista em Odontopediatria Integrativa, Ortopedia Funcional dos Maxilares e Medicina do Sono. 25 anos a ajudar famílias a ver o desenvolvimento dos filhos como um sistema."
   canonical="/sobre/"
 >
-  <Sobre client:load />
+  <Sobre client:load image={images.sobre} />
 </BaseLayout>

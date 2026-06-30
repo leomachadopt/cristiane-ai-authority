@@ -7,6 +7,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Páginas/endpoints públicos de autenticação.
   if (path === "/login" || path === "/login/") return next();
   if (path.startsWith("/api/login") || path.startsWith("/api/logout")) return next();
+  // Submissão pública do checklist gratuito (/familias) — apenas o endpoint exato.
+  // (NÃO usar startsWith: /api/leads/export é admin e tem de continuar protegido.)
+  if (path === "/api/lead" || path === "/api/lead/") return next();
 
   const isAdmin = path.startsWith("/admin");
   const isApi = path.startsWith("/api/");

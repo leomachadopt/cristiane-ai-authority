@@ -50,3 +50,23 @@ create table if not exists media (
 );
 
 create index if not exists media_created_idx on media (created_at desc);
+
+-- Leads do checklist gratuito (/familias). Guarda nome, email e as respostas marcadas.
+create table if not exists leads (
+  id          bigserial primary key,
+  nome        text,
+  email       text not null,
+  respostas   jsonb default '[]'::jsonb,   -- perguntas do checklist assinaladas
+  origem      text default 'checklist-familias',
+  created_at  timestamptz default now()
+);
+
+create index if not exists leads_created_idx on leads (created_at desc);
+
+-- Imagens substituíveis do site (geridas em /admin/fotos). Uma linha por slot.
+create table if not exists site_images (
+  slot        text primary key,
+  url         text not null,
+  alt         text,
+  updated_at  timestamptz default now()
+);

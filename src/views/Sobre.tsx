@@ -31,7 +31,7 @@ const fadeIn: Variants = {
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: [0.23, 1, 0.32, 1] } }),
 };
 
-const Sobre = () => {
+const Sobre = ({ image }: { image?: { url: string; alt: string } }) => {
   return (
     <Providers>
     <Layout pathname="/sobre/">
@@ -50,9 +50,13 @@ const Sobre = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-              className="hidden lg:flex rounded-3xl bg-salvia/10 border border-border aspect-[3/4] items-center justify-center p-6 text-center"
+              className={`hidden lg:flex rounded-3xl bg-salvia/10 border border-border aspect-[3/4] items-center justify-center overflow-hidden ${image ? "" : "p-6 text-center"}`}
             >
-              <p className="text-sm text-muted-foreground leading-relaxed">[ FOTO: retrato da Dra. + contexto clínico / a dar formação ]</p>
+              {image ? (
+                <img src={image.url} alt={image.alt} className="w-full h-full object-cover" />
+              ) : (
+                <p className="text-sm text-muted-foreground leading-relaxed">[ FOTO: retrato da Dra. + contexto clínico / a dar formação ]</p>
+              )}
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}>
               <blockquote className="font-display text-[22px] italic text-azul leading-[1.5] pl-7 border-l-4 border-ouro mb-6">

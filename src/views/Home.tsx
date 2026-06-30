@@ -39,16 +39,18 @@ const LigacaoTeaser = () => (
   </section>
 );
 
-const Home = () => (
+type SiteImage = { url: string; alt: string };
+
+const Home = ({ images }: { images?: Record<string, SiteImage> }) => (
   <Providers>
     <Layout pathname="/">
       {/* Home = trailer: cada bloco é um teaser que liga à página profunda */}
-      <HeroSection />          {/* 1. Autoridade (Dra. + missão) */}
+      <HeroSection image={images?.hero} />          {/* 1. Autoridade (Dra. + missão) */}
       <SocialProofBar />       {/*    faixa de prova */}
       <PainSection />          {/* 2. "Reconheces isto?" (dores dos pais) */}
       <LigacaoTeaser />        {/* 3. A ligação → Metodologia */}
       <SinaisSection teaser /> {/* 4. 3 sinais → Famílias (+ checklist) */}
-      <AboutPreview />         {/* 5. Quem sou → Sobre */}
+      <AboutPreview image={images?.sobre_home} /> {/* 5. Quem sou → Sobre */}
       <PodcastPreview />       {/* 6. Podcast */}
       <CTASection />           {/* 7. Oferta + stakes → Consulta */}
       {/* <TestimonialsSection /> — oculto até haver 2–3 depoimentos reais autorizados */}
