@@ -63,13 +63,27 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-center">
-      <span class="text-[13px] text-white/45">
-        © {year} Dra. Cristiane Martins · Todos os direitos reservados
-      </span>
-      <span class="text-[13px] text-white/45">
-        Criadora da <strong class="text-white/65 font-semibold">Metodologia Respira e Cresce 360</strong>
-      </span>
+    <!-- Barra legal (informação obrigatória — Portugal) -->
+    <div class="border-t border-white/10 pt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-[13px] text-white/50">
+      <p>
+        © {year} Dra. Cristiane Martins · Registo ERS n.º 20788 · N.º Reg. Estab. na ERS E175646
+      </p>
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+        <nav aria-label="Legal" class="flex flex-wrap gap-x-5 gap-y-2">
+          <a href="https://cristianemartins.pt/politica-de-privacidade/" class="hover:text-white transition-colors">Política de Privacidade</a>
+          <a href="https://cristianemartins.pt/termos-e-condicoes/" class="hover:text-white transition-colors">Termos e Condições</a>
+          <a href="https://cristianemartins.pt/resolucao-alternativa-de-litigios/" class="hover:text-white transition-colors">Resolução Alternativa de Litígios</a>
+        </nav>
+        <a
+          href="https://www.livroreclamacoes.pt/Inicio/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Livro de Reclamações (abre em nova janela)"
+          class="shrink-0 opacity-90 transition-opacity hover:opacity-100"
+        >
+          <img src="/livro-reclamacoes.png" alt="Livro de Reclamações" width="500" height="207" class="h-9 w-auto" />
+        </a>
+      </div>
     </div>
   </div>
 </footer>
