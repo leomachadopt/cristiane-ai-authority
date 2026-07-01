@@ -1,25 +1,70 @@
 ---
 export const prerender = false;
 import AdminLayout from "@/layouts/AdminLayout.astro";
-import { importArticleModel, type ImportResult, type OnConflict } from "@/lib/import/importArticle";
 import { hasDb } from "@/lib/db";
 
 const dbReady = hasDb();
-let result: ImportResult | null = null;
-let parseError: string | null = null;
-let rawJson = "";
 
-if (Astro.request.method === "POST" && dbReady) {
-  const form = await Astro.request.formData();
-  rawJson = String(form.get("json") ?? "");
-  const onConflict = (String(form.get("onConflict") ?? "") || undefined) as OnConflict;
-  try {
-    const data = JSON.parse(rawJson);
-    result = await importArticleModel(data, onConflict);
-  } catch (e) {
-    parseError = `JSON inválido: ${(e as Error).message}`;
-  }
-}
+// Exemplo completo (mesmo padrão do leomachadofisio / INOS / Kids & Family), adaptado ao RC360.
+const exemplo = {
+  title: "O meu filho respira pela boca: porque acontece e o que fazer",
+  slug: "crianca-respira-pela-boca",
+  pilar: "respiracao",
+  tema_clinico: "respiração oral",
+  pergunta_alvo: "porque é que o meu filho respira pela boca",
+  autor: "Dra. Cristiane Martins",
+  mercado: "pt-PT",
+  resumo:
+    "A respiração pela boca na infância pode afetar o sono, a face e o crescimento. Explico as causas, os sinais de alerta e quando procurar ajuda.",
+  resposta_direta:
+    "A respiração pela boca nas crianças raramente é «só um hábito»: costuma indicar que o ar não passa bem pelo nariz (adenoides, alergias, amígdalas) ou que a face e a arcada não se desenvolveram para a respiração nasal. Quando se mantém, pode alterar o sono, a postura e o crescimento facial. Uma avaliação precoce e integrada permite identificar a causa e tratar a tempo.",
+  corpo_markdown:
+    "## Porque é que uma criança respira pela boca?\n\nA respiração pela boca pode ter várias origens: obstrução nasal (adenoides aumentadas, alergias, desvio do septo), amígdalas grandes, ou um padrão que se instalou porque o nariz nunca funcionou bem. Com o tempo, o corpo adapta-se — e a boca passa a ser a via preferencial, mesmo em repouso e durante o sono.\n\n## Que sinais devem preocupar os pais?\n\nDormir de boca aberta, ressonar, baba na almofada, sono agitado, cansaço de manhã, olheiras, dificuldade de concentração e alterações na posição dos dentes são sinais frequentes. Isolados podem passar despercebidos; em conjunto, contam uma história que vale a pena avaliar.\n\n## Como é feita a avaliação na Consulta RC360?\n\nOlho para a criança como um sistema: cavidade oral, respiração, crescimento craniofacial e função oral são avaliados em conjunto. É essa leitura integrada dos quatro pilares que permite chegar à causa — e a um plano por fases que trata a origem, não apenas o sintoma.",
+  faq: [
+    {
+      pergunta: "Respirar pela boca é assim tão grave?",
+      resposta:
+        "Pontualmente (uma constipação) é normal. Mantido no dia a dia e durante o sono, merece avaliação — pode afetar o sono e o crescimento.",
+    },
+    {
+      pergunta: "A partir de que idade se pode avaliar?",
+      resposta:
+        "Quanto mais cedo melhor. Há sinais observáveis nos primeiros anos e a intervenção precoce é mais simples.",
+    },
+  ],
+  referencias: [
+    { citacao: "Apelido A, et al. Título do estudo. Revista. Ano;vol:pp.", estado_verificacao: "a-verificar" },
+  ],
+  imagem_capa: { alt: "Criança a dormir de boca aberta" },
+  related: ["/metodologia/", "/familias/"],
+  cta: "agendar-consulta",
+  seo: { meta_titulo: "Criança respira pela boca: causas e o que fazer" },
+  data_publicacao: "",
+  data_atualizacao: "",
+  noindex: false,
+  draft: true,
+};
+const exemploJson = JSON.stringify(exemplo, null, 2);
+
+const campos: [string, string, string][] = [
+  ["title", "Sim", "Título (10–70 caracteres). Espelha a pergunta-alvo do pai/mãe."],
+  ["pilar", "Sim", "Um de: respiracao · cavidade-oral · crescimento-craniofacial · funcao-oral · sono · desenvolvimento-integrado."],
+  ["tema_clinico", "Sim", "Etiqueta fina (ex.: «respiração oral», «mordida cruzada», «ronco infantil»)."],
+  ["autor", "Sim", "Ex.: «Dra. Cristiane Martins»."],
+  ["resumo", "Sim", "80–200 caracteres. Usado nos cartões do blog e como meta descrição por defeito."],
+  ["corpo_markdown", "Sim", "Markdown, ≥ 800 caracteres (idealmente ≥ 1000 palavras). Só o corpo, a começar num «## H2 em forma de pergunta». Não repete a resposta_direta nem inclui título/autor/referências/CTA."],
+  ["slug", "—", "minúsculas-com-hifens, sem acentos. Vazio = gerado do título. Não reutilizar um existente."],
+  ["pergunta_alvo", "—", "Nota interna: a query real que o artigo persegue (não publicada)."],
+  ["resposta_direta", "—", "200–900 caracteres. Parágrafo citável em destaque no topo (bloco GEO)."],
+  ["faq", "—", "Lista de { pergunta, resposta }. Gera as «Perguntas frequentes» + FAQPage."],
+  ["referencias", "—", "Lista de { citacao, pmid|doi, estado_verificacao }. «verificada-pubmed» só com PMID/DOI reais; senão «a-verificar». Nunca inventar."],
+  ["imagem_capa", "—", "{ alt, legenda }. A imagem carrega-se à parte (Fotos / capa); aqui vai só o texto alternativo."],
+  ["related", "—", "2–3 caminhos internos (ex.: /metodologia/, /familias/, /sobre/, /blog/slug/)."],
+  ["cta", "—", "Um de: agendar-consulta · checklist · podcast."],
+  ["seo", "—", "{ meta_titulo (≤60), meta_descricao (150–160) }. Vazio = usa título e resumo."],
+  ["data_publicacao / data_atualizacao", "—", "«AAAA-MM-DD» ou vazio."],
+  ["noindex / draft", "—", "Booleanos. Importa SEMPRE como rascunho."],
+];
 ---
 
 <AdminLayout title="Importar artigo (JSON)" active="import">
@@ -31,77 +76,115 @@ if (Astro.request.method === "POST" && dbReady) {
     )
   }
 
-  {parseError && <div class="bg-destructive/10 border border-destructive/30 rounded-xl px-5 py-4 mb-5 text-sm text-destructive">{parseError}</div>}
+  <p class="text-sm text-muted-foreground mb-5 max-w-2xl">
+    Cola o JSON conforme o contrato <code>modelo-artigo.schema.json</code>. É validado antes de gravar e
+    importa <strong>sempre como rascunho</strong>. Conflito de slug → escolhe atualizar ou criar novo.
+    Depois publica no separador <a href="/admin/" class="text-ouro underline">Artigos</a>.
+  </p>
 
-  {
-    result && !result.ok && result.conflict && (
-      <div class="bg-ouro/10 border border-ouro/30 rounded-xl px-5 py-4 mb-5 text-sm">
-        <p class="text-azul mb-3">
-          Já existe um artigo com o slug <strong>{result.slug}</strong> ("{result.existingTitle}"). O que queres fazer?
-        </p>
-        <div class="flex gap-2">
-          <form method="POST" class="inline">
-            <input type="hidden" name="json" value={rawJson} />
-            <input type="hidden" name="onConflict" value="update" />
-            <button class="bg-azul-dark text-white px-4 py-2 rounded-lg text-[13px] font-semibold">Atualizar o existente</button>
-          </form>
-          <form method="POST" class="inline">
-            <input type="hidden" name="json" value={rawJson} />
-            <input type="hidden" name="onConflict" value="new" />
-            <button class="border border-border bg-white px-4 py-2 rounded-lg text-[13px] font-semibold text-azul">Criar como novo</button>
-          </form>
-        </div>
-      </div>
-    )
-  }
-
-  {
-    result && !result.ok && !result.conflict && result.errors.length > 0 && (
-      <div class="bg-destructive/10 border border-destructive/30 rounded-xl px-5 py-4 mb-5 text-sm">
-        <p class="font-semibold text-destructive mb-2">O JSON não passou na validação:</p>
-        <ul class="list-disc pl-5 flex flex-col gap-1 text-destructive/90">
-          {result.errors.map((e) => <li>{e}</li>)}
-        </ul>
-      </div>
-    )
-  }
-
-  {
-    result && result.ok && (
-      <div class="bg-salvia/10 border border-salvia/30 rounded-xl px-5 py-4 mb-5 text-sm">
-        <p class="font-semibold text-[#3C5E46] mb-1">
-          {result.updated ? "Artigo atualizado" : "Rascunho criado"}: <strong>{result.slug}</strong>
-        </p>
-        {result.warnings.length > 0 && (
-          <ul class="list-disc pl-5 my-2 text-[#854F0B]">
-            {result.warnings.map((w) => <li>{w}</li>)}
-          </ul>
-        )}
-        <div class="flex gap-3 mt-3">
-          <a href={`/admin/preview/${result.slug}/`} target="_blank" class="text-azul font-semibold underline">Pré-visualizar</a>
-          <a href="/admin/" class="text-azul font-semibold underline">Ir para a lista</a>
-        </div>
-      </div>
-    )
-  }
-
-  <form method="POST">
-    <label for="json" class="text-sm font-medium text-azul mb-2 block">
-      Cola o JSON do artigo (conforme <code>modelo-artigo.schema.json</code>)
-    </label>
+  <!-- Importar -->
+  <div class="bg-white rounded-2xl border border-border/60 p-5 md:p-6 mb-5">
     <textarea
       id="json"
-      name="json"
-      rows="18"
-      placeholder={'{\n  "title": "...",\n  "pilar": "respiracao",\n  "tema_clinico": "...",\n  "autor": "Dra. Cristiane Martins",\n  "resumo": "...",\n  "corpo_markdown": "## ..."\n}'}
-      class="w-full font-mono text-[13px] px-4 py-3 rounded-xl border-[1.5px] border-border bg-white outline-none focus:border-ouro transition-colors"
-      set:html={rawJson}
-    />
-    <div class="flex items-center gap-3 mt-3">
-      <button type="submit" disabled={!dbReady} class="bg-azul-dark hover:bg-azul disabled:opacity-50 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors">
-        Validar e criar rascunho
-      </button>
-      <span class="text-[13px] text-muted-foreground">Importa sempre como rascunho — a publicação é uma decisão à parte.</span>
+      placeholder="Cola aqui o JSON do artigo, ou usa « Carregar exemplo »."
+      class="w-full min-h-[220px] font-mono text-[13px] px-4 py-3 rounded-xl border-[1.5px] border-border bg-background outline-none focus:border-ouro resize-y"
+    ></textarea>
+    <div class="flex flex-wrap items-center gap-2 mt-3">
+      <button id="import" disabled={!dbReady} class="bg-azul-dark hover:bg-azul disabled:opacity-50 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors">Validar e criar rascunho</button>
+      <button id="importNew" disabled={!dbReady} class="border border-border bg-white hover:bg-muted disabled:opacity-50 text-azul px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors">Importar como novo</button>
+      <button id="loadEx" type="button" class="text-sm text-ouro font-semibold px-3 py-2.5 hover:underline">Carregar exemplo</button>
     </div>
-  </form>
+    <div id="out" class="mt-4 px-4 py-3 rounded-xl text-sm whitespace-pre-wrap hidden"></div>
+  </div>
+
+  <!-- Documentação do formato -->
+  <details class="bg-white rounded-2xl border border-border/60 p-5 md:p-6">
+    <summary class="cursor-pointer font-display font-bold text-azul">Formato do JSON — estrutura do artigo</summary>
+    <p class="text-[13px] text-muted-foreground mt-3 mb-4 max-w-2xl">
+      Um único objeto JSON. O site gera o «chrome» (título, autor, migalhas, capa, CTA, JSON-LD); o JSON
+      traz só os dados. Nunca inventar referências.
+    </p>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-[13px] border-collapse">
+        <thead>
+          <tr class="text-left text-[12px] uppercase tracking-wider text-muted-foreground border-b border-border/60">
+            <th class="py-2 pr-4 font-semibold">Campo</th>
+            <th class="py-2 pr-4 font-semibold whitespace-nowrap">Obrigatório</th>
+            <th class="py-2 font-semibold">Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            campos.map(([campo, obr, desc]) => (
+              <tr class="border-b border-border/40 last:border-0 align-top">
+                <td class="py-2 pr-4"><code class="bg-muted px-1.5 py-0.5 rounded text-azul">{campo}</code></td>
+                <td class="py-2 pr-4 text-muted-foreground">{obr}</td>
+                <td class="py-2 text-foreground/85 leading-relaxed">{desc}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex items-center gap-3 mt-5 mb-2">
+      <strong class="text-sm text-azul">Exemplo completo</strong>
+      <button id="copyEx" type="button" class="text-[13px] text-ouro font-semibold hover:underline">Copiar</button>
+      <button id="loadEx2" type="button" class="text-[13px] text-ouro font-semibold hover:underline">Carregar no campo</button>
+    </div>
+    <pre id="exemplo" class="bg-azul-dark text-white/90 rounded-xl p-4 overflow-auto text-[12px] leading-relaxed max-h-[420px]">{exemploJson}</pre>
+  </details>
+
+  <script is:inline>
+    (function () {
+      const out = document.getElementById("out");
+      const ta = document.getElementById("json");
+      const exemplo = document.getElementById("exemplo").textContent || "";
+      function show(kind, text) {
+        out.classList.remove("hidden", "bg-salvia/10", "text-[#3C5E46]", "bg-destructive/10", "text-destructive", "bg-ouro/10", "text-[#854F0B]");
+        const map = {
+          ok: ["bg-salvia/10", "text-[#3C5E46]"],
+          bad: ["bg-destructive/10", "text-destructive"],
+          warn: ["bg-ouro/10", "text-[#854F0B]"],
+        };
+        out.classList.add(...map[kind]);
+        out.textContent = text;
+      }
+      function loadExample() {
+        ta.value = exemplo;
+        ta.focus();
+        ta.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      async function send(onConflict) {
+        let payload;
+        try { payload = JSON.parse(ta.value); }
+        catch { show("bad", "JSON inválido — verifica a sintaxe."); return; }
+        const qs = onConflict ? "?on_conflict=" + onConflict : "";
+        let res, data;
+        try {
+          res = await fetch("/api/articles/import/" + qs, {
+            method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload),
+          });
+          data = await res.json();
+        } catch { show("bad", "Falha de rede ao importar."); return; }
+        if (res.status === 409) { show("warn", "Conflito: " + (data.warnings || []).join(" ") + '\nUsa "Importar como novo" ou reenvia para atualizar o existente.'); return; }
+        if (!data.ok) { show("bad", "Erros:\n" + (data.errors || []).join("\n")); return; }
+        const w = (data.warnings || []).length ? "\nAvisos:\n" + data.warnings.join("\n") : "";
+        show("ok", "Guardado: " + data.slug + (data.updated ? " (atualizado)" : " (novo rascunho)") + w);
+        setTimeout(function () { location.href = "/admin/"; }, 1400);
+      }
+      document.getElementById("import").addEventListener("click", function () { send(); });
+      document.getElementById("importNew").addEventListener("click", function () { send("new"); });
+      document.getElementById("loadEx").addEventListener("click", loadExample);
+      document.getElementById("loadEx2").addEventListener("click", loadExample);
+      document.getElementById("copyEx").addEventListener("click", async function () {
+        try {
+          await navigator.clipboard.writeText(exemplo);
+          const b = document.getElementById("copyEx"); const t = b.textContent;
+          b.textContent = "Copiado ✓"; setTimeout(function () { b.textContent = t; }, 1500);
+        } catch (e) {}
+      });
+    })();
+  </script>
 </AdminLayout>
