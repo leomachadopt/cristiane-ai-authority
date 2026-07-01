@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+}
+const { title, description, canonical } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="bg-azul-dark py-14 md:py-20">
+    <div class="container max-w-3xl">
+      <nav class="flex items-center gap-1.5 text-[13px] text-white/50 mb-4">
+        <a href="/" class="hover:text-white">Início</a><span>/</span>
+        <span class="text-white/80">{title}</span>
+      </nav>
+      <h1 class="font-display text-3xl md:text-[42px] font-bold text-white leading-[1.15]">{title}</h1>
+    </div>
+  </section>
+
+  <article class="py-12 md:py-16">
+    <div
+      class="container max-w-3xl prose prose-lg max-w-none prose-headings:font-display prose-headings:text-azul prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-3 prose-p:text-foreground/85 prose-p:leading-relaxed prose-a:text-ouro prose-a:font-medium prose-strong:text-azul prose-li:text-foreground/85"
+    >
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
