@@ -1,4 +1,7 @@
 ---
+// SSR (on-demand): lê as fotos do site em runtime, para que as substituições
+// feitas no /admin/fotos apareçam de imediato, sem depender de rebuild.
+export const prerender = false;
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SITE } from "@/config";
 import { getSiteImages } from "@/lib/siteImages";

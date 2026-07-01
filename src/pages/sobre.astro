@@ -1,4 +1,6 @@
 ---
+// SSR (on-demand): lê a foto do site em runtime (ver index.astro).
+export const prerender = false;
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getSiteImages } from "@/lib/siteImages";
 import Sobre from "@/views/Sobre.tsx";
