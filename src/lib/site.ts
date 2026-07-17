@@ -20,7 +20,7 @@ export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIC
 export const PHONE_LINK = `tel:+${PHONE_NUMBER}`;
 
 export const LOCATION = "Oliveira de Azeméis";
-export const SCHEDULE = "Segunda a Sexta 9h–19h · Sábado 9h–13h";
+export const SCHEDULE = "Segunda a Sexta 10h–19h30 · Sábado 10h–13h";
 
 export const INSTAGRAM_HANDLE = "@dracristianemartins";
 export const INSTAGRAM_URL = "https://instagram.com/dracristianemartins";

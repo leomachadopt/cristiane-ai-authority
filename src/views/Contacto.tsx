@@ -197,7 +197,7 @@ const Contacto = () => {
         items={[
           { question: "Aceitam seguros e convenções?", answer: "Para informações sobre convenções e seguros, contacta-nos diretamente por WhatsApp ou telefone — esclarecemos tudo antes da marcação." },
           { question: "Onde fica a clínica?", answer: "Em Oliveira de Azeméis. Escreve-nos por WhatsApp ou liga e indicamos a morada exata e como chegar." },
-          { question: "Qual é o horário?", answer: "Segunda a Sexta das 9h às 19h e Sábado das 9h às 13h." },
+          { question: "Qual é o horário?", answer: "Segunda a Sexta das 10h às 19h30 e Sábado das 10h às 13h." },
           { question: "Como marco a consulta mais depressa?", answer: "Por WhatsApp — escreve RESPIRA e a equipa trata do resto, normalmente com resposta rápida." },
         ]}
       />
