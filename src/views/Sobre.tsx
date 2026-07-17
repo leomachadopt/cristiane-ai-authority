@@ -87,39 +87,6 @@ const Sobre = ({ image }: { image?: { url: string; alt: string } }) => {
         </div>
       </section>
 
-      {/* Percurso e credenciais (PREENCHER com dados reais — [A CONFIRMAR]) */}
-      <section className="py-20 md:py-24 bg-[#EDE5D5]">
-        <div className="container max-w-3xl">
-          <div className="mb-10">
-            <span className="eyebrow mb-3.5 block">Percurso e credenciais</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-azul">
-              A prova por trás da <span className="italic text-ouro">autoridade.</span>
-            </h2>
-          </div>
-          <div className="bg-card rounded-2xl border border-border/60 p-7 md:p-9 flex flex-col gap-4">
-            {[
-              { l: "Médica dentista", v: "[curso · Universidade — A CONFIRMAR · ano]" },
-              { l: "Cédula da Ordem dos Médicos Dentistas", v: "n.º [A CONFIRMAR]" },
-              { l: "Odontopediatria", v: "[instituição · ano — A CONFIRMAR]" },
-              { l: "Ortopedia Funcional dos Maxilares", v: "[instituição · ano — A CONFIRMAR]" },
-              { l: "Medicina do Sono", v: "[instituição · ano — A CONFIRMAR]" },
-              { l: "Laserterapia (LiteTouch / LLLT)", v: "[instituição · ano — A CONFIRMAR]" },
-              { l: "Formadora", v: "[cursos · n.º de formandos — A CONFIRMAR]" },
-            ].map((c) => (
-              <div key={c.l} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 border-b border-border/50 last:border-0 pb-4 last:pb-0">
-                <span className="text-[15px] font-semibold text-azul sm:w-72 shrink-0">{c.l}</span>
-                <span className="text-[15px] text-muted-foreground">{c.v}</span>
-              </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-3 gap-4 mt-8 text-center">
-            <div><div className="font-display text-4xl md:text-5xl font-bold text-azul">25</div><div className="text-[13px] text-muted-foreground mt-0.5">Anos de prática</div></div>
-            <div><div className="font-display text-4xl md:text-5xl font-bold text-azul">[—]</div><div className="text-[13px] text-muted-foreground mt-0.5">Famílias acompanhadas</div></div>
-            <div><div className="font-display text-4xl md:text-5xl font-bold text-azul">1</div><div className="text-[13px] text-muted-foreground mt-0.5">Metodologia própria</div></div>
-          </div>
-        </div>
-      </section>
-
       {/* Credenciais */}
       <section className="py-20 md:py-24">
         <div className="container max-w-5xl">
